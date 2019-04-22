@@ -1,0 +1,166 @@
+﻿[
+  {
+    "outputFile": "res/js/React/comercializacion/monitor_analisis_precios_competencia.js",
+    "inputFile": "res/js/React/comercializacion/monitor_analisis_precios_competencia.jsx"
+  },
+  {
+    "outputFile": "res/js/React/comercializacion/pre_orden_compra.es5.js",
+    "inputFile": "res/js/React/comercializacion/pre_orden_compra.js"
+  },
+  {
+    "outputFile": "res/js/React/comercializacion/pre_orden_compra.js",
+    "inputFile": "res/js/React/comercializacion/pre_orden_compra.jsx"
+  },
+  {
+    "outputFile": "res/js/React/check-list/check_list.js",
+    "inputFile": "res/js/React/check-list/check_list.jsx"
+  },
+  {
+    "outputFile": "res/js/React/prueba.js",
+    "inputFile": "res/js/React/prueba.jsx"
+  },
+  {
+    "outputFile": "res/js/React/matrices/matrices.js",
+    "inputFile": "res/js/React/matrices/matrices.jsx"
+  },
+  {
+    "outputFile": "res/js/React/matrices/vista.js",
+    "inputFile": "res/js/React/matrices/vista.jsx"
+  },
+  {
+    "outputFile": "res/js/React/matrices/construir_matriz.js",
+    "inputFile": "res/js/React/matrices/construir_matriz.jsx"
+  },
+  {
+    "outputFile": "res/js/React/matrices/revicion_matriz.js",
+    "inputFile": "res/js/React/matrices/revicion_matriz.jsx"
+  },
+  {
+    "outputFile": "res/js/React/matrices/asignar_matriz.js",
+    "inputFile": "res/js/React/matrices/asignar_matriz.jsx"
+  },
+  {
+    "outputFile": "res/js/React/componentes/Botonera.js",
+    "inputFile": "res/js/React/componentes/Botonera.jsx"
+  },
+  {
+    "outputFile": "res/js/React/componentes/Entradas.js",
+    "inputFile": "res/js/React/componentes/Entradas.jsx"
+  },
+  {
+    "outputFile": "res/js/React/componentes/Btn_seleccion.js",
+    "inputFile": "res/js/React/componentes/Btn_seleccion.jsx"
+  },
+  {
+    "outputFile": "res/js/React/componentes/Tabla.js",
+    "inputFile": "res/js/React/componentes/Tabla.jsx"
+  },
+  {
+    "outputFile": "res/js/React/servicios_generales/cuestionarios.js",
+    "inputFile": "res/js/React/servicios_generales/cuestionarios.jsx"
+  },
+  {
+    "outputFile": "res/js/React/componentes/Modal.es5.js",
+    "inputFile": "res/js/React/componentes/Modal.js"
+  },
+  {
+    "outputFile": "res/js/React/componentes/Modal.js",
+    "inputFile": "res/js/React/componentes/Modal.jsx"
+  },
+  {
+    "outputFile": "res/js/React/servicios_generales/check_list.js",
+    "inputFile": "res/js/React/servicios_generales/check_list.jsx"
+  },
+  {
+    "outputFile": "res/js/React/servicios_generales/asignaciones.js",
+    "inputFile": "res/js/React/servicios_generales/asignaciones.jsx"
+  },
+  {
+    "outputFile": "res/js/React/inventarios_parciales/inventarios_parciales.js",
+    "inputFile": "res/js/React/inventarios_parciales/inventarios_parciales.jsx"
+  },
+  {
+    "outputFile": "res/js/React/Usuarios/acceso_usuarios.es5.js",
+    "inputFile": "res/js/React/Usuarios/acceso_usuarios.js"
+  },
+  {
+    "outputFile": "res/js/React/Usuarios/Alta_usuarios/componente_alta.es5.js",
+    "inputFile": "res/js/React/Usuarios/Alta_usuarios/componente_alta.js"
+  },
+  {
+    "outputFile": "res/js/React/Usuarios/Alta_usuarios/componente_lista_usuarios.es5.js",
+    "inputFile": "res/js/React/Usuarios/Alta_usuarios/componente_lista_usuarios.js"
+  },
+  {
+    "outputFile": "res/js/React/orden_compra_interna/orden_compra_interna.js",
+    "inputFile": "res/js/React/orden_compra_interna/orden_compra_interna.jsx"
+  },
+  {
+    "outputFile": "res/js/React/comparativo_resultados/tabla_main.js",
+    "inputFile": "res/js/React/comparativo_resultados/tabla_main.jsx"
+  },
+  {
+    "outputFile": "res/js/React/indicadores/indicadores_caja.js",
+    "inputFile": "res/js/React/indicadores/indicadores_caja.jsx"
+  },
+  {
+    "outputFile": "res/js/React/Usuarios/seleccion_usuario.js",
+    "inputFile": "res/js/React/Usuarios/seleccion_usuario.jsx"
+  },
+  {
+    "outputFile": "res/js/React/check-list/check_list_2.1.js",
+    "inputFile": "res/js/React/check-list/check_list_2.1.jsx"
+  },
+  {
+    "outputFile": "res/js/React/Incidencias_personal/insidencias.js",
+    "inputFile": "res/js/React/Incidencias_personal/insidencias.jsx"
+  },
+  {
+    "outputFile": "res/js/React/check-list/resultados.js",
+    "inputFile": "res/js/React/check-list/resultados.jsx"
+  },
+  {
+    "outputFile": "res/js/React/Surtilr_pedido_embarque/vista_embarque.js",
+    "inputFile": "res/js/React/Surtilr_pedido_embarque/vista_embarque.jsx"
+  },
+  {
+    "outputFile": "res/js/React/Estaticos/efecto_carga.js",
+    "inputFile": "res/js/React/Estaticos/efecto_carga.jsx"
+  },
+  {
+    "outputFile": "res/js/React/check-list/preguntas.js",
+    "inputFile": "res/js/React/check-list/preguntas.jsx"
+  },
+  {
+    "outputFile": "res/js/React/check-list/asignacion_cuestionario.js",
+    "inputFile": "res/js/React/check-list/asignacion_cuestionario.jsx"
+  },
+  {
+    "outputFile": "src/js/Incidencias_apertura_tienda/Incidencia.js",
+    "inputFile": "src/js/Incidencias_apertura_tienda/Incidencia.jsx"
+  },
+  {
+    "outputFile": "src/js/Matrices/editar_conceptos.js",
+    "inputFile": "src/js/Matrices/editar_conceptos.jsx"
+  },
+  {
+    "outputFile": "src/js/Codigos_barra/codigos_de_barras _g.es5.js",
+    "inputFile": "res/js/React/Surtilr_pedido_embarque/vista_embarque.jsx"
+  },
+  {
+    "outputFile": "src/js/Incidencias_personal/insidencias.js",
+    "inputFile": "src/js/Incidencias_personal/insidencias.jsx"
+  },
+  {
+    "outputFile": "src/js/Monitor_auditorio_ventas/Monitor.js",
+    "inputFile": "src/js/Monitor_auditorio_ventas/Monitor.jsx"
+  },
+  {
+    "outputFile": "src/js/Monitor_auditorio_ventas/CaveceraMonitor.js",
+    "inputFile": "src/js/Monitor_auditorio_ventas/CaveceraMonitor.jsx"
+  },
+  {
+    "outputFile": "res/js/React/Estaticos/BotonToggle.js",
+    "inputFile": "res/js/React/Estaticos/BotonToggle.jsx"
+  }
+]

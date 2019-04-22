@@ -1,0 +1,67 @@
+﻿Imports MySql.Data.MySqlClient
+Imports System.Data
+Imports System.IO
+
+Public Class mvv
+    Inherits System.Web.UI.Page
+    Public conn As New MySqlConnection
+    Public estadodeconexionprevia As ConnectionState
+    Public comando As MySqlCommand
+    Public adaptador As New MySqlDataAdapter
+    Public consulta As String = ""
+    Public fecha As Date
+    Public comentario As String = ""
+    Public datareader As MySqlDataReader
+    Public data As New DataSet
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        UnobtrusiveValidationMode = System.Web.UI.UnobtrusiveValidationMode.None
+        ' Esto sirve para cargar los controles una sola vez y no cada vez que se haga postback
+        If Page.IsPostBack Then
+            ' aqui no haremos nada
+        Else
+            'aca pones todos lo eventos y funciones que deben cargarse una unica vez
+            cargar_mvv()
+        End If
+    End Sub
+    Sub cargar_mvv()
+        ' REALIZAMOS LA CONSULTA DEL REGISTRO SOLICITADO EN TEXTBOX1.TEXT
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select mision, vision, valores from mvv"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        ' si encontramos registros entonces colocamos la informacion en los textboxes correspondientes
+        If datareader.HasRows Then
+            While datareader.Read
+                TextBox1.Text = datareader.GetValue(0)
+                TextBox2.Text = datareader.GetValue(1)
+                TextBox3.Text = datareader.GetValue(2)
+            End While
+            'cerramos la conexion
+            conn.Close()
+        End If
+    End Sub
+
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If (Page.IsValid) Then
+            ''MODIFICAMOS LA INFORMACION DEL REGISTRO SOLICITADO
+            consulta = "update mvv set mision='" & TextBox1.Text & "', vision='" & TextBox2.Text & "', valores='" & TextBox3.Text & "'"
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            conn.Open()
+            Try
+                comando = New MySqlCommand(consulta, conn)
+                comando.ExecuteNonQuery()
+                'Label2.Text = "Los cambios se han realizado correctamente"
+            Catch ex As Exception
+                'Label2.Text = "Los cambios no se han realizado correctamente"
+            End Try
+            conn.Close()
+            'Label2.ForeColor = System.Drawing.Color.Green
+            'Label2.Text = "Se han guardado los datos correctamente"
+        Else
+            'Label2.ForeColor = System.Drawing.Color.Red
+            'Label2.Text = "Valide la informacion entrada e intente guardar de nuevo"
+        End If
+
+    End Sub
+End Class

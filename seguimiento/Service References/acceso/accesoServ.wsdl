@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="hi">
+        <s:complexType />
+      </s:element>
+      <s:element name="hiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="hiResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checar_accesoUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nombre" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checar_accesoUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checar_accesoUsuarioResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checar_acceso">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id_usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checar_accesoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checar_accesoResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="obtener_sub_menus">
+        <s:complexType />
+      </s:element>
+      <s:element name="obtener_sub_menusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obtener_sub_menusResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Obtener_lista_usuarios">
+        <s:complexType />
+      </s:element>
+      <s:element name="Obtener_lista_usuariosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Obtener_lista_usuariosResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Usuarios">
+        <s:complexType />
+      </s:element>
+      <s:element name="UsuariosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UsuariosResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="guardar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" />
+            <s:element minOccurs="0" maxOccurs="1" name="folio_sub_menu" />
+            <s:element minOccurs="0" maxOccurs="1" name="acceso" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="guardarResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="borrar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="borrarResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="checar_acceso_subMenu">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id_usuario" />
+            <s:element minOccurs="0" maxOccurs="1" name="folio_sub_menu" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checar_acceso_subMenuResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checar_acceso_subMenuResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="actualizar_usuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nombre_corto" />
+            <s:element minOccurs="0" maxOccurs="1" name="Nombre_completo" />
+            <s:element minOccurs="0" maxOccurs="1" name="email_usuario" />
+            <s:element minOccurs="0" maxOccurs="1" name="nivel_usuario" />
+            <s:element minOccurs="0" maxOccurs="1" name="pasword" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_scoi" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="actualizar_usuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="actualizar_usuarioResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="guardar_usuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nombre_corto" />
+            <s:element minOccurs="0" maxOccurs="1" name="Nombre_completo" />
+            <s:element minOccurs="0" maxOccurs="1" name="email_usuario" />
+            <s:element minOccurs="0" maxOccurs="1" name="nivel_usuario" />
+            <s:element minOccurs="0" maxOccurs="1" name="pasword" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_scoi" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="guardar_usuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="guardar_usuarioResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="eliminar_usuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id_usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="eliminar_usuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="eliminar_usuarioResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="cambio_contrasenia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" />
+            <s:element minOccurs="0" maxOccurs="1" name="pasword" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="cambio_contraseniaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cambio_contraseniaResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="hiSoapIn">
+    <wsdl:part name="parameters" element="tns:hi" />
+  </wsdl:message>
+  <wsdl:message name="hiSoapOut">
+    <wsdl:part name="parameters" element="tns:hiResponse" />
+  </wsdl:message>
+  <wsdl:message name="checar_accesoUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:checar_accesoUsuario" />
+  </wsdl:message>
+  <wsdl:message name="checar_accesoUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:checar_accesoUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="checar_accesoSoapIn">
+    <wsdl:part name="parameters" element="tns:checar_acceso" />
+  </wsdl:message>
+  <wsdl:message name="checar_accesoSoapOut">
+    <wsdl:part name="parameters" element="tns:checar_accesoResponse" />
+  </wsdl:message>
+  <wsdl:message name="obtener_sub_menusSoapIn">
+    <wsdl:part name="parameters" element="tns:obtener_sub_menus" />
+  </wsdl:message>
+  <wsdl:message name="obtener_sub_menusSoapOut">
+    <wsdl:part name="parameters" element="tns:obtener_sub_menusResponse" />
+  </wsdl:message>
+  <wsdl:message name="Obtener_lista_usuariosSoapIn">
+    <wsdl:part name="parameters" element="tns:Obtener_lista_usuarios" />
+  </wsdl:message>
+  <wsdl:message name="Obtener_lista_usuariosSoapOut">
+    <wsdl:part name="parameters" element="tns:Obtener_lista_usuariosResponse" />
+  </wsdl:message>
+  <wsdl:message name="UsuariosSoapIn">
+    <wsdl:part name="parameters" element="tns:Usuarios" />
+  </wsdl:message>
+  <wsdl:message name="UsuariosSoapOut">
+    <wsdl:part name="parameters" element="tns:UsuariosResponse" />
+  </wsdl:message>
+  <wsdl:message name="guardarSoapIn">
+    <wsdl:part name="parameters" element="tns:guardar" />
+  </wsdl:message>
+  <wsdl:message name="guardarSoapOut">
+    <wsdl:part name="parameters" element="tns:guardarResponse" />
+  </wsdl:message>
+  <wsdl:message name="borrarSoapIn">
+    <wsdl:part name="parameters" element="tns:borrar" />
+  </wsdl:message>
+  <wsdl:message name="borrarSoapOut">
+    <wsdl:part name="parameters" element="tns:borrarResponse" />
+  </wsdl:message>
+  <wsdl:message name="checar_acceso_subMenuSoapIn">
+    <wsdl:part name="parameters" element="tns:checar_acceso_subMenu" />
+  </wsdl:message>
+  <wsdl:message name="checar_acceso_subMenuSoapOut">
+    <wsdl:part name="parameters" element="tns:checar_acceso_subMenuResponse" />
+  </wsdl:message>
+  <wsdl:message name="actualizar_usuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:actualizar_usuario" />
+  </wsdl:message>
+  <wsdl:message name="actualizar_usuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:actualizar_usuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="guardar_usuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:guardar_usuario" />
+  </wsdl:message>
+  <wsdl:message name="guardar_usuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:guardar_usuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="eliminar_usuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:eliminar_usuario" />
+  </wsdl:message>
+  <wsdl:message name="eliminar_usuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:eliminar_usuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="cambio_contraseniaSoapIn">
+    <wsdl:part name="parameters" element="tns:cambio_contrasenia" />
+  </wsdl:message>
+  <wsdl:message name="cambio_contraseniaSoapOut">
+    <wsdl:part name="parameters" element="tns:cambio_contraseniaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="accesoServSoap">
+    <wsdl:operation name="hi">
+      <wsdl:input message="tns:hiSoapIn" />
+      <wsdl:output message="tns:hiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checar_accesoUsuario">
+      <wsdl:input message="tns:checar_accesoUsuarioSoapIn" />
+      <wsdl:output message="tns:checar_accesoUsuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checar_acceso">
+      <wsdl:input message="tns:checar_accesoSoapIn" />
+      <wsdl:output message="tns:checar_accesoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="obtener_sub_menus">
+      <wsdl:input message="tns:obtener_sub_menusSoapIn" />
+      <wsdl:output message="tns:obtener_sub_menusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Obtener_lista_usuarios">
+      <wsdl:input message="tns:Obtener_lista_usuariosSoapIn" />
+      <wsdl:output message="tns:Obtener_lista_usuariosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Usuarios">
+      <wsdl:input message="tns:UsuariosSoapIn" />
+      <wsdl:output message="tns:UsuariosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="guardar">
+      <wsdl:input message="tns:guardarSoapIn" />
+      <wsdl:output message="tns:guardarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="borrar">
+      <wsdl:input message="tns:borrarSoapIn" />
+      <wsdl:output message="tns:borrarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checar_acceso_subMenu">
+      <wsdl:input message="tns:checar_acceso_subMenuSoapIn" />
+      <wsdl:output message="tns:checar_acceso_subMenuSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizar_usuario">
+      <wsdl:input message="tns:actualizar_usuarioSoapIn" />
+      <wsdl:output message="tns:actualizar_usuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="guardar_usuario">
+      <wsdl:input message="tns:guardar_usuarioSoapIn" />
+      <wsdl:output message="tns:guardar_usuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminar_usuario">
+      <wsdl:input message="tns:eliminar_usuarioSoapIn" />
+      <wsdl:output message="tns:eliminar_usuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="cambio_contrasenia">
+      <wsdl:input message="tns:cambio_contraseniaSoapIn" />
+      <wsdl:output message="tns:cambio_contraseniaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="accesoServSoap" type="tns:accesoServSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="hi">
+      <soap:operation soapAction="http://tempuri.org/hi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checar_accesoUsuario">
+      <soap:operation soapAction="http://tempuri.org/checar_accesoUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checar_acceso">
+      <soap:operation soapAction="http://tempuri.org/checar_acceso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obtener_sub_menus">
+      <soap:operation soapAction="http://tempuri.org/obtener_sub_menus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Obtener_lista_usuarios">
+      <soap:operation soapAction="http://tempuri.org/Obtener_lista_usuarios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Usuarios">
+      <soap:operation soapAction="http://tempuri.org/Usuarios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="guardar">
+      <soap:operation soapAction="http://tempuri.org/guardar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrar">
+      <soap:operation soapAction="http://tempuri.org/borrar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checar_acceso_subMenu">
+      <soap:operation soapAction="http://tempuri.org/checar_acceso_subMenu" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizar_usuario">
+      <soap:operation soapAction="http://tempuri.org/actualizar_usuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="guardar_usuario">
+      <soap:operation soapAction="http://tempuri.org/guardar_usuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminar_usuario">
+      <soap:operation soapAction="http://tempuri.org/eliminar_usuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cambio_contrasenia">
+      <soap:operation soapAction="http://tempuri.org/cambio_contrasenia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="accesoServSoap12" type="tns:accesoServSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="hi">
+      <soap12:operation soapAction="http://tempuri.org/hi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checar_accesoUsuario">
+      <soap12:operation soapAction="http://tempuri.org/checar_accesoUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checar_acceso">
+      <soap12:operation soapAction="http://tempuri.org/checar_acceso" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obtener_sub_menus">
+      <soap12:operation soapAction="http://tempuri.org/obtener_sub_menus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Obtener_lista_usuarios">
+      <soap12:operation soapAction="http://tempuri.org/Obtener_lista_usuarios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Usuarios">
+      <soap12:operation soapAction="http://tempuri.org/Usuarios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="guardar">
+      <soap12:operation soapAction="http://tempuri.org/guardar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrar">
+      <soap12:operation soapAction="http://tempuri.org/borrar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checar_acceso_subMenu">
+      <soap12:operation soapAction="http://tempuri.org/checar_acceso_subMenu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizar_usuario">
+      <soap12:operation soapAction="http://tempuri.org/actualizar_usuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="guardar_usuario">
+      <soap12:operation soapAction="http://tempuri.org/guardar_usuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminar_usuario">
+      <soap12:operation soapAction="http://tempuri.org/eliminar_usuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cambio_contrasenia">
+      <soap12:operation soapAction="http://tempuri.org/cambio_contrasenia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="accesoServ">
+    <wsdl:port name="accesoServSoap" binding="tns:accesoServSoap">
+      <soap:address location="http://localhost:1987/servicios/accesoServ.asmx" />
+    </wsdl:port>
+    <wsdl:port name="accesoServSoap12" binding="tns:accesoServSoap12">
+      <soap12:address location="http://localhost:1987/servicios/accesoServ.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

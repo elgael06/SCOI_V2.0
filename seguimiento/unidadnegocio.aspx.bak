@@ -1,0 +1,65 @@
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/main.Master" CodeBehind="unidadnegocio.aspx.vb" Inherits="seguimiento.unidadnegocio" %>
+<%@ Register assembly="DevExpress.Web.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web" tagprefix="dx" %>
+<%--<%@ Register assembly="C1.Web.Wijmo.Controls.4" namespace="C1.Web.Wijmo.Controls.C1ComboBox" tagprefix="wijmo" %>--%>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    </asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <h2>Gestión de Unidades de Negocio</h2>
+    <div>
+
+        <dx:ASPxGridView ID="ASPxGridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSourceUN" EnableTheming="True" KeyFieldName="nombre_unidad" Theme="MetropolisBlue" Width="1060px" KeyboardSupport="True">
+            <SettingsPager AlwaysShowPager="True">
+            </SettingsPager>
+            <SettingsEditing Mode="PopupEditForm">
+            </SettingsEditing>
+            <Settings ShowFilterRow="True" ShowGroupPanel="True" VerticalScrollBarMode="Visible" VerticalScrollBarStyle="VirtualSmooth" />
+            <SettingsBehavior ConfirmDelete="True" AllowSelectByRowClick="True" AllowSelectSingleRowOnly="True" />
+            <SettingsPopup>
+                <EditForm Height="200px" HorizontalAlign="WindowCenter" Modal="True" VerticalAlign="WindowCenter" Width="800px" />
+            </SettingsPopup>
+            <SettingsSearchPanel Visible="True" />
+            <Columns>
+                <dx:GridViewCommandColumn ShowClearFilterButton="True" ShowDeleteButton="True" ShowEditButton="True" ShowNewButtonInHeader="True" VisibleIndex="7" ButtonType="Button">
+                </dx:GridViewCommandColumn>
+                <dx:GridViewDataTextColumn FieldName="id_unidadnegocio" ReadOnly="True" Visible="False" VisibleIndex="0">
+                    <EditFormSettings Visible="False" />
+                </dx:GridViewDataTextColumn>
+                <dx:GridViewDataTextColumn Caption="Direccion" FieldName="direccion_unidad" VisibleIndex="3">
+                </dx:GridViewDataTextColumn>
+                <dx:GridViewDataTextColumn Caption="Telefono" FieldName="telefono_unidad" VisibleIndex="4">
+                </dx:GridViewDataTextColumn>
+                <dx:GridViewDataTextColumn Caption="Responsable" FieldName="responsable_unidad" VisibleIndex="6">
+                </dx:GridViewDataTextColumn>
+                <dx:GridViewDataTextColumn Caption="RFC" FieldName="rfc_unidad" VisibleIndex="5">
+                </dx:GridViewDataTextColumn>
+                <dx:GridViewDataTextColumn Caption="Nombre Comercial" FieldName="nombre_comercial" VisibleIndex="2">
+                </dx:GridViewDataTextColumn>
+                <dx:GridViewDataTextColumn Caption="Unidad de Negocio" FieldName="nombre_unidad" VisibleIndex="1">
+                </dx:GridViewDataTextColumn>
+            </Columns>
+        </dx:ASPxGridView>
+        <asp:SqlDataSource ID="SqlDataSourceUN" runat="server" ConnectionString="<%$ ConnectionStrings:UNegocioConnectionString %>" DeleteCommand="DELETE FROM [unidadnegocio] WHERE [nombre_unidad] = @nombre_unidad" InsertCommand="INSERT INTO [unidadnegocio] ([nombre_unidad], [direccion_unidad], [telefono_unidad], [responsable_unidad], [rfc_unidad], [nombre_comercial]) VALUES (@nombre_unidad, @direccion_unidad, @telefono_unidad, @responsable_unidad, @rfc_unidad, @nombre_comercial)" SelectCommand="SELECT * FROM [unidadnegocio]" UpdateCommand="UPDATE [unidadnegocio] SET [id_unidadnegocio] = @id_unidadnegocio, [direccion_unidad] = @direccion_unidad, [telefono_unidad] = @telefono_unidad, [responsable_unidad] = @responsable_unidad, [rfc_unidad] = @rfc_unidad, [nombre_comercial] = @nombre_comercial WHERE [nombre_unidad] = @nombre_unidad">
+            <DeleteParameters>
+                <asp:Parameter Name="nombre_unidad" Type="String" />
+            </DeleteParameters>
+            <InsertParameters>
+                <asp:Parameter Name="nombre_unidad" Type="String" />
+                <asp:Parameter Name="direccion_unidad" Type="String" />
+                <asp:Parameter Name="telefono_unidad" Type="String" />
+                <asp:Parameter Name="responsable_unidad" Type="String" />
+                <asp:Parameter Name="rfc_unidad" Type="String" />
+                <asp:Parameter Name="nombre_comercial" Type="String" />
+            </InsertParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="id_unidadnegocio" Type="Int32" />
+                <asp:Parameter Name="direccion_unidad" Type="String" />
+                <asp:Parameter Name="telefono_unidad" Type="String" />
+                <asp:Parameter Name="responsable_unidad" Type="String" />
+                <asp:Parameter Name="rfc_unidad" Type="String" />
+                <asp:Parameter Name="nombre_comercial" Type="String" />
+                <asp:Parameter Name="nombre_unidad" Type="String" />
+            </UpdateParameters>
+        </asp:SqlDataSource>
+
+    </div>
+</asp:Content>

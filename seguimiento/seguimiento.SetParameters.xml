@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="Default Web Site/seguimiento_deploy" />
+  <setParameter name="miconexion-Web.config Connection String" value="server=localhost;user id=root;password=Ab97099541.;persistsecurityinfo=True;database=seguimiento" />
+</parameters>

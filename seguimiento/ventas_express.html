@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Ventas Express Izagar.</title>
+	<meta charset="utf-8" />
+    <script src="res/js/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="res/js/semaforo_vta_express.js"></script>
+    <link href="res/css/semaforo_vta_express.css" rel="stylesheet" />
+    <script src="res/js/concurrent.Thread.js"></script>
+</head>
+<body>
+    <div id="modal_ventas">
+        <div>
+            <input type="button" value="X" class="cerrar" onclick="window.location.href = 'default.aspx';" />
+            <p id="titulo"><h2> Semaforos Venta Express</h2></p>
+            <div id="cavecera">
+                <table id="tabla_cabecera">
+                    <tr style="font-size:16px;color:white;">
+                        <th class="t_semaforo">Semaforo</th>
+                        <th class='t_estatus'>Estatus</th>
+                        <th class='t_fVta'>Folio Venta</th>
+                        <th class='t_cliente'>Cliente</th>
+                        <th class='t_vendedor'>Vendedor</th>
+                        <th class='t_inicio'>Fecha Inicio</th>
+                        <th class='t_final'>Fecha Final</th>
+                        <th class='t_proveedor'>Proveedor</th>
+                        <th class='t_autorizo'>Autorizo</th>
+                        <th class='t_establecimiento'>Establecimiento</th>
+                        <th class='t_notas'>Notas</th>
+                        <th class='t_total' style="">Total venta</th>
+                    </tr>
+                </table>
+            </div>
+            <div id="scroll_tabla">
+                <table id="vista" style="color:#3b3c3c"></table>
+            </div>
+            <input id="refrescar" class="btncabeza" type="button" value="Refrescar" onclick="llenar_tabla();" />
+            <select id="seleccion_estatus">
+                <option value="todos">Todos</option>
+                <option value="Liquidado">Activos</option>
+            </select>
+        </div>
+    </div>
+</body>
+</html>

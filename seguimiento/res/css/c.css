@@ -1,0 +1,290 @@
+﻿#padre {
+    margin-top:5%;    width:100%;    height:100%; 
+
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .formPreguntas {
+    position:absolute;
+    margin-right:5%;
+    margin-top:142px;
+    width:100%;
+    height:70%;  
+    background-color: aqua; 
+    }
+    #fp {
+    position:relative;
+    margin-left:160px;
+    margin-top:-45px;
+    width: 70%;
+    height:50%;
+    }
+    #IDPB {
+        width:67%;
+    }
+    .textoCuestioario {
+    width:50%
+    }
+    #x {
+    margin-top:70px;    width: 100%;    height:180px;    border-style: groove;    border-bottom:none;     border-bottom-left-radius:0;     border-bottom-right-radius:0
+ }
+   
+ .MarcoFiltro {
+    border-style: groove;    border-radius: 20px;    width: 100%;
+  }
+    #y {
+    margin-top:-5px ;
+    border:none;
+    height:80%;
+}
+ #opcioes {
+    position:relative;    border-color:dimgray;    width:13%;    top: 10px;    left: 10px;    height: 60px;
+ }
+
+}
+.titulo_ {
+    position:relative;  
+    color:azure;
+    border:none;
+    margin-left:10px;
+    margin-right:10px;
+   width:170px;font-size:14px ; margin:10px auto;
+   border-radius:5px;
+}
+
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+   .formPreguntas {
+    position:relative;
+    margin-right:5%;
+    margin-top:20px;
+    width:90%;
+    height:300px;  
+    background-color: aqua; 
+    border-style: none;
+
+   }
+   #fp {
+    position:relative;
+    margin-left:160px;
+    margin-top:-45px;
+    width: 70%;
+    height:50%;
+    }
+   #IDPB {
+width:73%;
+}
+
+    .textoCuestioario {
+    width:50%
+    }
+   #y {
+    margin-top:0px ;
+    border-top:ridge;
+     height:570Px
+}
+   
+ .MarcoFiltro {
+    border-style: none;    border-radius: 0;    width: 100%;
+  }
+  #x {
+    margin-top:20px;    width: 100%;     border-radius: 20px;  border-style: groove;    border-bottom:none;     border-bottom-left-radius:0;     border-bottom-right-radius:0
+ }
+  #opcioes {
+    position:relative;    border-color:dimgray;    width:18%;    top: 10px;    left: 10px;    height: 60px;
+
+ }
+  .scrolling-table-container2 {
+    overflow-y: scroll;
+    border-bottom:groove;
+    margin-left:2px;
+}
+
+}
+
+
+
+#idFolio {
+width:30px;
+background-color:#F1F7E8;
+
+}
+.filtroPreguntas {
+width:70%;
+}
+
+
+
+
+#mostar{
+    position:relative;
+    margin-top:3%;
+    height:300px;
+    
+}
+
+.MarcoBusqueda{
+    border-style: double;
+    position:center;   
+    width:90%;
+    height:300px;
+    background-color:aqua;
+    
+}
+#filtro {
+    margin-left:20px;
+    width:70%;
+}
+.BuscarPreguntas{
+    margin-left:20px;
+    width:60%;
+}
+.scrolling-table-container {
+     height:80%;
+    overflow-y: scroll;
+    border-bottom:groove;
+    margin-left:2px;
+}
+.scrolling-table-container2 {
+     
+    overflow-y: scroll;
+    border-bottom:groove;
+    margin-left:2px;
+}
+#IDF{
+width: 61px;
+margin-left:5PX;
+}
+ #IDFB {
+width: 10%;
+margin-left:5PX;
+}
+#IDP{
+width:50%;
+}
+
+#IDE{
+width: 129px
+}
+ #IDEB {
+width:10%;
+}
+#IDS #IDFB {
+width:105px;
+}
+.FIL{/**/
+     position:static;
+    font-style:normal;
+    border:dashed;
+    border-width:0PX;
+    margin-left:0;
+    display: inline-block;
+    background-color:#081E8B;
+    text-align: center;
+    line-height: 1.8;
+    color:azure;
+
+}
+
+#btnAgregar {
+    background-color:greenyellow;
+    text-align:center;
+     border-radius:5px; 
+      width:100px;
+      height:40px;
+      color:blue;
+}
+#btnEliminar {
+    background-color:red; 
+    text-align:center;
+     border-radius:5px; 
+     width:100px;
+      height:40px;
+      color:greenyellow;
+}
+#btn_selec_p {
+     background-color:blue;
+      border-radius:5px; 
+    color:azure;
+      width:100px;
+      height:40px;
+}
+
+
+button {
+    border-color:none;
+    border:none;
+}
+.IDF{
+width: 61px;
+margin-left:5PX;
+}
+ .IDFB {
+width: 61px;
+margin-left:5PX;
+}
+.IDP{
+width: 615px;
+}
+.IDPB {
+text-align:left;
+}
+.IDE{
+width: 129px
+}
+ .IDEB {
+width: 129px
+}
+.IDS {
+width:105px;
+}
+.sombras{
+    background-color:rgba(102, 144, 246, 0.87);
+     color:azure;
+}
+
+
+
+th, td {
+    border-bottom: 1px solid #ddd;
+     color:black; 
+}
+.class_cuestionarios:hover {
+    background-color:#91c5e0;
+}
+.preguntas {
+    font-size:15PX;
+    margin-left:0;
+    margin-right:0;
+}
+.pregunta_seleccionada {
+    background-color:#5fe282;
+}
+.eliminar {
+    color:yellow;
+    background-color:red;
+}
+.subir {
+}
+.subir:active {
+    background-color: #9eaab4;
+    height:100%;
+}
+.subir:hover {
+    background-color: #9eaab4;
+    height:100%;
+}
+
+.activa_mover {
+    background-color:aqua;
+    
+}
+#btn_selec_ {
+border-style:none; background-color:cadetblue; width:150px; color:azure;
+}
+.clase_btn_hover {
+    width:180px;
+    height:60px;
+    border-radius:5px;
+}

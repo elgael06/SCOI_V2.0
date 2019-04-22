@@ -1,0 +1,115 @@
+﻿ *{margin:0px; padding:0px;}
+        #cuerpo{width:1100px;height:800px;background-color:white}
+        #cabecera{width:1000px;height:100px;background-color:white;}
+        #main{width:1000px;height:700px;background-color:white;}
+        #izquierda{width:468px;
+        height:700px;float:left;background-color:white;
+        }
+        #derecha{width:600px;height:500px;float:right;background-color:white;}
+        #cabeceraAsideIzq{width:472px;
+         height:50px;background-color:white;
+        }
+        #centroAsideDer{width:538px;height:400px;overflow:scroll;}
+        #divAsideIzq{width:400px;height:60px;float:left; background-color:white;}
+        #TextArea1 {height: 292px;width: 292px;}
+        #cabeceraAsideDer {height: 45px;}
+        #centroAsideIzq{height:350px;width: 439px;}
+        #botones{float:right;width:123px;}
+       
+        table {
+          border-collapse: collapse;
+          width: 70%;
+          text-align: center;
+          margin: auto;
+        }
+        th, td {
+          padding: 0.25rem;
+          border: 1px solid #ccc;
+        }
+        tbody tr:nth-child(odd) {
+          background: #eee;
+        }
+        .titulo{
+          padding: 0.5rem;
+          background: #484848 ;
+          color: white;
+          text-align: center;
+          font-size: 21px;
+
+        }
+
+        #buscar{
+	        width: 350px;
+	        font-size: 18px;
+	        color: #fff;
+	        background: #383838;
+	        padding-left: 20px ;
+	        text-align: left;
+	        border-radius: 5px;
+	        padding: 5px;
+	        margin:10px; 
+        }
+
+        .light-table-filter{
+            color:black;
+        }
+
+        @media screen And (max-width:1024px) { /* para pantallas con un maximo de  ->'1024'<-  pixeles*/
+            *{margin:0px; padding:0px;}
+            #cuerpo{width:900px;height:800px;/*background-color:palevioletred;*/}
+            #cabecera{width:700px;height:100px;/*background-color:pink;*/}
+            #main{width:1000px;height:700px;background-color:white;}
+            #izquierda{width:458px;
+            height:500px;float:left;/*/background-color:forestgreen;*/
+            }
+            #derecha{width:440px;height:500px;float:right;/*background-color:yellow;*/}
+            #cabeceraAsideIzq{width:458px;
+             height:50px;/*background-color:red;*/
+            }
+            #centroAsideDer{width:430px;height:400px;/*background-color:blue;*/overflow:scroll;}/*aqui tambor*/
+            #divAsideIzq{width:400px;height:60px;float:left; background-color:white;}
+            #TextArea1 {height: 292px;width: 292px;}
+            #cabeceraAsideDer {height: 45px;}
+            #centroAsideIzq{height:350px;width: 417px; /*/background-color:red;*/}/*aqui*/
+            #botones{float:right;width:123px;}
+       
+            table {
+              border-collapse: collapse;
+              width: 70%;
+              text-align: center;
+              margin: auto;
+            }
+            th, td {
+              padding: 0.25rem;
+              border: 1px solid #ccc;
+            }
+            tbody tr:nth-child(odd) {
+              background: #eee;
+            }
+            .titulo{
+              padding: 0.5rem;
+              background: #484848 ;
+              color: white;
+              text-align: center;
+              font-size: 21px;
+
+            }
+
+            #buscar{
+	            width: 350px;
+	            font-size: 18px;
+	            color: #fff;
+	            background: #383838;
+	            padding-left: 20px ;
+	            text-align: left;
+	            border-radius: 5px;
+	            padding: 5px;
+	            margin:10px; 
+            }
+
+            .light-table-filter{
+                color:black;
+            }
+            
+        }                                                
+

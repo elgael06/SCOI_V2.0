@@ -1,0 +1,134 @@
+﻿/*BASE*/
+.btn {
+    font-size:18px;
+}
+/*CAVECERA*/
+#text_matrix {
+    width:550px;
+    display:inline-block;
+}
+#text_establecimientos {
+    margin-left:10px;
+    width: 250px;
+    display: inline-block;
+}
+/*CONTENEDOR ETAPAS*/
+#btn_agregar_etapa {
+    float: right;
+    font-size: 20px;
+}
+/*MODALES*/
+.ventana {
+    display: none;
+    position: fixed;
+    justify-content:center;
+    align-content:center;
+    align-items:center;
+    text-align:center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(174, 166, 166, 0.95);
+    z-index: 9999;
+}
+    .ventana > div {
+        border-radius: 5px;
+        /*Sombras*/
+        -webkit-box-shadow: -7px 7px 0px 0px rgba(120, 134, 144, 0.95);
+        -moz-box-shadow: -7px 7px 0px 0px rgba(120, 134, 144, 0.95);
+        box-shadow: -7px 7px 0px 0px rgba(120, 134, 144, 0.95);
+    }
+    .ventana .panel-heading .fa-close {
+        float:right;
+    }
+    .ventana .panel-heading {
+        height: 50px;
+    }
+    /**/
+#ModalMatrices > div {
+    width:95%;
+    height:100%;
+    max-width:650px;
+    max-height:900px;
+}
+#ModalMatrices .panel-heading{
+    background: #95c2ed;
+}
+#contenedor_matrices {
+    margin-top:20px;
+    height:700px;
+    border:solid 1px #95c2ed;
+    overflow:auto;
+    background:#dbe8ed;
+    padding:10px;
+}
+.viewMatriz {
+    height: 80px;
+    border: solid 1px #526471;
+    margin-top: 10px;
+    text-align: left;
+    padding: 10px;
+    background:#ffffff;
+    border-radius:5px;
+}
+.viewMatriz:hover{
+    background:#bbd1eb;
+    border: rgb(99, 184, 240) solid 1px;
+}
+    .viewMatriz > strong {
+        font-size: 18px;
+        color:#526471
+    }
+    .viewMatriz .btn {
+        margin-top:-30px;
+        float:right;
+        font-size:15px;
+        display:flex;
+    }
+#contenedor_etapas {
+    height:700px
+}
+/**/
+#ModalEtapas {
+    display: none;
+}
+#ModalEtapas >div{
+    height:80%;
+    width: 90%;
+    max-width: 700px;
+    max-height: 600px;
+    background: #dbeae6;    
+}
+#ModalEtapas  .panel-heading{
+    background: #069f9b;
+    color: azure;
+}
+#ModalEtapas .panel-body{
+    overflow: auto;
+    height: 540px;
+}
+#filtro_etapas{
+    position: sticky;
+    top: -15px;
+    height: 50px;
+}
+#ModalEtapas p{
+    padding:30px;
+    font-size:20px;
+    background: #40da9f;
+    color: #ffffff;
+}
+#ModalEtapas p:hover{
+    background: #8fe2c2;
+    color: #726a6afd;
+}
+@media only screen and (max-width: 720px) {
+    #text_matrix {
+        width: 100%;
+    }
+    #text_establecimientos {
+        margin-left: 0px;
+        width: 100%;
+    }
+}

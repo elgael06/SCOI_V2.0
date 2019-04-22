@@ -1,0 +1,671 @@
+﻿Imports MySql.Data.MySqlClient
+Imports System.Data
+Imports System.IO
+
+Public Class perfiles
+    Inherits System.Web.UI.Page
+    Public conn As New MySqlConnection
+    Public estadodeconexionprevia As ConnectionState
+    Public comando As MySqlCommand
+    Public adaptador As New MySqlDataAdapter
+
+    Public consulta As String = ""
+    Public sentencia As String = ""
+    Public fecha As Date
+    Public comentario As String = ""
+    Public datareader As MySqlDataReader
+    Public data As New DataSet
+    Public operacion As Integer
+    'declaramos las variables para las validaciones opcionales
+    Dim viajes, laptop, pc, celular, extension, autopropio, ldcel, otro, autocomp As Integer
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        ' Esto sirve para cargar los controles una sola vez y no cada vez que se haga postback
+        If Page.IsPostBack Then
+            ' aqui no haremos nada
+        Else
+            'aca pones todos lo eventos y funciones que deben cargarse una unica vez
+            limpiar_campos()
+            llenar_departamento()
+            llenar_puestos()
+            cargar_nombrepuestos()
+            llenar_unidades()
+            TabContainer1.ActiveTabIndex = 0
+            TabContainer1.Tabs(2).Visible = False
+            Button22.Visible = False
+            TabContainer1.Tabs(2).Visible = False
+            Button16.Text = "Guardar Nuevo" : Button16.Enabled = False
+        End If
+    End Sub
+    Protected Sub TextBox16_TextChanged(sender As Object, e As EventArgs) Handles TextBox16.TextChanged
+        TextBox17.Text = 100 - Val(TextBox16.Text)
+    End Sub
+
+    Protected Sub TextBox17_TextChanged(sender As Object, e As EventArgs) Handles TextBox17.TextChanged
+        TextBox16.Text = 100 - Val(TextBox17.Text)
+    End Sub
+
+    Protected Sub Button13_Click(sender As Object, e As EventArgs) Handles Button13.Click
+        ' agregamos la responsabilidad al gridview
+        If Button13.Text = "Agregar" Then
+            agregar_responsabilidad()
+        ElseIf Button13.Text = "Aplicar Cambios" Then
+            editar_responsabilidad()
+        End If
+    End Sub
+    Sub agregar_responsabilidad()
+        'se crea una conexion a la base de datos MySQL
+        Dim connection As MySqlConnection
+        Dim cuentalineas As Integer
+        connection = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection.State
+        Try
+            If connection.State = ConnectionState.Closed Then
+                connection.Open()
+            End If
+            'se ejecuta una consulta SQL
+            Dim ComandoSQL As New MySqlCommand("INSERT INTO responsabilidad (codigo_puesto, descripcion_respon) VALUES ('" & DropDownList11.Text & "', '" & TextBox9.Text & "')", connection)
+            cuentalineas = ComandoSQL.ExecuteNonQuery
+            If cuentalineas > 0 Then
+                ' Response.Write("<script language=javascript>alert('Prospecto agregado correctamente');</script>")
+                _llenargridview1()
+            Else
+                'Response.Write("<script language=javascript>alert('Los datos del prospecto NO han sido guardados');</script>")
+            End If
+
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+    Sub vaciartemp()
+        Dim connection As MySqlConnection
+        connection = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection.State
+        'Try
+        If connection.State = ConnectionState.Closed Then
+            connection.Open()
+        End If
+        Dim query As String = "DELETE FROM respontemp"
+        Dim cmd As New MySqlCommand(query, connection)
+        cmd.ExecuteNonQuery()
+        _llenargridview1()
+    End Sub
+    Sub _llenargridview1()
+        'se crea una conexion a la base de datos MySQL
+        Dim connection As MySqlConnection
+        connection = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection.State
+        If connection.State = ConnectionState.Closed Then
+            connection.Open()
+        End If
+        Try
+            Dim ComandoSQL As New MySqlCommand("SELECT id_respon as 'Id', descripcion_respon as 'Descripcion Responsabilidad' FROM responsabilidad where codigo_puesto =  '" & DropDownList11.Text & "'", connection)
+            Dim ds As New DataSet
+            Dim da As New MySqlDataAdapter(ComandoSQL)
+            da.Fill(ds)
+            GridView1.DataSource = ds.Tables(0)
+            GridView1.DataBind()
+            Label19.Text = GridView1.Rows.Count
+            TextBox9.Text = ""
+            Button13.Text = "Agregar"
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Protected Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
+        'creamos una entrada de un perfil nuevo
+        limpiar_campos()
+        TextBox20.Text = "" : TextBox9.Text = ""
+        Button12.Text = "Buscar"
+        Button13.Text = "Agregar"
+        Button22.Visible = False
+        TabContainer1.Tabs(2).Visible = False
+        Button16.Text = "Guardar Nuevo" : Button16.Enabled = True
+    End Sub
+    Sub limpiar_campos()
+        cargar_nombrepuestos()
+        'limpiamos los textboxes
+        TextBox8.Text = "" : TextBox9.Text = "" : TextBox10.Text = "" : TextBox11.Text = "" : TextBox12.Text = "" : TextBox21.Text = ""
+        TextBox13.Text = "" : TextBox14.Text = "" : TextBox15.Text = "" : TextBox16.Text = "" : TextBox17.Text = "" : TextBox18.Text = "" : TextBox19.Text = ""
+        'inicializamos los ddls
+        llenar_departamento()
+        llenar_unidades()
+        'desmarcamos los checkboxes
+        CheckBox1.Checked = False : CheckBox2.Checked = False : CheckBox3.Checked = False : CheckBox4.Checked = False
+        CheckBox5.Checked = False : CheckBox6.Checked = False : CheckBox7.Checked = False : CheckBox8.Checked = False
+        'establecemos radiobuttons en NO
+        RadioButton1.Checked = False : RadioButton2.Checked = True
+        ' vaciamos la tabla de respontemp donde almacenamos la responsabilidades del puesto de manera temporal antes de guardar
+        vaciartemp()
+
+    End Sub
+    Sub llenar_unidades()
+        DropDownList8.Items.Clear()
+        '----------------------------cargar DDL7---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select * from unidadnegocio;"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+
+        If datareader.HasRows Then
+            While datareader.Read
+                DropDownList8.Items.Add(datareader.GetValue(1))
+            End While
+        End If
+        conn.Close()
+
+    End Sub
+    Sub llenar_departamento()
+        DropDownList4.Items.Clear()
+        '----------------------------cargar DDL4---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select * from departamento;"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                DropDownList4.Items.Add(datareader.GetValue(1))
+            End While
+        End If
+        conn.Close()
+
+    End Sub
+    Sub llenar_puestos()
+        DropDownList9.Items.Clear()
+        DropDownList11.Items.Clear()
+        '----------------------------cargar DDL9---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select id_puesto, nombre_puesto, unidad_negocio, departamento, reportaa from organigrama;"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                DropDownList11.Items.Add(datareader.GetValue(0))
+                DropDownList9.Items.Add(datareader.GetValue(1))
+
+            End While
+        End If
+        conn.Close()
+    End Sub
+    Sub cargar_nombrepuestos()
+        ComboBox1.Items.Clear()
+        '----------------------------cargar DDL4---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select nombre_puesto from perfiles;"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox1.Items.Add(datareader.GetValue(0))
+            End While
+        End If
+        conn.Close()
+    End Sub
+
+    Protected Sub Button16_Click(sender As Object, e As EventArgs) Handles Button16.Click
+        If Button16.Text = "Guardar Nuevo" Then
+            validar_opcionales()
+            ' guardar informacion de perfil nuevo
+            ' PRIMERO INSERTAMOS EL REGISTRO EN LA TABLA ORGANIGRAMA
+            consulta = "insert into perfiles(codigo_puesto, unidad_negocio, departamento, reportaa, nombre_puesto, objetivo_puesto, nivel_educacion, ejemplo_titulos, entrenamiento, experiencia_gral, experiencia_esp, porcentaje_int, porcentaje_ext, internas, externas, ambiente_trabajo, esfuerzo_fisico, viajes, laptop, pc, celular, extension, auto_propio, ldcel, otro, auto_comp)values('" & DropDownList11.Text & "','" & DropDownList8.Text & "','" & DropDownList4.Text & "','" & DropDownList9.Text & "','" & ComboBox1.Text & "','" & TextBox8.Text & "','" & DropDownList10.Text & "','" & TextBox10.Text & "','" & TextBox11.Text & "','" & TextBox12.Text & "','" & TextBox13.Text & "','" & TextBox16.Text & "','" & TextBox17.Text & "','" & TextBox14.Text & "','" & TextBox15.Text & "','" & TextBox18.Text & "','" & TextBox19.Text & "','" & viajes & "','" & laptop & "','" & pc & "','" & celular & "','" & extension & "','" & autopropio & "','" & ldcel & "','" & otro & "','" & autocomp & "')"
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            conn.Open()
+            comando = New MySqlCommand(consulta, conn)
+            comando.ExecuteNonQuery()
+            'cerramos la conexion
+            conn.Close()
+            TabContainer1.Tabs(2).Visible = True
+        ElseIf Button16.Text = "Guardar Cambios" Then
+            'modificar informacion del perfil del puesto
+            validar_opcionales()
+            'MODIFICAMOS LA INFORMACION DEL REGISTRO SOLICITADO
+            consulta = "update perfiles set unidad_negocio='" & DropDownList8.Text & "', departamento='" & DropDownList4.Text & "', reportaa='" & DropDownList9.Text & "', nombre_puesto='" & ComboBox1.Text & "', objetivo_puesto='" & TextBox8.Text & "', nivel_educacion='" & DropDownList10.Text & "', ejemplo_titulos='" & TextBox10.Text & "', entrenamiento='" & TextBox11.Text & "', experiencia_gral='" & TextBox12.Text & "', experiencia_esp='" & TextBox13.Text & "', porcentaje_int='" & TextBox16.Text & "', porcentaje_ext='" & TextBox17.Text & "', internas='" & TextBox14.Text & "', externas='" & TextBox15.Text & "', ambiente_trabajo='" & TextBox18.Text & "', esfuerzo_fisico='" & TextBox19.Text & "', viajes='" & viajes & "', laptop='" & laptop & "', pc='" & pc & "', celular='" & celular & "', extension='" & extension & "', auto_propio='" & autopropio & "', ldcel='" & ldcel & "', otro='" & otro & "', auto_comp='" & autocomp & "' where codigo_puesto= '" & DropDownList11.Text & "'"
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            conn.Open()
+            'Try
+            comando = New MySqlCommand(consulta, conn)
+            comando.ExecuteNonQuery()
+            '    Response.Write("<script language=javascript>alert('REGISTRO ACTUALIZADO');</script>")
+            'Catch ex As Exception
+            '    Response.Write("<script language=javascript>alert('ERROR AL ACTUALIZAR');</script>")
+            'End Try
+            conn.Close()
+        End If
+    End Sub
+    Sub validar_opcionales()
+        'validamos las opciones de los radiobuttons
+        If RadioButton1.Checked = True Then
+            viajes = 1
+        ElseIf RadioButton2.Checked = True Then
+            viajes = 0
+        End If
+        'validamos las opciones opcionales de los checkboxes
+        If CheckBox1.Checked = True Then ' validamos si la opcion de laptop esta marcada o no
+            laptop = 1
+        Else
+            laptop = 0
+        End If
+
+        If CheckBox2.Checked = True Then ' validamos si la opcion de celular esta marcada o no
+            celular = 1
+        Else
+            celular = 0
+        End If
+        If CheckBox3.Checked = True Then ' validamos si la opcion de auto propio esta marcada o no
+            autopropio = 1
+        Else
+            autopropio = 0
+        End If
+        If CheckBox4.Checked = True Then ' validamos si la opcion de  Otro esta marcada o no
+            otro = 1
+        Else
+            otro = 0
+        End If
+        If CheckBox5.Checked = True Then ' validamos si la opcion de  PC esta marcada o no
+            pc = 1
+        Else
+            pc = 0
+        End If
+        If CheckBox6.Checked = True Then ' validamos si la opcion Extension esta marcada o no
+            extension = 1
+        Else
+            extension = 0
+        End If
+        If CheckBox7.Checked = True Then ' validamo si la opcion de LDCell esta marcada o no
+            ldcel = 1
+        Else
+            ldcel = 0
+        End If
+        If CheckBox8.Checked = True Then ' validamos si la opcion de  Auto Compañia esta marcada o no
+            autocomp = 1
+        Else
+            autocomp = 0
+        End If
+    End Sub
+    Sub guardarespontemp()
+        'abrimos la conexion a la base de datos
+        Dim row As GridViewRow = GridView1.SelectedRow
+        Dim connection As MySqlConnection
+        Dim cuentalineas As Integer
+        connection = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection.State
+        If connection.State = ConnectionState.Closed Then
+            connection.Open()
+        End If
+        Dim ComandoSQL As New MySqlCommand("INSERT INTO responsabilidad SELECT descripcion_respon FROM respontemp", connection)
+        cuentalineas = ComandoSQL.ExecuteNonQuery
+        If cuentalineas > 0 Then
+            Response.Write("<script language=javascript>alert('Responsabilidades agregadas correctamente');</script>")
+            vaciartemp()
+        Else
+            Response.Write("<script language=javascript>alert('Los datos NO han sido guardados');</script>")
+        End If
+    End Sub
+
+    Protected Sub Button17_Click(sender As Object, e As EventArgs) Handles Button17.Click
+        If Button17.Text = "Mostrar Catalogo" Then
+            ' mostramos el catalogo completo de todos los perfiles de puestos
+            'se crea una conexion a la base de datos MySQL
+            Dim connection1 As MySqlConnection
+            connection1 = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection1.State
+            Try
+                If connection1.State = ConnectionState.Closed Then
+                    connection1.Open()
+                End If
+                'se ejecuta una consulta SQL
+                Dim ComandoSQL As New MySqlCommand("SELECT codigo_puesto, nombre_puesto, unidad_negocio, departamento, reportaa FROM perfiles", connection1)
+                Dim ds1 As New DataSet
+                Dim da1 As New MySqlDataAdapter(ComandoSQL)
+                da1.Fill(ds1)
+                GridView2.DataSource = ds1.Tables(0)
+                GridView2.DataBind()
+                GridView2.Visible = True
+                Button21.Visible = True
+                Button17.Text = "Ocultar Catalogo"
+            Catch ex As Exception
+                'Response.Write("<script language=javascript>alert('Error de conexion a la base de datos');</script>")
+            End Try
+        ElseIf Button17.Text = "Ocultar Catalogo" Then
+            Button17.Text = "Mostrar Catalogo"
+            GridView2.Visible = False
+            Button21.Visible = False
+        End If
+    End Sub
+
+    Protected Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
+        'buscamos perfil de puesto por codigo
+        busca_perfil()
+    End Sub
+    Sub busca_perfil()
+        If Button12.Text = "Buscar" Then
+            If DropDownList11.Text <> "" Then
+                ' REALIZAMOS LA CONSULTA DEL REGISTRO SOLICITADO EN TEXTBOX1.TEXT
+                conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+                conn.Open()
+                consulta = "select unidad_negocio, departamento, reportaa, nombre_puesto, objetivo_puesto, nivel_educacion, ejemplo_titulos, entrenamiento, experiencia_gral, experiencia_esp, porcentaje_int, porcentaje_ext, internas, externas, ambiente_trabajo, esfuerzo_fisico, viajes, laptop, pc, celular, extension, auto_propio, ldcel, otro, auto_comp from perfiles where codigo_puesto= '" & DropDownList11.Text & "'"
+                comando = New MySqlCommand(consulta, conn)
+                datareader = comando.ExecuteReader
+                ' si encontramos registros entonces colocamos la informacion en los textboxes correspondientes
+                If datareader.HasRows Then
+                    While datareader.Read
+                        ' colocamos la informacion del query en cada uno de los elementos
+                        DropDownList8.Text = datareader.GetValue(0) ' unidad negocio
+                        DropDownList4.Text = datareader.GetValue(1) ' departamemto
+                        DropDownList9.Text = datareader.GetValue(2) '  reporta a
+                        ComboBox1.Text = datareader.GetValue(3) '  nombre del puesto
+                        TextBox21.Text = datareader.GetValue(3) '  nombre del puesto
+                        TextBox8.Text = datareader.GetValue(4) '  objetivo del puesto
+                        DropDownList10.Text = datareader.GetValue(5) '  nivel educacion
+                        TextBox10.Text = datareader.GetValue(6) ' ejemplo titulos
+                        TextBox11.Text = datareader.GetValue(7) ' entrenamiento
+                        TextBox12.Text = datareader.GetValue(8) ' Experiencia General
+                        TextBox13.Text = datareader.GetValue(9) ' Experiencia Especial
+                        TextBox16.Text = datareader.GetValue(10) ' porcentaje  relaciones interiores
+                        TextBox17.Text = datareader.GetValue(11) ' porcentaje  relaciones exteriores
+                        TextBox14.Text = datareader.GetValue(12) ' detalle relaciones interiores
+                        TextBox15.Text = datareader.GetValue(13) ' detalles relaciones exteriores
+                        TextBox18.Text = datareader.GetValue(14) ' ambiente de trabajo
+                        TextBox19.Text = datareader.GetValue(15) ' esfuerzo fisico
+                        'validamos las opciones principales de la consulta
+                        If datareader.GetValue(16) = 1 Then ' determinamos si los viajes son nacionales o internacioales
+                        Else
+                            RadioButton2.Checked = True
+                        End If
+                        ' AQUI ME QUEDE ES NECESARIO VALIDAR TODOS LOS CONCEPTOS CONFIGURABLES
+                        If datareader.GetValue(17) = 1 Then ' determinamos si usa laptop o no
+                            CheckBox1.Checked = True
+                        Else
+                            CheckBox1.Checked = False
+                        End If
+                        If datareader.GetValue(18) = 1 Then ' determinamos si usa PC o no
+                            CheckBox5.Checked = True
+                        Else
+                            CheckBox5.Checked = False
+                        End If
+                        If datareader.GetValue(19) = 1 Then ' determinamos si usa celular o no
+                            CheckBox2.Checked = True
+                        Else
+                            CheckBox2.Checked = False
+                        End If
+                        If datareader.GetValue(20) = 1 Then ' determinamos si usa extension o no
+                            CheckBox6.Checked = True
+                        Else
+                            CheckBox6.Checked = False
+                        End If
+                        If datareader.GetValue(21) = 1 Then ' determinamos si usara su auto propio o no
+                            CheckBox3.Checked = True
+                        Else
+                            CheckBox3.Checked = False
+                        End If
+                        If datareader.GetValue(22) = 1 Then ' determinamos si usa Celular/larga distancia o no
+                            CheckBox7.Checked = True
+                        Else
+                            CheckBox7.Checked = False
+                        End If
+                        If datareader.GetValue(23) = 1 Then ' determinamos si otro o no
+                            CheckBox4.Checked = True
+                        Else
+                            CheckBox4.Checked = False
+                        End If
+                        If datareader.GetValue(24) = 1 Then ' determinamos si usara auto de la compañia o no
+                            CheckBox8.Checked = True
+                        Else
+                            CheckBox8.Checked = False
+                        End If
+                        ' cargamos el gridview1 con las responsabilidades del puesto
+                        consulta_resp()
+                        TabContainer1.Tabs(2).Visible = True
+
+                    End While
+                    Button12.Text = "Limpiar"
+                    Button16.Text = "Guardar Cambios" : Button16.Enabled = True
+                    'cerramos la conexion
+                    conn.Close()
+                End If
+            Else
+                ' AQUI PODREMOS COLOCAR CUALQUIER MENSAJE QUE QUEREMOS QUE SEA MOSTRADO
+            End If
+        ElseIf Button12.Text = "Limpiar" Then
+            limpiar_campos()
+            Button12.Text = "Buscar"
+            GridView1.Visible = False
+            TabContainer1.Tabs(2).Visible = False
+            Button16.Text = "Guardar Nuevo" : Button16.Enabled = False
+        End If
+    End Sub
+    Sub consulta_resp()
+        'se crea una conexion a la base de datos MySQL
+        Dim connection As MySqlConnection
+        connection = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection.State
+        If connection.State = ConnectionState.Closed Then
+            connection.Open()
+        End If
+        'Try
+        Dim ComandoSQL As New MySqlCommand("select id_respon as 'ID', descripcion_respon as 'Descripción Responsabilidad' from responsabilidad where codigo_puesto= '" & DropDownList11.Text & "'", connection)
+        Dim ds As New DataSet
+        Dim da As New MySqlDataAdapter(ComandoSQL)
+        da.Fill(ds)
+        GridView1.DataSource = ds.Tables(0)
+        GridView1.DataBind()
+
+        GridView1.Visible = True
+        Label19.Text = GridView1.Rows.Count
+        SetGridViewWidth()
+        'Catch ex As Exception
+        'Throw ex
+        ' End Try
+    End Sub
+    Public Sub SetGridViewWidth()
+        For i As Integer = 0 To GridView1.Columns.Count - 1
+            GridView1.Columns(i).ItemStyle.Width = 200
+        Next
+    End Sub
+
+    Protected Sub Button20_Click(sender As Object, e As EventArgs) Handles Button20.Click
+        ' buscamos perfil de puesto por nombre del puesto
+        If Button20.Text = "Buscar" Then
+            'se crea una conexion a la base de datos MySQL
+            Dim connection As MySqlConnection
+            connection = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection.State
+            Try
+                If connection.State = ConnectionState.Closed Then
+                    connection.Open()
+                End If
+                Dim textoconsulta As String
+                textoconsulta = "%" & ComboBox1.Text & "%"
+                Dim ComandoSQL As New MySqlCommand("SELECT codigo_puesto, nombre_puesto, unidad_negocio, departamento FROM perfiles WHERE nombre_puesto LIKE '" & textoconsulta & "'", connection)
+                Dim ds As New DataSet
+                Dim da As New MySqlDataAdapter(ComandoSQL)
+                da.Fill(ds)
+                GridView2.DataSource = ds.Tables(0)
+                GridView2.DataBind()
+                Button20.Text = "Limpiar"
+                GridView2.Visible = True
+                Button21.Visible = True
+            Catch ex As Exception
+                Throw ex
+            End Try
+        ElseIf Button20.Text = "Limpiar" Then
+            limpiar_campos()
+            Button20.Text = "Buscar"
+        End If
+    End Sub
+
+    Protected Sub GridView2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView2.SelectedIndexChanged
+        ' seleccionamos un registro y lo consultamos
+        ' Obtiene la el valor de la linea seleccionada actualmente
+        Dim row As GridViewRow = GridView2.SelectedRow
+        'Call limpiar_campos()
+        DropDownList11.Text = row.Cells(1).Text
+        GridView2.Visible = False
+        Button21.Visible = False
+        Button20.Text = "Buscar"
+        Button17.Text = "Mostrar Catalogo"
+        busca_perfil()
+    End Sub
+
+    Protected Sub Button21_Click(sender As Object, e As EventArgs) Handles Button21.Click
+        ' ocultamos el gridview2 del catalogo de perfiles de puesto
+        GridView2.Visible = False
+        Button21.Visible = False
+        Button17.Text = "Mostrar Catalogo"
+    End Sub
+
+    Protected Sub Button18_Click(sender As Object, e As EventArgs) Handles Button18.Click
+        editar_responsabilidad()
+    End Sub
+
+    Sub editar_responsabilidad()
+        'modificamos la responsabilidad colocada en textbox9, una vez que modificamos el texto
+        'MODIFICAMOS LA INFORMACION DEL REGISTRO SOLICITADO
+        consulta = "update responsabilidad set descripcion_respon='" & TextBox9.Text & "' where id_respon=" & Val(TextBox20.Text)
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+
+        comando = New MySqlCommand(consulta, conn)
+        comando.ExecuteNonQuery()
+        'Response.Write("<script language=javascript>alert('REGISTRO ACTUALIZADO');</script>")
+
+        conn.Close() 'cerramos la conexion
+        _llenargridview1() ' cargamos el gridview de nuevo
+    End Sub
+
+    Protected Sub Button19_Click(sender As Object, e As EventArgs) Handles Button19.Click
+        eliminar_responsabilidad()
+    End Sub
+    Sub eliminar_responsabilidad()
+        ' eliminamos la responsabilidad seleccionada del gridview1
+        Dim connection As MySqlConnection
+        connection = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection.State
+
+        If connection.State = ConnectionState.Closed Then
+            connection.Open()
+        End If
+        Dim query As String = "DELETE FROM responsabilidad where id_respon=" & Val(TextBox20.Text)
+        Dim cmd As New MySqlCommand(query, connection)
+        cmd.ExecuteNonQuery()
+        _llenargridview1()
+    End Sub
+
+    Protected Sub DropDownList11_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DropDownList11.SelectedIndexChanged
+        ' REALIZAMOS LA CONSULTA DEL REGISTRO SOLICITADO EN TEXTBOX1.TEXT
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select nombre_puesto, unidad_negocio, departamento, reportaa from organigrama where id_puesto= '" & DropDownList11.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        ' si encontramos registros entonces colocamos la informacion en los textboxes correspondientes
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox1.Text = datareader.GetValue(0)
+                DropDownList8.Text = datareader.GetValue(1)
+                DropDownList4.Text = datareader.GetValue(2)
+                DropDownList9.Text = datareader.GetValue(3)
+            End While
+            'cerramos la conexion
+            conn.Close()
+            TextBox20.Text = "" : TextBox9.Text = ""
+            Button12.Text = "Buscar"
+            Button13.Text = "Agregar"
+            Button22.Visible = False
+            TabContainer1.Tabs(2).Visible = False
+            'Button16.Text = "Guardar Nuevo" : Button16.Enabled = False
+        End If
+    End Sub
+
+    Protected Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
+        If RadioButton1.Checked = True Then
+            RadioButton2.Checked = False
+        End If
+    End Sub
+
+    Protected Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
+        If RadioButton2.Checked = True Then
+            RadioButton1.Checked = False
+        End If
+    End Sub
+
+    Private Sub GridView1_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles GridView1.RowDeleting
+        eliminar_responsabilidad()
+    End Sub
+
+    Private Sub GridView1_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles GridView1.RowEditing
+        editar_responsabilidad()
+    End Sub
+
+    Protected Sub GridView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView1.SelectedIndexChanged
+        ' Obtiene la el valor de la linea seleccionada actualmente
+        Dim row As GridViewRow = GridView1.SelectedRow
+        TextBox20.Text = row.Cells(1).Text
+        TextBox9.Text = row.Cells(2).Text
+        Button13.Text = "Aplicar Cambios"
+        Button22.Visible = True
+    End Sub
+
+    Protected Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
+        ' PRIMERO  CREAMOS LA CONSULTA DEL NOMBRE DEL PUESTO
+        ' REALIZAMOS LA CONSULTA DEL REGISTRO SOLICITADO EN TEXTBOX1.TEXT
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select codigo_puesto from perfiles where nombre_puesto= '" & ComboBox1.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        ' si encontramos registros entonces colocamos la informacion en los textboxes correspondientes
+        If datareader.HasRows Then
+            While datareader.Read
+                DropDownList11.Text = datareader.GetValue(0) ' codigo puesto
+            End While
+            conn.Close()
+            busca_perfil()
+            consulta_resp()
+            TextBox20.Text = "" : TextBox9.Text = ""
+            Button12.Text = "Buscar"
+            Button13.Text = "Agregar"
+            Button22.Visible = False
+            TabContainer1.Tabs(2).Visible = False
+            Button16.Text = "Guardar Cambios" : Button16.Enabled = True
+        Else
+            TabContainer1.Tabs(2).Visible = False
+            Button16.Text = "Guardar Nuevo" : Button16.Enabled = False
+        End If
+    End Sub
+
+    Protected Sub Button22_Click(sender As Object, e As EventArgs) Handles Button22.Click
+        TextBox20.Text = "" : TextBox9.Text = ""
+        Button13.Text = "Agregar"
+        Button22.Visible = False
+    End Sub
+
+End Class

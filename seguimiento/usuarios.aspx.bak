@@ -1,0 +1,230 @@
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/main.Master" CodeBehind="usuarios.aspx.vb" Inherits="seguimiento.usuarios" %>
+<%@ Register assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" namespace="CrystalDecisions.Web" tagprefix="CR" %>
+<%@ Register assembly="DevExpress.Web.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web" tagprefix="dx" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    </asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <h2 id="enc_gu">Gestion de Usuarios</h2>
+    <script>
+        $(document).ready(function () {
+            $("#enc_gu").click(function () {
+                $('#card_usr').toggle();
+                $('#padre_ac_usr').toggle();
+            });
+            $("#nau").click(function () {
+                $('#padre_ac_usr').toggle();
+            });
+        });
+        
+    </script>
+    <div id="card_usr">
+        <asp:SqlDataSource ID="SqlDataSourceUsuarios" runat="server" ConnectionString="<%$ ConnectionStrings:seguimientoConnectionString1 %>" DeleteCommand="DELETE FROM [usuarios] WHERE [nombre_usuario] = @nombre_usuario" InsertCommand="INSERT INTO [usuarios] ([nombre_usuario], [nombrecompleto_usuario], [email_usuario], [nivel_usuario], [password_usuario]) VALUES (@nombre_usuario, @nombrecompleto_usuario, @email_usuario, @nivel_usuario, @password_usuario)" SelectCommand="SELECT [id_usuario], [nombre_usuario], [nombrecompleto_usuario], [email_usuario], [nivel_usuario], [password_usuario] FROM [usuarios]" UpdateCommand="UPDATE [usuarios] SET [nombrecompleto_usuario] = @nombrecompleto_usuario, [email_usuario] = @email_usuario, [nivel_usuario] = @nivel_usuario, [password_usuario] = @password_usuario WHERE  [id_usuario] = @id_usuario">
+            <DeleteParameters>
+                <asp:Parameter Name="nombre_usuario" Type="String" />
+            </DeleteParameters>
+            <InsertParameters>
+                <asp:Parameter Name="nombre_usuario" Type="String" />
+                <asp:Parameter Name="nombrecompleto_usuario" Type="String" />
+                <asp:Parameter Name="email_usuario" Type="String" />
+                <asp:Parameter Name="nivel_usuario" Type="String" />
+                <asp:Parameter Name="password_usuario" Type="String" />
+            </InsertParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="id_usuario" Type="Int32" />
+                <asp:Parameter Name="nombrecompleto_usuario" Type="String" />
+                <asp:Parameter Name="email_usuario" Type="String" />
+                <asp:Parameter Name="nivel_usuario" Type="String" />
+                <asp:Parameter Name="password_usuario" Type="String" />
+                <asp:Parameter Name="nombre_usuario" Type="String" />
+            </UpdateParameters>
+        </asp:SqlDataSource>
+                    <br />
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:seguimientoConnectionString4 %>" DeleteCommand="DELETE FROM [usuarios] WHERE [nombre_usuario] = @nombre_usuario" InsertCommand="INSERT INTO [usuarios] ([nombre_usuario], [nombrecompleto_usuario], [email_usuario], [nivel_usuario], [password_usuario]) VALUES (@nombre_usuario, @nombrecompleto_usuario, @email_usuario, @nivel_usuario, @password_usuario)" SelectCommand="SELECT * FROM [usuarios]" UpdateCommand="UPDATE [usuarios] SET [id_usuario] = @id_usuario, [nombrecompleto_usuario] = @nombrecompleto_usuario, [email_usuario] = @email_usuario, [nivel_usuario] = @nivel_usuario, [password_usuario] = @password_usuario WHERE [nombre_usuario] = @nombre_usuario">
+            <DeleteParameters>
+                <asp:Parameter Name="nombre_usuario" Type="String" />
+            </DeleteParameters>
+            <InsertParameters>
+                <asp:Parameter Name="nombre_usuario" Type="String" />
+                <asp:Parameter Name="nombrecompleto_usuario" Type="String" />
+                <asp:Parameter Name="email_usuario" Type="String" />
+                <asp:Parameter Name="nivel_usuario" Type="String" />
+                <asp:Parameter Name="password_usuario" Type="String" />
+            </InsertParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="id_usuario" Type="Int32" />
+                <asp:Parameter Name="nombrecompleto_usuario" Type="String" />
+                <asp:Parameter Name="email_usuario" Type="String" />
+                <asp:Parameter Name="nivel_usuario" Type="String" />
+                <asp:Parameter Name="password_usuario" Type="String" />
+                <asp:Parameter Name="nombre_usuario" Type="String" />
+            </UpdateParameters>
+        </asp:SqlDataSource>
+                    <br />
+        <dx:ASPxCardViewExporter ID="ASPxCardViewExporter1" runat="server" CardViewID="ASPxCardView1" ExportSelectedCardsOnly="True" FileName="Usuarios" PrintSelectCheckBox="True" ReportHeader="{\rtf1\ansi\ansicpg1252\deff0\deflang2058{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil\fcharset0 Times New Roman;}}
+\viewkind4\uc1\pard\qc\b\fs24 Grupo Izagar\par
+Reporte de Usuarios\b0\f1\fs20\par
+}
+">
+        </dx:ASPxCardViewExporter>
+        <dx:ASPxButton ID="ASPxButton1" runat="server" EnableTheming="True" Text="Exportar a PDF" Theme="MetropolisBlue">
+        </dx:ASPxButton>
+        <dx:ASPxCardView ID="ASPxCardView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSourceUsuarios" EnableTheming="True" KeyFieldName="nombre_usuario" Theme="MetropolisBlue" Width="100%">
+            <SettingsPager Mode="EndlessPaging">
+            </SettingsPager>
+            <SettingsEditing Mode="PopupEditForm">
+            </SettingsEditing>
+            <Settings ShowHeaderFilterbutton="true" ShowHeaderPanel="True" ShowSummaryPanel="True" ShowTitlePanel="True" VerticalScrollBarMode="Visible" VerticalScrollableHeight="300" />
+            <SettingsBehavior AllowFocusedCard="True" AllowSelectByCardClick="True" AllowSelectSingleCardOnly="True" ConfirmDelete="True" />
+            <SettingsPopup>
+                <EditForm AllowResize="True" Height="200px" HorizontalAlign="WindowCenter" VerticalAlign="WindowCenter" Width="800px" />
+            </SettingsPopup>
+            <SettingsSearchPanel Visible="True" />
+            <SettingsText Title="Cardex de usuarios" />
+            <Columns>
+                <dx:CardViewTextColumn FieldName="nombre_usuario" Caption="Nombre Usuario" VisibleIndex="0">
+                </dx:CardViewTextColumn>
+                <dx:CardViewTextColumn FieldName="nombrecompleto_usuario" VisibleIndex="1" Caption="Nombre Completo">
+                </dx:CardViewTextColumn>
+                <dx:CardViewTextColumn FieldName="email_usuario" VisibleIndex="2" Caption="Email">
+                </dx:CardViewTextColumn>
+                <dx:CardViewTextColumn FieldName="password_usuario" VisibleIndex="5" Caption="Contraseña">
+                    <PropertiesTextEdit Password="True">
+                    </PropertiesTextEdit>
+                </dx:CardViewTextColumn>
+                <dx:CardViewSpinEditColumn Caption="Nivel de usuario" FieldName="nivel_usuario" VisibleIndex="3">
+                    <PropertiesSpinEdit DisplayFormatString="g" MaxValue="5">
+                    </PropertiesSpinEdit>
+                </dx:CardViewSpinEditColumn>
+                <dx:CardViewTextColumn Caption="Id" FieldName="id_usuario" ReadOnly="True" Visible="False" VisibleIndex="4">
+                </dx:CardViewTextColumn>
+            </Columns>
+            <CardLayoutProperties>
+                <Items>
+                    <dx:CardViewCommandLayoutItem HorizontalAlign="Right" ShowDeleteButton="True" ShowEditButton="True" ShowNewButton="True">
+                    </dx:CardViewCommandLayoutItem>
+                    <dx:CardViewColumnLayoutItem ColumnName="nombre_usuario">
+                    </dx:CardViewColumnLayoutItem>
+                    <dx:CardViewColumnLayoutItem ColumnName="nombrecompleto_usuario">
+                    </dx:CardViewColumnLayoutItem>
+                    <dx:CardViewColumnLayoutItem ColumnName="email_usuario">
+                    </dx:CardViewColumnLayoutItem>
+                    <dx:CardViewColumnLayoutItem ColumnName="nivel_usuario">
+                    </dx:CardViewColumnLayoutItem>
+                    <dx:CardViewColumnLayoutItem ColumnName="password_usuario">
+                    </dx:CardViewColumnLayoutItem>
+                    <dx:EditModeCommandLayoutItem HorizontalAlign="Right">
+                    </dx:EditModeCommandLayoutItem>
+                </Items>
+            </CardLayoutProperties>
+        </dx:ASPxCardView>
+                    <br />
+      </div>
+         <script>
+                $(document).ready(function () {
+                    $("#list_gest_infra").click(function () {
+                        $('#muno').toggle();
+                    });
+                    $("#list_gest_estra").click(function () {
+                        $('#mdos').toggle();
+                    });
+                    $("#list_deso_pro").click(function () {
+                        $('#mtres').toggle();
+                    });
+                    $("#list_hk").click(function () {
+                        $('#mcuat').toggle();
+                    });
+                    $("#list_hk").click(function () {
+                        $('#mcua').toggle();
+                    });
+                    $("#list_cat").click(function () {
+                        $('#mcin').toggle();
+                    });
+                    $("#list_alim").click(function () {
+                        $('#msei').toggle();
+                    });
+                }); 
+            </script>
+        <a id="nau"><h2>Nivel de acceso de usuarios</h2></a>
+        <div id="padre_ac_usr">
+          <div id="div_ckb" class="contenido">
+            <div id="ap_admin">
+                <h5>Administracion</h5>
+              <ul >
+              <li > <input type="checkbox" id="cbx_gest_infr" /><a id="list_gest_infra"> Gestión Infraestructura </a>
+                <ul id="muno">
+                  <li ><input type="checkbox" id="organigrama_item"/> Gestión de Organigrama</li>
+                  <li ><input type="checkbox" id="usuario_item"/> Gestión de Usuarios</li>
+                  <li ><input type="checkbox" id="permisos_item"/> Permisos de Usuarios</li>
+                  <li ><input type="checkbox" id="perfiles_item"/> Gestión de Perfiles</li>
+                  <li ><input type="checkbox" id="relaciones_item"/> Gestión de Relacion CP/UP</li>
+                </ul>
+              </li>
+              <li ><input type="checkbox" id="cbx_gest_estra" /><a id="list_gest_estra">  Gestión Estrategica</a>
+                <ul id="mdos">
+                  <li ><input type="checkbox" id="unidad_n_item" />Gestión Unidades de Negocio</li>
+                  <li ><input type="checkbox" id="procesos_item"/>Gestión de Procesos</li>
+                  <li ><input type="checkbox" id="evidencias_item"/>Gestión de Evidencias</li>
+                </ul>
+              </li>
+             </ul>
+            </div>
+          <div id="div_ap_mon">
+            <h5>Monitoreo de Indicadores</h5>
+            <ul>
+              <li ><input type="checkbox" id="cbx_des_proc" /><a id="list_deso_pro"> Despliegue de Procesos</a>
+                <ul  id="mtres">
+                  <li id="config_item"><input type="checkbox"/> Configuración y Despliegue</li>
+                </ul>
+              </li>
+              <li > <input type="checkbox" id="cbx_hk" /><a id="list_hk"> Hoshin Kanri</a>
+                <ul id="mcua">
+                  <li id="mvv_item"><input type="checkbox"/>Mision, Vision, Valores</li>
+                  <li id="objetovos_hk_item"><input type="checkbox"/>Objetivos estrategicos</li>
+                  <li id="indicadores_hk_item"><input type="checkbox"/>Seguimiento Indicadores</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+           <h5>Matrices</h5>
+            <ul>
+              <li > <input type="checkbox" /><a id="list_cat"> Catalogos</a>
+                <ul id="mcin">
+                    <li id="etapas_item"><input type="checkbox"/>Etapas</li>
+                    <li id="unidad_insp_item"><input type="checkbox"/>Unidades de Inspeccion</li>
+                    <li id="elem_insp_item"><input type="checkbox"/>Elementos de Inpeccion</li>
+                    <li id="matrices_item"><input type="checkbox"/>Matrices</li>
+                </ul>
+              </li>
+              <li> <input type="checkbox" /><a  id="list_alim"> Alimentacion</a>
+                <ul id="msei">
+                    <li id="alim_matrices_item"><input type="checkbox"/>Alimentacion Matriz</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          </div>
+        <div id="most_personas" class="contenido">
+         <div > &nbsp;<input type="search" autocomplete="on" placeholder="Buscar Usuario" title="Usuario" id="busca_usr" /><br /><br /></div>
+            <div id="elementos_personas">   
+                <asp:GridView ID="GridView1" runat="server" Height="64px" style="margin-left: 17px; margin-right: 10px;" Width="505px" AutoGenerateColumns="False" DataKeyNames="nombre_usuario" DataSourceID="SqlDataPerm_usr">
+                    <AlternatingRowStyle BorderColor="#669999" BackColor="Azure" />
+
+                    <Columns>
+                        <asp:BoundField DataField="id_usuario" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="id_usuario" />
+                        <asp:BoundField DataField="nombre_usuario" HeaderText="Nombre Usuario" ReadOnly="True" SortExpression="nombre_usuario" />
+                        <asp:BoundField DataField="nombrecompleto_usuario" HeaderText="Nombre Completo Usuario" SortExpression="nombrecompleto_usuario" />
+                        <asp:BoundField DataField="nivel_usuario" HeaderText="nNvel Usuario" SortExpression="nivel_usuario" />
+                        <asp:CommandField ShowSelectButton="True" />
+                    </Columns>
+
+                </asp:GridView>
+               
+                <asp:SqlDataSource ID="SqlDataPerm_usr" runat="server" ConnectionString="<%$ ConnectionStrings:seguimiento_2ConnectionString2 %>" SelectCommand="SELECT [id_usuario], [nombre_usuario], [nombrecompleto_usuario], [nivel_usuario] FROM [usuarios]"></asp:SqlDataSource>
+                <BR />
+                <button type="button" id="btn_gdr" name="CAMBIARA" onclick="guardar_datos()">GUARDAR</button>
+                &nbsp;</div>
+        </div>
+    </div>
+</asp:Content>

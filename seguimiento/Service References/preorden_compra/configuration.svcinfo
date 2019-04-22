@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configurationSnapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:schemas-microsoft-com:xml-wcfconfigurationsnapshot">
+  <behaviors />
+  <bindings>
+    <binding digest="System.ServiceModel.Configuration.BasicHttpBindingElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089:&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data name=&quot;pre_orden_compraSoap&quot; /&gt;" bindingType="basicHttpBinding" name="pre_orden_compraSoap" />
+  </bindings>
+  <endpoints>
+    <endpoint normalizedDigest="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data address=&quot;http://localhost:1987/servicios/comercializacion/Pre_orden_compra.asmx&quot; binding=&quot;basicHttpBinding&quot; bindingConfiguration=&quot;pre_orden_compraSoap&quot; contract=&quot;preorden_compra.pre_orden_compraSoap&quot; name=&quot;pre_orden_compraSoap&quot; /&gt;" digest="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data address=&quot;http://localhost:1987/servicios/comercializacion/Pre_orden_compra.asmx&quot; binding=&quot;basicHttpBinding&quot; bindingConfiguration=&quot;pre_orden_compraSoap&quot; contract=&quot;preorden_compra.pre_orden_compraSoap&quot; name=&quot;pre_orden_compraSoap&quot; /&gt;" contractName="preorden_compra.pre_orden_compraSoap" name="pre_orden_compraSoap" />
+  </endpoints>
+</configurationSnapshot>
