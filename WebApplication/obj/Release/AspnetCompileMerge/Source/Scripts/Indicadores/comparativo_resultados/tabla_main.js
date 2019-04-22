@@ -1542,6 +1542,7 @@ var ModalMivimientosPorEstablecimiento = function ModalMivimientosPorEstablecimi
 
     //Varibles Globales ##########################################################################################
     var $ORDEN_DATOS_TABLA = ["VENTAS NETAS", "COSTO DE VENTAS", "UTILIDAD EN OPERACION", "GASTOS DE OPERACION"];
+    //"TRUPUT DE OPERACION","UTILIDAD NETA OPERACIONAL", "TRUPUT NETA OPERACIONAL", "IMPUESTOS ISR", "IMPUESTOS PTU 10%","TRUPUT NETA"
 
     //      Funciones Globales De Modal. #########################################################################
     ///<----------------------------------------------------------------- Funcion De Comprobacion.
@@ -1664,6 +1665,7 @@ var ModalMivimientosPorEstablecimiento = function ModalMivimientosPorEstablecimi
     //Componesntes Principales #####################################################################################
     ///<----------------------------------------------------------------- Componente Menus De Tabla.
     var TablaMenus = function TablaMenus() {
+        /* Componente Cavecera */
         var CaveceraTabla = function CaveceraTabla() {
             return React.createElement(
                 "thead",
@@ -1702,8 +1704,9 @@ var ModalMivimientosPorEstablecimiento = function ModalMivimientosPorEstablecimi
                 )
             );
         };
+        /* Componente Cuerpo  */
         var CuerpoTabla = function CuerpoTabla() {
-            ///<-----------------------------------------------------------------
+            ///<----------------------------------------------------------------- Funcion obtiene lista de Conceptos.
             var Conceptos = function Conceptos() {
                 var $lista = [];
                 var _iteratorNormalCompletion4 = true;
@@ -1714,9 +1717,7 @@ var ModalMivimientosPorEstablecimiento = function ModalMivimientosPorEstablecimi
                     for (var _iterator4 = $ORDEN_DATOS_TABLA[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
                         var concepto = _step4.value;
 
-                        comprobar_concepto(concepto) ? $lista.push(React.createElement(Concepto, {
-                            concepto: concepto
-                        })) : '';
+                        comprobar_concepto(concepto) ? $lista.push(React.createElement(Concepto, { concepto: concepto })) : '';
                     }
                 } catch (err) {
                     _didIteratorError4 = true;
@@ -1735,7 +1736,7 @@ var ModalMivimientosPorEstablecimiento = function ModalMivimientosPorEstablecimi
 
                 return $lista;
             };
-            ///<-----------------------------------------------------------------
+            ///<----------------------------------------------------------------- Componente Concepto
             var Concepto = function Concepto(_ref15) {
                 var concepto = _ref15.concepto;
 
@@ -1745,6 +1746,7 @@ var ModalMivimientosPorEstablecimiento = function ModalMivimientosPorEstablecimi
                 var $datos = lista_conceptos ? lista_conceptos.filter(function (e) {
                     return e.concepto == concepto;
                 }) : [];
+
                 $datos.length > 0 ? $datos.forEach(function (concepto_) {
                     var ident = "tb_" + remplazar_espacios_por_guion_bajo(concepto_.concepto);
                     $lista.push(React.createElement(

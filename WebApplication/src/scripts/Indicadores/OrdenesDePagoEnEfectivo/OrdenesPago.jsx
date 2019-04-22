@@ -83,7 +83,7 @@ const moneyFormat = numero_ => {
     const decimal = numero_string.split(".").length > 1 ? decimal_con_cero(numero_string.split(".")[1]) : "00";
     const unidades = numero_string.split(".").length > 0 ? mayora_a_mil(numero_string.split(".")[0]) : "0";
 
-    return `$ ${unidades || 0}.${decimal || 0}`;
+    return `$${unidades || 0}.${decimal || 0}`;
 }
 const obtener_semanas_ocupadas_por_anio = lista => {
     const lista_meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -128,6 +128,23 @@ const semanas_obtenidas = semanas => {
     });
     return num_semana;
 }
+const total_de_semanas_anio = anios => {
+    let meses = [], semanas = [];
+
+    //meses en años
+    anios.forEach(e => {
+        //agrega los meses
+        meses = meses.concat(e.meses.map(m => m)) || meses;
+    });
+
+    //fila senamas en meses 
+    meses.forEach(m => {
+        //agrega las semanas
+        semanas = semanas.concat(m.semanas);
+    });
+
+    return semanas;
+}
 /* Componentes */
 const CeldaTotal = ({ total }) => {
     return <td style={{ textAlign: "right" }}> <label>{total}</label></td>
@@ -139,8 +156,8 @@ const CaveceraTabla = ({ anios }) => {
 
     console.log("anios=>", anios);
     //fila años
-    lista.push(<tr>
-        <th rowSpan="3"> <label>CONCEPTOS</label></th>
+    lista.push(<tr className="cavecera_tabla">
+        <th rowSpan="3" className="cavecera titulo" id="titulo"> <label>CONCEPTOS</label></th>
         {anios.map(e => {
          //agrega los meses
           meses = meses.concat(e.meses.map(m => m)) || meses;
@@ -152,48 +169,57 @@ const CaveceraTabla = ({ anios }) => {
     </tr>);
 
     //fila meses 
-    lista.push(<tr>
+    lista.push(<tr className="cavecera_tabla">
         {meses.map(m => {
             //agrega las semanas
             semanas = semanas.concat(m.semanas)
-            return <th colSpan={m.cantidad_semanas}>{m.mes}</th>
+            return <th style={{ top: "35px" }}  colSpan={m.cantidad_semanas}>{m.mes}</th>
         })}
     </tr>);
 
     //fila semanas 
-    lista.push(<tr>
-        {semanas.map(s => <th>{s}</th>)}
+    lista.push(<tr className="cavecera_tabla">
+        {semanas.map(s => <th style={{ top: "68px" }} >{s}</th>)}
     </tr>);
         
     return lista;
 }
 
-const ObtenerSemanasResultados = ({ Lista }) => {
-    let lista_semanas = [];
+const SemanasResultadosConceptos = ({ Lista, anios}) => {
+    let total_semanas_anio = total_de_semanas_anio(anios);
 
-    return lista_semanas;
+    return total_semanas_anio.map(dato => {
+
+        let filtro = Lista.filter(e => e.semana_del_anio_pago == dato).map(w => w.cantidad) || [];
+        let valor = filtro.length>0 ? filtro.reduce((ant, nvo) => nvo + ant) : 0;
+
+        return (<td>{moneyFormat(valor)}</td>);
+    });
 }
 
 const TablaMonitor = ({ datos }) => {
     datos.sort((a, b) => a.establecimimiento > b.establecimimiento ? 1 : -1);
-    let conceptos = obtener_concepto_compra_gasto(datos || []);
+    let conceptos = obtener_concepto_compra_gasto(datos || []),
+        anios = obtener_semanas_ocupadas_por_anio(datos);
 
-    console.log("conceptos=>",conceptos);
+    console.log("Datos=>",conceptos);
     return (<div style={{ height: "510px",overflow:"auto" }}>
         <table className="table">
             <thead>
                 <CaveceraTabla
-                    anios={obtener_semanas_ocupadas_por_anio(datos)}
+                    anios={anios}
                 />
                 
             </thead>
             <tbody>
                 {conceptos.map(e => [
                 <tr name="conceptos">
-                    <td>
+                    <td className="cavecera clasificador">
                         <strong> {e.concepto_compra_gasto}</strong>
                     </td>
-                    <ObtenerSemanasResultados
+                        <SemanasResultadosConceptos
+                            Lista={e.establecimientos}
+                            anios={anios}
                     />
                     <CeldaTotal 
                             total={e.total}
@@ -201,34 +227,44 @@ const TablaMonitor = ({ datos }) => {
                 </tr>,
                 <VistaEstablecimiento
                     lista={e.establecimientos}
+                    anios={anios}
                 />])}
             </tbody>
         </table>
     </div>);
 }
 
-const VistaEstablecimiento = ({ lista }) => {
+const VistaEstablecimiento = ({ lista, anios }) => {
     let establecimientos = obtener_establecimientos(lista || []);
-    console.log(establecimientos);
+    console.log("establecimientos=>",establecimientos);
     return establecimientos.map(e => [
         <tr name="estalbelcimientos">
-            <td>
+            <td className="cavecera establecimimiento">
                 <strong>{e.establecimimiento}</strong>
             </td>
+            <SemanasResultadosConceptos
+                Lista={e.conceptos}
+                anios={anios}
+            />
             <CeldaTotal total={e.total} />
         </tr>,
         <VistaConceptos
             lista={e.conceptos}
+            anios={anios}
         />]);
 }
 
-const VistaConceptos = ({ lista }) => {
+const VistaConceptos = ({ lista, anios }) => {
     let conceptos = obtener_conceptos(lista);
     console.log("conceptos=>",conceptos)
     return conceptos.map(e => <tr name="ordenes">
-        <td>
+        <td className="cavecera concepto_orden_de_pago">
             <label>{e.concepto_orden_de_pago}</label>
         </td>
+        <SemanasResultadosConceptos
+            Lista={e.detalles}
+            anios={anios}
+        />
         <CeldaTotal total={e.total} />
     </tr>);
 }

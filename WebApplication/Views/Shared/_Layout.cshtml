@@ -57,7 +57,7 @@
                         </div>
                         <div class="profile_info" style="margin-top:-20px">
                             <span>Bienvenido</span>
-                            <h2>@Session["nombre_usuario"]</h2>
+                            <h2>@Session["nombre_completo_usuario"]</h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -102,7 +102,7 @@
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <img src="@Session["foto"]" alt="User.">
-                                    <label style="font-size:10px">@Session["nombre_completo_usuario"]</label>
+                                    <label style="font-size:12px">@Session["nombre_usuario"].</label>
                                     <span class=" fa fa-angle-down"> </span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">

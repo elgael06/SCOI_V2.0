@@ -68,9 +68,38 @@
     }
 
 /*Tabla Datos*/
+.cavecera_tabla th {
+    border: 1px solid #008B8B;
+    background: #008B8B;
+    color: #FFF;
+    text-align: center;
+    justify-content: center;
+}
+.cavecera {
+    position:sticky;
+    left:0;
+    min-width:290px;
+}
+#titulo {
+    background: #008B8B;
+    color: #FFF;
+    z-index: 9999;
+}
+.clasificador {
+    background: #007aff;
+    color: #FFF;
+}
+.establecimimiento {
+    background: #00ace6;
+    color: #FFF;
+}
+.concepto_orden_de_pago {
+    background: #FFF;
+    color: #000;
+}
 tr[name="conceptos"] {
-    background:#007aff;
-    color:#FFF;
+    background: #007aff;
+    color: #FFF;
 }
 tr[name="estalbelcimientos"] {
     background: #00ace6;

@@ -140,7 +140,7 @@ var moneyFormat = function moneyFormat(numero_) {
     var decimal = numero_string.split(".").length > 1 ? decimal_con_cero(numero_string.split(".")[1]) : "00";
     var unidades = numero_string.split(".").length > 0 ? mayora_a_mil(numero_string.split(".")[0]) : "0";
 
-    return "$ " + (unidades || 0) + "." + (decimal || 0);
+    return "$" + (unidades || 0) + "." + (decimal || 0);
 };
 var obtener_semanas_ocupadas_por_anio = function obtener_semanas_ocupadas_por_anio(lista) {
     var lista_meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -207,6 +207,26 @@ var semanas_obtenidas = function semanas_obtenidas(semanas) {
     });
     return num_semana;
 };
+var total_de_semanas_anio = function total_de_semanas_anio(anios) {
+    var meses = [],
+        semanas = [];
+
+    //meses en años
+    anios.forEach(function (e) {
+        //agrega los meses
+        meses = meses.concat(e.meses.map(function (m) {
+            return m;
+        })) || meses;
+    });
+
+    //fila senamas en meses
+    meses.forEach(function (m) {
+        //agrega las semanas
+        semanas = semanas.concat(m.semanas);
+    });
+
+    return semanas;
+};
 /* Componentes */
 var CeldaTotal = function CeldaTotal(_ref) {
     var total = _ref.total;
@@ -233,10 +253,10 @@ var CaveceraTabla = function CaveceraTabla(_ref2) {
     //fila años
     lista.push(React.createElement(
         "tr",
-        null,
+        { className: "cavecera_tabla" },
         React.createElement(
             "th",
-            { rowSpan: "3" },
+            { rowSpan: "3", className: "cavecera titulo", id: "titulo" },
             " ",
             React.createElement(
                 "label",
@@ -269,13 +289,13 @@ var CaveceraTabla = function CaveceraTabla(_ref2) {
     //fila meses
     lista.push(React.createElement(
         "tr",
-        null,
+        { className: "cavecera_tabla" },
         meses.map(function (m) {
             //agrega las semanas
             semanas = semanas.concat(m.semanas);
             return React.createElement(
                 "th",
-                { colSpan: m.cantidad_semanas },
+                { style: { top: "35px" }, colSpan: m.cantidad_semanas },
                 m.mes
             );
         })
@@ -284,11 +304,11 @@ var CaveceraTabla = function CaveceraTabla(_ref2) {
     //fila semanas
     lista.push(React.createElement(
         "tr",
-        null,
+        { className: "cavecera_tabla" },
         semanas.map(function (s) {
             return React.createElement(
                 "th",
-                null,
+                { style: { top: "68px" } },
                 s
             );
         })
@@ -297,12 +317,29 @@ var CaveceraTabla = function CaveceraTabla(_ref2) {
     return lista;
 };
 
-var ObtenerSemanasResultaddos = function ObtenerSemanasResultaddos(_ref3) {
+var SemanasResultadosConceptos = function SemanasResultadosConceptos(_ref3) {
     var Lista = _ref3.Lista;
+    var anios = _ref3.anios;
 
-    var lista_semanas = [];
+    var total_semanas_anio = total_de_semanas_anio(anios);
 
-    return lista_semanas;
+    return total_semanas_anio.map(function (dato) {
+
+        var filtro = Lista.filter(function (e) {
+            return e.semana_del_anio_pago == dato;
+        }).map(function (w) {
+            return w.cantidad;
+        }) || [];
+        var valor = filtro.length > 0 ? filtro.reduce(function (ant, nvo) {
+            return nvo + ant;
+        }) : 0;
+
+        return React.createElement(
+            "td",
+            null,
+            moneyFormat(valor)
+        );
+    });
 };
 
 var TablaMonitor = function TablaMonitor(_ref4) {
@@ -311,9 +348,10 @@ var TablaMonitor = function TablaMonitor(_ref4) {
     datos.sort(function (a, b) {
         return a.establecimimiento > b.establecimimiento ? 1 : -1;
     });
-    var conceptos = obtener_concepto_compra_gasto(datos || []);
+    var conceptos = obtener_concepto_compra_gasto(datos || []),
+        anios = obtener_semanas_ocupadas_por_anio(datos);
 
-    console.log("conceptos=>", conceptos);
+    console.log("Datos=>", conceptos);
     return React.createElement(
         "div",
         { style: { height: "510px", overflow: "auto" } },
@@ -324,7 +362,7 @@ var TablaMonitor = function TablaMonitor(_ref4) {
                 "thead",
                 null,
                 React.createElement(CaveceraTabla, {
-                    anios: obtener_semanas_ocupadas_por_anio(datos)
+                    anios: anios
                 })
             ),
             React.createElement(
@@ -336,7 +374,7 @@ var TablaMonitor = function TablaMonitor(_ref4) {
                         { name: "conceptos" },
                         React.createElement(
                             "td",
-                            null,
+                            { className: "cavecera clasificador" },
                             React.createElement(
                                 "strong",
                                 null,
@@ -344,9 +382,16 @@ var TablaMonitor = function TablaMonitor(_ref4) {
                                 e.concepto_compra_gasto
                             )
                         ),
-                        React.createElement(CeldaTotal, { total: e.total })
+                        React.createElement(SemanasResultadosConceptos, {
+                            Lista: e.establecimientos,
+                            anios: anios
+                        }),
+                        React.createElement(CeldaTotal, {
+                            total: e.total
+                        })
                     ), React.createElement(VistaEstablecimiento, {
-                        lista: e.establecimientos
+                        lista: e.establecimientos,
+                        anios: anios
                     })];
                 })
             )
@@ -356,31 +401,38 @@ var TablaMonitor = function TablaMonitor(_ref4) {
 
 var VistaEstablecimiento = function VistaEstablecimiento(_ref5) {
     var lista = _ref5.lista;
+    var anios = _ref5.anios;
 
     var establecimientos = obtener_establecimientos(lista || []);
-    console.log(establecimientos);
+    console.log("establecimientos=>", establecimientos);
     return establecimientos.map(function (e) {
         return [React.createElement(
             "tr",
             { name: "estalbelcimientos" },
             React.createElement(
                 "td",
-                null,
+                { className: "cavecera establecimimiento" },
                 React.createElement(
                     "strong",
                     null,
                     e.establecimimiento
                 )
             ),
+            React.createElement(SemanasResultadosConceptos, {
+                Lista: e.conceptos,
+                anios: anios
+            }),
             React.createElement(CeldaTotal, { total: e.total })
         ), React.createElement(VistaConceptos, {
-            lista: e.conceptos
+            lista: e.conceptos,
+            anios: anios
         })];
     });
 };
 
 var VistaConceptos = function VistaConceptos(_ref6) {
     var lista = _ref6.lista;
+    var anios = _ref6.anios;
 
     var conceptos = obtener_conceptos(lista);
     console.log("conceptos=>", conceptos);
@@ -390,13 +442,17 @@ var VistaConceptos = function VistaConceptos(_ref6) {
             { name: "ordenes" },
             React.createElement(
                 "td",
-                null,
+                { className: "cavecera concepto_orden_de_pago" },
                 React.createElement(
                     "label",
                     null,
                     e.concepto_orden_de_pago
                 )
             ),
+            React.createElement(SemanasResultadosConceptos, {
+                Lista: e.detalles,
+                anios: anios
+            }),
             React.createElement(CeldaTotal, { total: e.total })
         );
     });
