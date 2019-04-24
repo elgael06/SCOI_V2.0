@@ -640,6 +640,7 @@
     <Content Include="Scripts\lib\React\JSXTransformer.js" />
     <Content Include="Scripts\lib\React\react-dom.production.min.js" />
     <Content Include="Scripts\lib\React\react.production.min.js" />
+    <Content Include="Scripts\lib\vue\vue.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Sesion\Accesos_urls.js">
       <DependentUpon>Accesos_urls.jsx</DependentUpon>
@@ -668,6 +669,7 @@
     <Content Include="Scripts\Usuarios\main.min.js">
       <DependentUpon>main.js</DependentUpon>
     </Content>
+    <Content Include="src\scripts\Indicadores\OrdenesDePagoEnEfectivo\Detallaes_pagos.js" />
     <Content Include="src\scripts\Indicadores\OrdenesDePagoEnEfectivo\Obtener_beneficioarios.js" />
     <Content Include="src\scripts\Indicadores\OrdenesDePagoEnEfectivo\Obtener_selectores.js" />
     <Content Include="src\scripts\Indicadores\OrdenesDePagoEnEfectivo\OrdenesPago.js">
@@ -714,6 +716,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\Productos\" />
+    <Folder Include="src\angular\" />
     <Folder Include="Views\Globales\" />
   </ItemGroup>
   <ItemGroup>

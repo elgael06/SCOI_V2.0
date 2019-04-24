@@ -70,7 +70,7 @@
 /*Tabla Datos*/
 .cavecera_tabla th {
     border: 1px solid #008B8B;
-    background: #008B8B;
+    background: rgb(0, 119, 179);
     color: #FFF;
     text-align: center;
     justify-content: center;
@@ -78,19 +78,19 @@
 .cavecera {
     position:sticky;
     left:0;
-    min-width:290px;
+    min-width:320px;
 }
 #titulo {
-    background: #008B8B;
+    background: rgb(0, 119, 179);
     color: #FFF;
-    z-index: 9999;
+    z-index: 990;
 }
 .clasificador {
-    background: #007aff;
+    background: rgb(14, 88, 183);
     color: #FFF;
 }
 .establecimimiento {
-    background: #00ace6;
+    background: rgb(114, 159, 207);
     color: #FFF;
 }
 .concepto_orden_de_pago {
@@ -98,11 +98,11 @@
     color: #000;
 }
 tr[name="conceptos"] {
-    background: #007aff;
+    background: rgb(14, 88, 183);
     color: #FFF;
 }
 tr[name="estalbelcimientos"] {
-    background: #00ace6;
+    background: rgb(114, 159, 207);
     color: #FFF;
 }
 tr[name="ordenes"] {

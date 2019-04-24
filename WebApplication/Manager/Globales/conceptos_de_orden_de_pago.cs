@@ -1,9 +1,6 @@
 ﻿using api_seguimiento.objetos;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace WebApplication.Manager.Globales
 {
@@ -14,7 +11,8 @@ namespace WebApplication.Manager.Globales
 
         public List<string> Lista_conceptos = new List<string>();
 
-        public conceptos_de_orden_de_pago() {
+        public conceptos_de_orden_de_pago()
+        {
             ObtenerConceptos_SQL();
         }
         private void ObtenerConceptos_SQL()
