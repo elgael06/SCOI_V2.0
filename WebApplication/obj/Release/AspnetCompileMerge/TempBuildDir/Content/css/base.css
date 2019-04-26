@@ -183,8 +183,7 @@ thead {
     top: 0px;
     z-index: 990;
 }
-thead > tr > th {
-    display: normal;
+thead th {
     position: sticky;
     top: 0;
     z-index: 990;

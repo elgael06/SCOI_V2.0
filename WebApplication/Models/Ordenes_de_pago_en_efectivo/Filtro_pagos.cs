@@ -12,7 +12,8 @@ namespace WebApplication.Models.Ordenes_de_pago_en_efectivo
        public string  cuenta { get; set; }
        public string  concepto_compra_o_gasto { get; set; }
        public string  tipo_beneficiario { get; set; }
-       public int     beneficiario { get; set; }
+
+        public string beneficiario = " ";
        public string  concepto_orden_pago { get; set; }
     }
 }

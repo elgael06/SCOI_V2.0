@@ -109,3 +109,8 @@ tr[name="ordenes"] {
     background: #FFF;
     color: #000;
 }
+
+/*tabla_pago_por_semana*/
+#tabla_pago_por_semana > div {
+    max-width:1200px;
+}

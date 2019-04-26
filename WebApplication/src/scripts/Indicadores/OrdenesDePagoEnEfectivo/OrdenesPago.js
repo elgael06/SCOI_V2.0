@@ -304,7 +304,7 @@ var SemanasResultadosConceptos = function SemanasResultadosConceptos(_ref3) {
         return React.createElement(
             "td",
             { style: { textAlign: "right" } },
-            moneyFormat(valor)
+            valor != 0 ? moneyFormat(valor) : " "
         );
     });
 };
@@ -319,7 +319,7 @@ var TablaMonitor = function TablaMonitor(_ref4) {
 
     return React.createElement(
         "div",
-        { style: { height: "510px", overflow: "auto" } },
+        { style: { height: "600px", overflow: "auto" } },
         React.createElement(
             "table",
             { className: "table" },
@@ -447,9 +447,9 @@ var MostrarProveedores = function MostrarProveedores(_ref7) {
     //handle_beneficiary(select) {
 
     //}
-    return React.createElement(
+    if (lista.length > 0) return React.createElement(
         "div",
-        { className: "panel panel-info", style: { height: "550px" } },
+        { className: "panel panel-info", style: { height: "650px" } },
         React.createElement(
             "p",
             null,
@@ -463,11 +463,18 @@ var MostrarProveedores = function MostrarProveedores(_ref7) {
         React.createElement(TablaMonitor, {
             datos: lista
         })
+    );else return React.createElement(
+        "div",
+        null,
+        React.createElement(
+            "h3",
+            null,
+            "Sin Registros a Mostrar!!!"
+        )
     );
 };
 
 var llenar_tabla_pagos = function llenar_tabla_pagos(lista) {
-    console.log("lista Pagos =>", lista);
     ReactDOM.render(React.createElement(MostrarProveedores, { lista: lista }), document.querySelector("#resultados_tabla"));
 };
 

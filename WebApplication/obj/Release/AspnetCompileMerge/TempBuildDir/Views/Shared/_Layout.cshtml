@@ -21,9 +21,10 @@
     <link href="@Url.Content("~/Content/font-awesome/css/font-awesome.min.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/css/Usuarios/Perfil.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/css/base.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/lib/vue/vue.js")"></script>
     <script src="@Url.Content("~/Scripts/lib/React/react.production.min.js")"></script>
     <script src="@Url.Content("~/Scripts/lib/React/react-dom.production.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/lib/React/JSXTransformer.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/lib/React/JSXTransformer.js")"></script>*@
     <script src="@Url.Content("~/Scripts/Componentes/Estaticos/BotonToggle.js")"></script>
     <script src="@Url.Content("~/Scripts/Componentes/Estaticos/efecto_carga.js")"></script>
     <script src="@Url.Content("~/Scripts/generales/alertas.js")"></script>
@@ -57,7 +58,7 @@
                         </div>
                         <div class="profile_info" style="margin-top:-20px">
                             <span>Bienvenido</span>
-                            <h2>@Session["nombre_usuario"]</h2>
+                            <h2>@Session["nombre_completo_usuario"]</h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -102,7 +103,7 @@
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <img src="@Session["foto"]" alt="User.">
-                                    <label style="font-size:10px">@Session["nombre_completo_usuario"]</label>
+                                    <label style="font-size:12px">@Session["nombre_usuario"].</label>
                                     <span class=" fa fa-angle-down"> </span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -214,6 +215,8 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/ChartJS")
     @Scripts.Render("~/bundles/custom")
+
+    @*<script src="@Url.Content("~/Scripts/jquery-3.3.1.min.js")"></script>*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

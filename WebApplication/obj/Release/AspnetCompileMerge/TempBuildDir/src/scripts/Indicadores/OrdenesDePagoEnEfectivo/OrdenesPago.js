@@ -1,61 +1,15 @@
-﻿"use strict";
+﻿/**
+* 
+* En Este Script Se Renderiza La Tabla Para Mostrar Las Ordenes de Pago.
+* Ordenandolas Por Clasificador, Establecimiento y  Concepto de Pago.
+* Mostrando Los Datos En Años, Meses y Semanas.
+* 
+* */
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+/* Clases */
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var MostrarProveedores = (function (_React$Component) {
-    _inherits(MostrarProveedores, _React$Component);
-
-    function MostrarProveedores(props) {
-        _classCallCheck(this, MostrarProveedores);
-
-        _get(Object.getPrototypeOf(MostrarProveedores.prototype), "constructor", this).call(this, props);
-        this.state = {
-            filtro: "",
-            seleccion: -1
-        };
-    }
-
-    /* Metodos */
-
-    _createClass(MostrarProveedores, [{
-        key: "handle_filter",
-        value: function handle_filter(event) {}
-    }, {
-        key: "handle_beneficiary",
-        value: function handle_beneficiary(select) {}
-    }, {
-        key: "render",
-        value: function render() {
-            var lista = this.props.lista;
-
-            return React.createElement(
-                "div",
-                { className: "panel panel-info", style: { height: "550px" } },
-                React.createElement(
-                    "p",
-                    null,
-                    "Cantidad De Registros = ",
-                    React.createElement(
-                        "strong",
-                        null,
-                        lista.length || 0
-                    )
-                ),
-                React.createElement(TablaMonitor, {
-                    datos: lista
-                })
-            );
-        }
-    }]);
-
-    return MostrarProveedores;
-})(React.Component);
+/* Metodos */
+"use strict";
 
 var obtener_concepto_compra_gasto = function obtener_concepto_compra_gasto(lista) {
     var lista_conceptos = [];
@@ -227,6 +181,10 @@ var total_de_semanas_anio = function total_de_semanas_anio(anios) {
 
     return semanas;
 };
+var mostrar_detalles_concepto = function mostrar_detalles_concepto(concepto_pago, detalles) {
+    console.log("detalles=>", detalles);
+    vista_pagos_por_semana.vista_pagos_por_semana(concepto_pago, detalles);
+};
 /* Componentes */
 var CeldaTotal = function CeldaTotal(_ref) {
     var total = _ref.total;
@@ -249,7 +207,11 @@ var CaveceraTabla = function CaveceraTabla(_ref2) {
         meses = [],
         semanas = [];
 
-    console.log("anios=>", anios);
+    var estado_color_mes = true;
+    var color_fondo = function color_fondo() {
+        estado_color_mes = !estado_color_mes;
+        return estado_color_mes ? "22, 131, 186" : "0, 119, 179";
+    };
     //fila años
     lista.push(React.createElement(
         "tr",
@@ -291,11 +253,17 @@ var CaveceraTabla = function CaveceraTabla(_ref2) {
         "tr",
         { className: "cavecera_tabla" },
         meses.map(function (m) {
+            var color_mes = color_fondo();
             //agrega las semanas
-            semanas = semanas.concat(m.semanas);
+            semanas = semanas.concat(m.semanas.map(function (s) {
+                return {
+                    semana: s,
+                    mes: color_mes
+                };
+            }));
             return React.createElement(
                 "th",
-                { style: { top: "35px" }, colSpan: m.cantidad_semanas },
+                { style: { top: "35px", background: "rgb(" + color_mes + ")" }, colSpan: m.cantidad_semanas },
                 m.mes
             );
         })
@@ -308,15 +276,14 @@ var CaveceraTabla = function CaveceraTabla(_ref2) {
         semanas.map(function (s) {
             return React.createElement(
                 "th",
-                { style: { top: "68px" } },
-                s
+                { style: { top: "68px", background: s.mes } },
+                s.semana
             );
         })
     ));
 
     return lista;
 };
-
 var SemanasResultadosConceptos = function SemanasResultadosConceptos(_ref3) {
     var Lista = _ref3.Lista;
     var anios = _ref3.anios;
@@ -336,12 +303,11 @@ var SemanasResultadosConceptos = function SemanasResultadosConceptos(_ref3) {
 
         return React.createElement(
             "td",
-            null,
-            moneyFormat(valor)
+            { style: { textAlign: "right" } },
+            valor != 0 ? moneyFormat(valor) : " "
         );
     });
 };
-
 var TablaMonitor = function TablaMonitor(_ref4) {
     var datos = _ref4.datos;
 
@@ -351,10 +317,9 @@ var TablaMonitor = function TablaMonitor(_ref4) {
     var conceptos = obtener_concepto_compra_gasto(datos || []),
         anios = obtener_semanas_ocupadas_por_anio(datos);
 
-    console.log("Datos=>", conceptos);
     return React.createElement(
         "div",
-        { style: { height: "510px", overflow: "auto" } },
+        { style: { height: "600px", overflow: "auto" } },
         React.createElement(
             "table",
             { className: "table" },
@@ -369,12 +334,16 @@ var TablaMonitor = function TablaMonitor(_ref4) {
                 "tbody",
                 null,
                 conceptos.map(function (e) {
+                    var ident = "tb_" + remplazar_espacios_por_guion_bajo(e.concepto_compra_gasto);
                     return [React.createElement(
                         "tr",
                         { name: "conceptos" },
                         React.createElement(
                             "td",
                             { className: "cavecera clasificador" },
+                            React.createElement(BotonTogle, {
+                                identificador: ident
+                            }),
                             React.createElement(
                                 "strong",
                                 null,
@@ -391,27 +360,33 @@ var TablaMonitor = function TablaMonitor(_ref4) {
                         })
                     ), React.createElement(VistaEstablecimiento, {
                         lista: e.establecimientos,
-                        anios: anios
+                        anios: anios,
+                        nombre: ident
                     })];
                 })
             )
         )
     );
 };
-
 var VistaEstablecimiento = function VistaEstablecimiento(_ref5) {
     var lista = _ref5.lista;
     var anios = _ref5.anios;
+    var nombre = _ref5.nombre;
 
     var establecimientos = obtener_establecimientos(lista || []);
-    console.log("establecimientos=>", establecimientos);
     return establecimientos.map(function (e) {
+        var ident = crear_identificador(nombre, e.establecimimiento);
         return [React.createElement(
             "tr",
-            { name: "estalbelcimientos" },
+            { name: "estalbelcimientos",
+                style: { display: "none" },
+                className: nombre },
             React.createElement(
                 "td",
                 { className: "cavecera establecimimiento" },
+                React.createElement(BotonTogle, {
+                    identificador: ident
+                }),
                 React.createElement(
                     "strong",
                     null,
@@ -425,29 +400,35 @@ var VistaEstablecimiento = function VistaEstablecimiento(_ref5) {
             React.createElement(CeldaTotal, { total: e.total })
         ), React.createElement(VistaConceptos, {
             lista: e.conceptos,
-            anios: anios
+            anios: anios,
+            nombre: ident
         })];
     });
 };
-
 var VistaConceptos = function VistaConceptos(_ref6) {
     var lista = _ref6.lista;
     var anios = _ref6.anios;
+    var nombre = _ref6.nombre;
 
     var conceptos = obtener_conceptos(lista);
-    console.log("conceptos=>", conceptos);
     return conceptos.map(function (e) {
         return React.createElement(
             "tr",
-            { name: "ordenes" },
+            { name: "ordenes",
+                style: { display: "none" },
+                className: nombre },
             React.createElement(
                 "td",
                 { className: "cavecera concepto_orden_de_pago" },
                 React.createElement(
                     "label",
                     null,
-                    e.concepto_orden_de_pago
-                )
+                    e.concepto_orden_de_pago,
+                    " "
+                ),
+                React.createElement("i", { className: "btn btn-default fa fa-info", style: { float: "right" }, onClick: function () {
+                        return mostrar_detalles_concepto(e.concepto_orden_de_pago, e.detalles);
+                    } })
             ),
             React.createElement(SemanasResultadosConceptos, {
                 Lista: e.detalles,
@@ -457,9 +438,43 @@ var VistaConceptos = function VistaConceptos(_ref6) {
         );
     });
 };
+var MostrarProveedores = function MostrarProveedores(_ref7) {
+    var lista = _ref7.lista;
+
+    //handle_filter(event) {
+
+    //}
+    //handle_beneficiary(select) {
+
+    //}
+    if (lista.length > 0) return React.createElement(
+        "div",
+        { className: "panel panel-info", style: { height: "650px" } },
+        React.createElement(
+            "p",
+            null,
+            "Cantidad De Registros = ",
+            React.createElement(
+                "strong",
+                null,
+                lista.length || 0
+            )
+        ),
+        React.createElement(TablaMonitor, {
+            datos: lista
+        })
+    );else return React.createElement(
+        "div",
+        null,
+        React.createElement(
+            "h3",
+            null,
+            "Sin Registros a Mostrar!!!"
+        )
+    );
+};
 
 var llenar_tabla_pagos = function llenar_tabla_pagos(lista) {
-    console.log("lista Pagos =>", lista);
     ReactDOM.render(React.createElement(MostrarProveedores, { lista: lista }), document.querySelector("#resultados_tabla"));
 };
 

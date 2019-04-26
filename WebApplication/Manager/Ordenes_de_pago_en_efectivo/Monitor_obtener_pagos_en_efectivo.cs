@@ -14,6 +14,7 @@ namespace WebApplication.Manager.Ordenes_de_pago_en_efectivo
         private SqlDataReader LECTOR;
 
         public List<Modelo_ordenes_de_pago_en_efectivo> Lista = new List<Modelo_ordenes_de_pago_en_efectivo>();
+        public string consulta = "";
 
         public Monitor_obtener_pagos_en_efectivo(Filtro_pagos filtro ) {
             Lista = new List<Modelo_ordenes_de_pago_en_efectivo>();
@@ -21,9 +22,10 @@ namespace WebApplication.Manager.Ordenes_de_pago_en_efectivo
         }
         private void Obtener_pagos_SQL(Filtro_pagos filtro)
         {
-            string query = string.Format("exec monitor_movimientos_ordenes_de_pago_en_efectivo '{0}','{1}','{2}','{3}','{4}',{5} ,'{6}';",
-               filtro.f1,filtro.f2,filtro.cuenta,filtro.concepto_compra_o_gasto,filtro.tipo_beneficiario,filtro.beneficiario,filtro.concepto_orden_pago );
-
+            string beneficiario = filtro.beneficiario.Length>0 ? filtro.beneficiario : " ";
+            string query = string.Format("exec monitor_movimientos_ordenes_de_pago_en_efectivo '{0}','{1}','{2}','{3}','{4}','{5}' ,'{6}';",
+               filtro.f1,filtro.f2,filtro.cuenta,filtro.concepto_compra_o_gasto,filtro.tipo_beneficiario, beneficiario, filtro.concepto_orden_pago );
+            consulta = query;
             SqlCommand comando = new SqlCommand(query,CONEXION_SCOI);
             CONEXION_SCOI.Open();
 
@@ -64,7 +66,7 @@ namespace WebApplication.Manager.Ordenes_de_pago_en_efectivo
                         folio_beneficiario                      = int.Parse(LECTOR["folio_beneficiario"].ToString()),
                         recibe_pago                             = LECTOR["recibe_pago"].ToString(),
                         folio_cheque                            = int.Parse(LECTOR["folio_cheque"].ToString()),
-                        tipo_beneficiario                       = LECTOR["tipo_beneficiario"].ToString()
+                        tipo_beneficiario                       = LECTOR["tipo_beneficiario"].ToString(),
                     });
                 }
             }

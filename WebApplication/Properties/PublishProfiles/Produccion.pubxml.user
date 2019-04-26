@@ -103,10 +103,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/10/2013 17:29:20</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>04/22/2019 16:31:26</publishTime>
+      <publishTime>04/25/2019 12:39:48</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>04/22/2019 16:31:26</publishTime>
+      <publishTime>04/25/2019 12:39:48</publishTime>
     </File>
     <File Include="bin/cs/FSharp.Core.resources.dll">
       <publishTime>02/09/2018 01:34:56</publishTime>
@@ -403,10 +403,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>10/05/2016 13:11:52</publishTime>
     </File>
     <File Include="bin/WebApplication.dll">
-      <publishTime>04/22/2019 16:31:15</publishTime>
+      <publishTime>04/25/2019 12:39:38</publishTime>
     </File>
     <File Include="bin/WebApplication.pdb">
-      <publishTime>04/22/2019 16:31:15</publishTime>
+      <publishTime>04/25/2019 12:39:38</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>01/23/2014 13:57:34</publishTime>
@@ -442,7 +442,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>03/20/2019 15:57:10</publishTime>
     </File>
     <File Include="Content/css/base.css">
-      <publishTime>04/12/2019 16:40:50</publishTime>
+      <publishTime>04/23/2019 16:56:09</publishTime>
     </File>
     <File Include="Content/css/custom.css">
       <publishTime>03/28/2019 11:28:27</publishTime>
@@ -622,7 +622,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>03/20/2019 15:57:07</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>04/22/2019 16:31:19</publishTime>
+      <publishTime>04/25/2019 12:39:41</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>03/20/2019 15:57:09</publishTime>
@@ -1009,7 +1009,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>03/30/2019 13:04:49</publishTime>
     </File>
     <File Include="Scripts/Componentes/Estaticos/BotonToggle.jsx">
-      <publishTime>03/30/2019 13:04:49</publishTime>
+      <publishTime>04/22/2019 17:43:37</publishTime>
     </File>
     <File Include="Scripts/Componentes/Estaticos/BotonToggle.min.js">
       <publishTime>03/30/2019 13:04:49</publishTime>
@@ -1030,7 +1030,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>04/16/2019 09:21:15</publishTime>
     </File>
     <File Include="Scripts/Indicadores/comparativo_resultados/tabla_main.jsx">
-      <publishTime>04/16/2019 09:19:29</publishTime>
+      <publishTime>04/22/2019 17:42:52</publishTime>
     </File>
     <File Include="Scripts/Indicadores/comparativo_resultados/tabla_main.min.js">
       <publishTime>04/10/2019 16:17:30</publishTime>
@@ -1089,11 +1089,389 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     <File Include="Scripts/jquery-3.3.1.slim.min.map">
       <publishTime>03/20/2019 15:57:11</publishTime>
     </File>
+    <File Include="Scripts/jquery-3_slim_min.js">
+      <publishTime>03/20/2019 15:57:11</publishTime>
+    </File>
     <File Include="Scripts/js/custom.js">
       <publishTime>03/30/2019 11:14:30</publishTime>
     </File>
     <File Include="Scripts/js/custom.min.js">
       <publishTime>03/30/2019 11:14:31</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/.bower.json">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/.codeclimate.yml">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/.editorconfig">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/.eslintignore">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/.eslintrc">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/.github/ISSUE_TEMPLATE.md">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/.github/PULL_REQUEST_TEMPLATE.md">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/.gitignore">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/.travis.yml">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/bower.json">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/composer.json">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/config.jshintrc">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/CONTRIBUTING.md">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/dist/Chart.bundle.js">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/dist/Chart.bundle.min.js">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/dist/Chart.js">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/dist/Chart.min.js">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/docs/00-Getting-Started.md">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/docs/01-Chart-Configuration.md">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/docs/02-Scales.md">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/docs/03-Line-Chart.md">
+      <publishTime>03/29/2019 14:45:01</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/docs/04-Bar-Chart.md">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/docs/05-Radar-Chart.md">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/docs/06-Polar-Area-Chart.md">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/docs/07-Pie-Doughnut-Chart.md">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/docs/08-Bubble-Chart.md">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/docs/09-Advanced.md">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/docs/10-Notes.md">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/gulpfile.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/karma.conf.ci.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/karma.conf.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/karma.coverage.conf.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/LICENSE.md">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/package.json">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/README.md">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/AnimationCallbacks/progress-bar.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/bar-horizontal.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/bar-multi-axis.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/bar-stacked.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/bar.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/bubble.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/combo-bar-line.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/data_label_combo-bar-line.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/different-point-sizes.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/doughnut.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/line-customTooltips.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/line-legend.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/line-logarithmic.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/line-multi-axis.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/line-skip-points.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/line-stacked-area.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/line-x-axis-filter.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/line.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/pie-customTooltips.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/pie.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/polar-area.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/radar-skip-points.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/radar.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/scatter-logX.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/scatter-multi-axis.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/scatter.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/timeScale/combo-time-scale.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/timeScale/line-time-point-data.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/timeScale/line-time-scale.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/samples/tooltip-hooks.html">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/chart.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/charts/Chart.Bar.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/charts/Chart.Bubble.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/charts/Chart.Doughnut.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/charts/Chart.Line.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/charts/Chart.PolarArea.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/charts/Chart.Radar.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/charts/Chart.Scatter.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/controllers/controller.bar.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/controllers/controller.bubble.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/controllers/controller.doughnut.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/controllers/controller.line.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/controllers/controller.polarArea.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/controllers/controller.radar.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/core/core.animation.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/core/core.controller.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/core/core.datasetController.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/core/core.element.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/core/core.helpers.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/core/core.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/core/core.layoutService.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/core/core.legend.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/core/core.plugin.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/core/core.scale.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/core/core.scaleService.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/core/core.title.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/core/core.tooltip.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/elements/element.arc.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/elements/element.line.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/elements/element.point.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/elements/element.rectangle.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/scales/scale.category.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/scales/scale.linear.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/scales/scale.logarithmic.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/scales/scale.radialLinear.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/src/scales/scale.time.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/controller.bar.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/controller.bubble.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/controller.doughnut.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/controller.line.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/controller.polarArea.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/controller.radar.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/core.element.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/core.helpers.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/core.layoutService.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/core.legend.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/core.plugin.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/core.scaleService.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/core.title.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/defaultConfig.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/element.arc.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/element.line.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/element.point.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/element.rectangle.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/mockContext.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/scale.category.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/scale.linear.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/scale.logarithmic.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/scale.radialLinear.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
+    </File>
+    <File Include="Scripts/lib/Chart.js/test/scale.time.tests.js">
+      <publishTime>03/29/2019 14:45:02</publishTime>
     </File>
     <File Include="Scripts/lib/React/JSXTransformer.js">
       <publishTime>03/28/2019 18:33:37</publishTime>
@@ -1103,6 +1481,12 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     </File>
     <File Include="Scripts/lib/React/react.production.min.js">
       <publishTime>04/03/2019 10:02:28</publishTime>
+    </File>
+    <File Include="Scripts/lib/vue/vue.js">
+      <publishTime>04/24/2019 17:30:11</publishTime>
+    </File>
+    <File Include="Scripts/lib/vue/vue_.js">
+      <publishTime>04/22/2019 18:24:03</publishTime>
     </File>
     <File Include="Scripts/modernizr-2.8.3.js">
       <publishTime>03/20/2019 15:57:18</publishTime>
@@ -1123,7 +1507,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>03/30/2019 13:03:30</publishTime>
     </File>
     <File Include="Scripts/SurtidoEmbarque/vista_embarque.jsx">
-      <publishTime>04/08/2019 10:07:31</publishTime>
+      <publishTime>04/22/2019 18:40:44</publishTime>
     </File>
     <File Include="Scripts/SurtidoEmbarque/vista_embarque.min.js">
       <publishTime>03/30/2019 13:03:31</publishTime>
@@ -1152,26 +1536,41 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     <File Include="Scripts/Usuarios/Perfil.js.map">
       <publishTime>04/22/2019 16:31:08</publishTime>
     </File>
+    <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/Detallaes_pagos.js">
+      <publishTime>04/24/2019 18:53:20</publishTime>
+    </File>
     <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/Obtener_beneficioarios.js">
-      <publishTime>04/15/2019 15:17:31</publishTime>
+      <publishTime>04/24/2019 16:35:29</publishTime>
     </File>
     <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/Obtener_selectores.js">
-      <publishTime>04/15/2019 09:06:46</publishTime>
+      <publishTime>04/24/2019 10:20:03</publishTime>
     </File>
     <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/OrdenesPago.js">
-      <publishTime>04/22/2019 16:22:45</publishTime>
+      <publishTime>04/24/2019 18:54:35</publishTime>
     </File>
     <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/OrdenesPago.jsx">
-      <publishTime>04/22/2019 16:25:54</publishTime>
+      <publishTime>04/24/2019 18:54:15</publishTime>
     </File>
     <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/OrdenesPago.min.js">
-      <publishTime>04/22/2019 16:22:45</publishTime>
+      <publishTime>04/24/2019 18:54:35</publishTime>
+    </File>
+    <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/Parametros_consulta.es5.js">
+      <publishTime>04/24/2019 17:02:47</publishTime>
+    </File>
+    <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/Parametros_consulta.es5.min.js">
+      <publishTime>04/24/2019 17:02:14</publishTime>
+    </File>
+    <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/Parametros_consulta.js">
+      <publishTime>04/25/2019 12:33:01</publishTime>
     </File>
     <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/Realizar_consulta.js">
-      <publishTime>04/15/2019 18:15:55</publishTime>
+      <publishTime>04/24/2019 16:35:28</publishTime>
+    </File>
+    <File Include="src/scripts/Indicadores/ReporteIncidenciasFecha/main.js">
+      <publishTime>04/25/2019 12:36:34</publishTime>
     </File>
     <File Include="src/styles/Indicadores/OrdenesDePagoEnEfectivo/main.css">
-      <publishTime>04/22/2019 16:30:43</publishTime>
+      <publishTime>04/24/2019 08:42:40</publishTime>
     </File>
     <File Include="Views/Error/_ErrorPage.cshtml">
       <publishTime>04/09/2019 18:27:34</publishTime>
@@ -1213,19 +1612,22 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>04/08/2019 11:12:04</publishTime>
     </File>
     <File Include="Views/Indicadores/OrdenesDePagoEnEfectivo.cshtml">
-      <publishTime>04/22/2019 16:25:56</publishTime>
+      <publishTime>04/24/2019 18:50:45</publishTime>
     </File>
     <File Include="Views/Indicadores/PreciosCompetencia.cshtml">
       <publishTime>04/02/2019 15:59:34</publishTime>
     </File>
+    <File Include="Views/Indicadores/ReporteIncidenciasFecha.cshtml">
+      <publishTime>04/25/2019 12:36:05</publishTime>
+    </File>
     <File Include="Views/Login/index.cshtml">
-      <publishTime>04/08/2019 10:07:22</publishTime>
+      <publishTime>04/24/2019 17:41:53</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>04/02/2019 10:45:02</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/13/2019 08:52:27</publishTime>
+      <publishTime>04/25/2019 12:37:31</publishTime>
     </File>
     <File Include="Views/SurtidoEmbarque/index.cshtml">
       <publishTime>03/30/2019 13:17:28</publishTime>
@@ -1246,7 +1648,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>03/25/2019 12:23:13</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/16/2019 08:45:00</publishTime>
+      <publishTime>04/24/2019 18:13:00</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -1,29 +1,14 @@
-﻿
+﻿/**
+ * 
+ * En Este Script Se Renderiza La Tabla Para Mostrar Las Ordenes de Pago.
+ * Ordenandolas Por Clasificador, Establecimiento y  Concepto de Pago.
+ * Mostrando Los Datos En Años, Meses y Semanas.
+ * 
+ * */
 
-class MostrarProveedores extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            filtro: "",
-            seleccion:-1
-        }
-    }
-    handle_filter(event) {
-        
-    }
-    handle_beneficiary(select) {
+/* Clases */
 
-    }
-    render() {
-        const { lista } = this.props;
-        return (<div className="panel panel-info" style={{ height: "550px" }}>
-            <p>Cantidad De Registros = <strong>{lista.length || 0}</strong></p>
-            <TablaMonitor
-                datos={lista}
-            />
-        </div>);
-    }
-}
+
 /* Metodos */
 const obtener_concepto_compra_gasto = lista => {
     let lista_conceptos = [];
@@ -145,6 +130,10 @@ const total_de_semanas_anio = anios => {
 
     return semanas;
 }
+const mostrar_detalles_concepto = (concepto_pago,detalles) => {
+    console.log("detalles=>", detalles);
+    vista_pagos_por_semana.vista_pagos_por_semana(concepto_pago, detalles);
+}
 /* Componentes */
 const CeldaTotal = ({ total }) => {
     return <td style={{ textAlign: "right" }}> <label>{total}</label></td>
@@ -154,14 +143,18 @@ const CaveceraTabla = ({ anios }) => {
         meses = [],
         semanas = [];
 
-    console.log("anios=>", anios);
+    let estado_color_mes = true;
+    const color_fondo = () => {
+        estado_color_mes = !estado_color_mes;
+        return estado_color_mes ? "22, 131, 186" : "0, 119, 179";
+    }
     //fila años
     lista.push(<tr className="cavecera_tabla">
         <th rowSpan="3" className="cavecera titulo" id="titulo"> <label>CONCEPTOS</label></th>
         {anios.map(e => {
          //agrega los meses
           meses = meses.concat(e.meses.map(m => m)) || meses;
-          return <th colSpan={e.cantidad_semanas}>{e.anio}</th>
+            return <th colSpan={e.cantidad_semanas} >{e.anio}</th>
         })}
         <th rowSpan="3">
             <label>TOTAL</label>
@@ -170,21 +163,26 @@ const CaveceraTabla = ({ anios }) => {
 
     //fila meses 
     lista.push(<tr className="cavecera_tabla">
-        {meses.map(m => {
+        {meses.map(m => { 
+            let color_mes = color_fondo();
             //agrega las semanas
-            semanas = semanas.concat(m.semanas)
-            return <th style={{ top: "35px" }}  colSpan={m.cantidad_semanas}>{m.mes}</th>
+            semanas = semanas.concat(m.semanas.map(s => {
+                return {
+                    semana: s,
+                    mes: color_mes
+                }
+            }))
+            return <th style={{ top: "35px", background: `rgb(${color_mes})` }}  colSpan={m.cantidad_semanas}>{m.mes}</th>
         })}
     </tr>);
 
     //fila semanas 
     lista.push(<tr className="cavecera_tabla">
-        {semanas.map(s => <th style={{ top: "68px" }} >{s}</th>)}
+        {semanas.map(s => <th style={{ top: "68px", background: s.mes }} >{s.semana}</th>)}
     </tr>);
         
     return lista;
 }
-
 const SemanasResultadosConceptos = ({ Lista, anios}) => {
     let total_semanas_anio = total_de_semanas_anio(anios);
 
@@ -193,17 +191,15 @@ const SemanasResultadosConceptos = ({ Lista, anios}) => {
         let filtro = Lista.filter(e => e.semana_del_anio_pago == dato).map(w => w.cantidad) || [];
         let valor = filtro.length>0 ? filtro.reduce((ant, nvo) => nvo + ant) : 0;
 
-        return (<td>{moneyFormat(valor)}</td>);
+        return (<td style={{ textAlign: "right" }}>{valor!=0 ? moneyFormat(valor):" "}</td>);
     });
 }
-
 const TablaMonitor = ({ datos }) => {
     datos.sort((a, b) => a.establecimimiento > b.establecimimiento ? 1 : -1);
     let conceptos = obtener_concepto_compra_gasto(datos || []),
         anios = obtener_semanas_ocupadas_por_anio(datos);
 
-    console.log("Datos=>",conceptos);
-    return (<div style={{ height: "510px",overflow:"auto" }}>
+    return (<div style={{ height: "600px",overflow:"auto" }}>
         <table className="table">
             <thead>
                 <CaveceraTabla
@@ -212,54 +208,69 @@ const TablaMonitor = ({ datos }) => {
                 
             </thead>
             <tbody>
-                {conceptos.map(e => [
-                <tr name="conceptos">
-                    <td className="cavecera clasificador">
-                        <strong> {e.concepto_compra_gasto}</strong>
-                    </td>
-                        <SemanasResultadosConceptos
-                            Lista={e.establecimientos}
+                {conceptos.map(e => {
+                    let ident = `tb_${remplazar_espacios_por_guion_bajo(e.concepto_compra_gasto)}`;
+                    return[
+                        <tr name="conceptos">
+                            <td className="cavecera clasificador">
+                                <BotonTogle
+                                    identificador={ident}
+                                />
+                                <strong> {e.concepto_compra_gasto}</strong>
+                            </td>
+                            <SemanasResultadosConceptos
+                                Lista={e.establecimientos}
+                                anios={anios}
+                            />
+                            <CeldaTotal
+                                total={e.total}
+                            />
+                        </tr>,
+                        <VistaEstablecimiento
+                            lista={e.establecimientos}
                             anios={anios}
-                    />
-                    <CeldaTotal 
-                            total={e.total}
-                    />
-                </tr>,
-                <VistaEstablecimiento
-                    lista={e.establecimientos}
-                    anios={anios}
-                />])}
+                            nombre={ident}
+                        />]
+                })}
             </tbody>
         </table>
     </div>);
 }
-
-const VistaEstablecimiento = ({ lista, anios }) => {
+const VistaEstablecimiento = ({ lista, anios, nombre }) => {
     let establecimientos = obtener_establecimientos(lista || []);
-    console.log("establecimientos=>",establecimientos);
-    return establecimientos.map(e => [
-        <tr name="estalbelcimientos">
-            <td className="cavecera establecimimiento">
-                <strong>{e.establecimimiento}</strong>
-            </td>
-            <SemanasResultadosConceptos
-                Lista={e.conceptos}
+    return establecimientos.map(e => {
+        let ident = crear_identificador(nombre, e.establecimimiento);
+        return[
+            <tr name="estalbelcimientos"
+                style={{ display: "none" }}
+                className={nombre}>
+                <td className="cavecera establecimimiento">
+                    <BotonTogle
+                        identificador={ident}
+                    />
+                    <strong>{e.establecimimiento}</strong>
+                </td>
+                <SemanasResultadosConceptos
+                    Lista={e.conceptos}
+                    anios={anios}
+                />
+                <CeldaTotal total={e.total} />
+            </tr>,
+            <VistaConceptos
+                lista={e.conceptos}
                 anios={anios}
-            />
-            <CeldaTotal total={e.total} />
-        </tr>,
-        <VistaConceptos
-            lista={e.conceptos}
-            anios={anios}
-        />]);
+                nombre={ident}
+            />]
+    });
 }
-
-const VistaConceptos = ({ lista, anios }) => {
+const VistaConceptos = ({ lista, anios, nombre }) => {
     let conceptos = obtener_conceptos(lista);
-    console.log("conceptos=>",conceptos)
-    return conceptos.map(e => <tr name="ordenes">
+    return conceptos.map(e => <tr name="ordenes"
+        style={{display:"none"}}
+        className={nombre}>
         <td className="cavecera concepto_orden_de_pago">
-            <label>{e.concepto_orden_de_pago}</label>
+            <label>{e.concepto_orden_de_pago} </label>
+            <i className="btn btn-default fa fa-info" style={{ float: "right" }} onClick={() => mostrar_detalles_concepto(e.concepto_orden_de_pago,e.detalles)}></i>
         </td>
         <SemanasResultadosConceptos
             Lista={e.detalles}
@@ -268,9 +279,24 @@ const VistaConceptos = ({ lista, anios }) => {
         <CeldaTotal total={e.total} />
     </tr>);
 }
+const MostrarProveedores = ({ lista }) => {
+    //handle_filter(event) {
+
+    //}
+    //handle_beneficiary(select) {
+
+    //}
+    if (lista.length > 0)
+        return (<div className="panel panel-info" style={{ height: "650px" }}>
+            <p>Cantidad De Registros = <strong>{lista.length || 0}</strong></p>
+            <TablaMonitor
+                datos={lista}
+            />
+        </div >);
+    else return (<div><h3>Sin Registros a Mostrar!!!</h3></div>);
+}
 
 const llenar_tabla_pagos = lista => {
-    console.log("lista Pagos =>", lista);
     ReactDOM.render(<MostrarProveedores lista={lista} />, document.querySelector("#resultados_tabla"));
 }
 

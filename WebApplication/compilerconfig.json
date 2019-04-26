@@ -54,5 +54,9 @@
   {
     "outputFile": "src/scripts/Indicadores/OrdenesDePagoEnEfectivo/OrdenesPago.js",
     "inputFile": "src/scripts/Indicadores/OrdenesDePagoEnEfectivo/OrdenesPago.jsx"
+  },
+  {
+    "outputFile": "src/scripts/Indicadores/OrdenesDePagoEnEfectivo/Parametros_consulta.es5.js",
+    "inputFile": "src/scripts/Indicadores/OrdenesDePagoEnEfectivo/Parametros_consulta.js"
   }
 ]

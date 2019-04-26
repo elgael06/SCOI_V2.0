@@ -237,7 +237,7 @@ class EmbarquePedido extends React.Component {
         console.log("filtro", filtro);
         const $lista = this.state.Embarque;
 
-        const Filtrar = (() => {
+        const Filtrar = (function(){
             var resultado = () => null;
             switch (filtro) {
                 case "P"://pendiente

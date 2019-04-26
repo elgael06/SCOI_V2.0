@@ -10,6 +10,7 @@ const btn_consultar         = document.querySelector("#btn_consultar");
 
 //Conexiones
 const Enviar_consulta_Monitor = filtro => {
+    vista_pagos_por_semana.eliminar_todo();
     document.querySelector("#modal_de_efecto_carga").style.display = "flex";
     console.log("Enviar=>", filtro);
     fetch(`${$URL_API}Obtener_ordenes_pago_en_efectivo`, {

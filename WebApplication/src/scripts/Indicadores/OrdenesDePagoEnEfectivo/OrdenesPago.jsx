@@ -191,7 +191,7 @@ const SemanasResultadosConceptos = ({ Lista, anios}) => {
         let filtro = Lista.filter(e => e.semana_del_anio_pago == dato).map(w => w.cantidad) || [];
         let valor = filtro.length>0 ? filtro.reduce((ant, nvo) => nvo + ant) : 0;
 
-        return (<td style={{ textAlign: "right" }}>{moneyFormat(valor)}</td>);
+        return (<td style={{ textAlign: "right" }}>{valor!=0 ? moneyFormat(valor):" "}</td>);
     });
 }
 const TablaMonitor = ({ datos }) => {
@@ -199,7 +199,7 @@ const TablaMonitor = ({ datos }) => {
     let conceptos = obtener_concepto_compra_gasto(datos || []),
         anios = obtener_semanas_ocupadas_por_anio(datos);
 
-    return (<div style={{ height: "510px",overflow:"auto" }}>
+    return (<div style={{ height: "600px",overflow:"auto" }}>
         <table className="table">
             <thead>
                 <CaveceraTabla
@@ -286,16 +286,17 @@ const MostrarProveedores = ({ lista }) => {
     //handle_beneficiary(select) {
 
     //}
-    return (<div className="panel panel-info" style={{ height: "550px" }}>
-        <p>Cantidad De Registros = <strong>{lista.length || 0}</strong></p>
-        <TablaMonitor
-            datos={lista}
-        />
-    </div >);
+    if (lista.length > 0)
+        return (<div className="panel panel-info" style={{ height: "650px" }}>
+            <p>Cantidad De Registros = <strong>{lista.length || 0}</strong></p>
+            <TablaMonitor
+                datos={lista}
+            />
+        </div >);
+    else return (<div><h3>Sin Registros a Mostrar!!!</h3></div>);
 }
 
 const llenar_tabla_pagos = lista => {
-    console.log("lista Pagos =>", lista);
     ReactDOM.render(<MostrarProveedores lista={lista} />, document.querySelector("#resultados_tabla"));
 }
 

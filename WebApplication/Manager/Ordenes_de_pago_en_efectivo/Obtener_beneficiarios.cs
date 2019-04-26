@@ -33,7 +33,7 @@ namespace WebApplication.Manager.Ordenes_de_pago_en_efectivo
         }
         private void Obtener_empleados()
         {
-            string query = "select * from tb_empleado with(nolock);";
+            string query = "select folio,nombre,ap_paterno,ap_materno from tb_empleado with(nolock);";
             string folio = "folio";
             Obtener_beneficiario(query, folio);
         }
