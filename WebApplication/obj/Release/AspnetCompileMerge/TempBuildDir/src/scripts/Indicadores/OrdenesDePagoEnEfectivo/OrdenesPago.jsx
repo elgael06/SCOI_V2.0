@@ -107,7 +107,7 @@ const obtener_semanas_por_mes = lista => {
 const semanas_obtenidas = semanas => {
     let num_semana = [];
     semanas.forEach(sem => {
-        if (num_semana.findIndex(e => e.semana_del_anio_pago === sem.semana_del_anio_pago) === -1) {
+        if (num_semana.findIndex(e => e.semana_del_anio_pago === sem.semana_del_anio_pago && e.mes_pago === sem.mes_pago) === -1) {
             num_semana.push(sem);//semana_del_anio_pago
         }
     });
@@ -119,13 +119,13 @@ const total_de_semanas_anio = anios => {
     //meses en años
     anios.forEach(e => {
         //agrega los meses
-        meses = meses.concat(e.meses.map(m => m)) || meses;
+        meses = meses.concat(e.meses.map(m => m.semanas.map(s => { return { semana: s, mes:m.mes } }))) || meses;
     });
 
     //fila senamas en meses 
     meses.forEach(m => {
         //agrega las semanas
-        semanas = semanas.concat(m.semanas);
+        semanas = semanas.concat(m);
     });
 
     return semanas;
@@ -183,12 +183,14 @@ const CaveceraTabla = ({ anios }) => {
         
     return lista;
 }
-const SemanasResultadosConceptos = ({ Lista, anios}) => {
+const SemanasResultadosConceptos = ({ Lista, anios}) => {///----------------->Pendiente
     let total_semanas_anio = total_de_semanas_anio(anios);
 
     return total_semanas_anio.map(dato => {
-
-        let filtro = Lista.filter(e => e.semana_del_anio_pago == dato).map(w => w.cantidad) || [];
+        // && e.mes_pago == dato.mes
+        //console.log("lista Semanas =>", Lista.filter(e => e.semana_del_anio_pago == dato));
+        let semanas = Lista.filter(e => e.semana_del_anio_pago == dato.semana && e.mes_pago == dato.mes);
+        let filtro = semanas.map(w => w.cantidad) || [];
         let valor = filtro.length>0 ? filtro.reduce((ant, nvo) => nvo + ant) : 0;
 
         return (<td style={{ textAlign: "right" }}>{valor!=0 ? moneyFormat(valor):" "}</td>);
@@ -199,7 +201,7 @@ const TablaMonitor = ({ datos }) => {
     let conceptos = obtener_concepto_compra_gasto(datos || []),
         anios = obtener_semanas_ocupadas_por_anio(datos);
 
-    return (<div style={{ height: "600px",overflow:"auto" }}>
+    return (<div style={{ height: "700px",overflow:"auto" }}>
         <table className="table">
             <thead>
                 <CaveceraTabla
@@ -287,7 +289,7 @@ const MostrarProveedores = ({ lista }) => {
 
     //}
     if (lista.length > 0)
-        return (<div className="panel panel-info" style={{ height: "650px" }}>
+        return (<div className="panel panel-info" style={{ height: "750px" }}>
             <p>Cantidad De Registros = <strong>{lista.length || 0}</strong></p>
             <TablaMonitor
                 datos={lista}

@@ -30,6 +30,7 @@ const cavecera_parametros = new Vue({
             beneficiario: "",
             nombre_beneficiario:""
         },
+        estatus: false,
         cuentas: [],
         ordenes_pago: []
     },
@@ -40,7 +41,7 @@ const cavecera_parametros = new Vue({
     },
     updated: function () {
         this.verificar_Campos();
-        llenar_tabla_pagos([]);
+        this.estatus || llenar_tabla_pagos([]);
     },
     methods: {
         /**eventos**/
@@ -53,6 +54,10 @@ const cavecera_parametros = new Vue({
         },
         buscar_beneficiario: function () {
 
+        },
+        remover_parametro: function () {
+            this.estatus = false;
+            llenar_tabla_pagos([]);
         },
         /**funciones**/
         verificar_Campos: function () {
@@ -138,7 +143,9 @@ const cavecera_parametros = new Vue({
                     document.querySelector("#modal_de_efecto_carga").style.display = "none";
                 })
                 .then(res => res.json().then(lista => {
+                    console.log(lista);
                     llenar_tabla_pagos(lista);
+                    this.estatus = lista.length > 0;
                     document.querySelector("#modal_de_efecto_carga").style.display = "none";
                 }))
         }
@@ -203,6 +210,9 @@ const modal_beneficiarios = new Vue({
                 res = res.concat(array_texto.filter(e => e.toUpperCase().search(f) > -1));
             });
             return array_filtro.length > 1 ? res.length > 1 : res.length > 0;
+        },
+        checar_filtro: function ({ Folio, Nombre}) {
+            return this.verificar_coincidencias(Folio) || this.verificar_coincidencias(Nombre)
         }
     },
     computed: {

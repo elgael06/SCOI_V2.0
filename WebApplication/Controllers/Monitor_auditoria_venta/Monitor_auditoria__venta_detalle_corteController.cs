@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using WebApplication.Models.Monitor_auditoria_venta;
 
-namespace WebApplication.Controllers.Monitor_auditoria_venta
+namespace WebApplication.Manager.Monitor_auditoria_venta
 {
     public class Monitor_auditoria__venta_detalle_corteController : ApiController
     {

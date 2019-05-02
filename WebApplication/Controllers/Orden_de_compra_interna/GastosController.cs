@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication.Manager.Sesion;
 
-namespace WebApplication.Controllers.Orden_de_compra_interna
+namespace WebApplication.Manager.Orden_de_compra_interna
 {
     public class GastosController : Controller
     {

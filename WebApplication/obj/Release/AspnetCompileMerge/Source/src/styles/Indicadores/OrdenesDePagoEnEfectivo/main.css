@@ -112,5 +112,14 @@ tr[name="ordenes"] {
 
 /*tabla_pago_por_semana*/
 #tabla_pago_por_semana > div {
-    max-width:1200px;
+    width:90%;
+    height:90%
 }
+#tabla_pago_por_semana .panel-body {
+    height: 90%;
+
+}
+    #tabla_pago_por_semana .panel-body > div {
+        height: 100%;
+        overflow:auto;
+    }

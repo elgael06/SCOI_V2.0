@@ -103,10 +103,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/10/2013 17:29:20</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>04/25/2019 12:39:48</publishTime>
+      <publishTime>04/26/2019 16:52:29</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>04/25/2019 12:39:48</publishTime>
+      <publishTime>04/26/2019 16:52:28</publishTime>
     </File>
     <File Include="bin/cs/FSharp.Core.resources.dll">
       <publishTime>02/09/2018 01:34:56</publishTime>
@@ -403,10 +403,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>10/05/2016 13:11:52</publishTime>
     </File>
     <File Include="bin/WebApplication.dll">
-      <publishTime>04/25/2019 12:39:38</publishTime>
+      <publishTime>04/26/2019 16:50:52</publishTime>
     </File>
     <File Include="bin/WebApplication.pdb">
-      <publishTime>04/25/2019 12:39:38</publishTime>
+      <publishTime>04/26/2019 16:50:52</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>01/23/2014 13:57:34</publishTime>
@@ -622,7 +622,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>03/20/2019 15:57:07</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>04/25/2019 12:39:41</publishTime>
+      <publishTime>04/26/2019 16:52:14</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>03/20/2019 15:57:09</publishTime>
@@ -1054,10 +1054,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>04/04/2019 09:32:57</publishTime>
     </File>
     <File Include="Scripts/Indicadores/MovimientosBancoInterno/main.js">
-      <publishTime>04/22/2019 16:31:08</publishTime>
+      <publishTime>04/26/2019 16:23:02</publishTime>
     </File>
     <File Include="Scripts/Indicadores/MovimientosBancoInterno/main.js.map">
-      <publishTime>04/22/2019 16:31:08</publishTime>
+      <publishTime>04/26/2019 16:23:02</publishTime>
     </File>
     <File Include="Scripts/Inicio/main.js">
       <publishTime>03/30/2019 10:30:04</publishTime>
@@ -1492,16 +1492,19 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>03/20/2019 15:57:18</publishTime>
     </File>
     <File Include="Scripts/Sesion/Accesos_urls.js">
-      <publishTime>04/09/2019 09:16:01</publishTime>
+      <publishTime>04/26/2019 16:20:09</publishTime>
     </File>
     <File Include="Scripts/Sesion/Accesos_urls.jsx">
-      <publishTime>04/09/2019 09:32:16</publishTime>
+      <publishTime>04/26/2019 16:31:31</publishTime>
     </File>
     <File Include="Scripts/Sesion/Accesos_urls.min.js">
       <publishTime>04/08/2019 19:00:29</publishTime>
     </File>
     <File Include="Scripts/Sesion/login.js">
       <publishTime>04/10/2019 16:37:00</publishTime>
+    </File>
+    <File Include="Scripts/Sesion/menu_accesos.js">
+      <publishTime>04/26/2019 16:41:35</publishTime>
     </File>
     <File Include="Scripts/SurtidoEmbarque/vista_embarque.js">
       <publishTime>03/30/2019 13:03:30</publishTime>
@@ -1531,13 +1534,13 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>03/30/2019 10:34:26</publishTime>
     </File>
     <File Include="Scripts/Usuarios/Perfil.js">
-      <publishTime>04/22/2019 16:31:08</publishTime>
+      <publishTime>04/26/2019 16:23:02</publishTime>
     </File>
     <File Include="Scripts/Usuarios/Perfil.js.map">
-      <publishTime>04/22/2019 16:31:08</publishTime>
+      <publishTime>04/26/2019 16:23:02</publishTime>
     </File>
     <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/Detallaes_pagos.js">
-      <publishTime>04/24/2019 18:53:20</publishTime>
+      <publishTime>04/26/2019 10:18:26</publishTime>
     </File>
     <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/Obtener_beneficioarios.js">
       <publishTime>04/24/2019 16:35:29</publishTime>
@@ -1546,13 +1549,13 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>04/24/2019 10:20:03</publishTime>
     </File>
     <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/OrdenesPago.js">
-      <publishTime>04/24/2019 18:54:35</publishTime>
+      <publishTime>04/26/2019 12:33:36</publishTime>
     </File>
     <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/OrdenesPago.jsx">
-      <publishTime>04/24/2019 18:54:15</publishTime>
+      <publishTime>04/26/2019 12:33:34</publishTime>
     </File>
     <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/OrdenesPago.min.js">
-      <publishTime>04/24/2019 18:54:35</publishTime>
+      <publishTime>04/26/2019 12:33:36</publishTime>
     </File>
     <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/Parametros_consulta.es5.js">
       <publishTime>04/24/2019 17:02:47</publishTime>
@@ -1561,16 +1564,16 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>04/24/2019 17:02:14</publishTime>
     </File>
     <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/Parametros_consulta.js">
-      <publishTime>04/25/2019 12:33:01</publishTime>
+      <publishTime>04/26/2019 16:24:37</publishTime>
     </File>
     <File Include="src/scripts/Indicadores/OrdenesDePagoEnEfectivo/Realizar_consulta.js">
       <publishTime>04/24/2019 16:35:28</publishTime>
     </File>
     <File Include="src/scripts/Indicadores/ReporteIncidenciasFecha/main.js">
-      <publishTime>04/25/2019 12:36:34</publishTime>
+      <publishTime>04/25/2019 16:48:17</publishTime>
     </File>
     <File Include="src/styles/Indicadores/OrdenesDePagoEnEfectivo/main.css">
-      <publishTime>04/24/2019 08:42:40</publishTime>
+      <publishTime>04/26/2019 10:39:57</publishTime>
     </File>
     <File Include="Views/Error/_ErrorPage.cshtml">
       <publishTime>04/09/2019 18:27:34</publishTime>
@@ -1612,13 +1615,13 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>04/08/2019 11:12:04</publishTime>
     </File>
     <File Include="Views/Indicadores/OrdenesDePagoEnEfectivo.cshtml">
-      <publishTime>04/24/2019 18:50:45</publishTime>
+      <publishTime>04/26/2019 10:54:07</publishTime>
     </File>
     <File Include="Views/Indicadores/PreciosCompetencia.cshtml">
       <publishTime>04/02/2019 15:59:34</publishTime>
     </File>
     <File Include="Views/Indicadores/ReporteIncidenciasFecha.cshtml">
-      <publishTime>04/25/2019 12:36:05</publishTime>
+      <publishTime>04/26/2019 10:48:34</publishTime>
     </File>
     <File Include="Views/Login/index.cshtml">
       <publishTime>04/24/2019 17:41:53</publishTime>
@@ -1627,7 +1630,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>04/02/2019 10:45:02</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/25/2019 12:37:31</publishTime>
+      <publishTime>04/26/2019 16:43:46</publishTime>
     </File>
     <File Include="Views/SurtidoEmbarque/index.cshtml">
       <publishTime>03/30/2019 13:17:28</publishTime>

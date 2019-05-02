@@ -4,7 +4,7 @@ using System.Web.Http;
 using WebApplication.Manager.Accesos;
 using WebApplication.Models.Accesos;
 
-namespace WebApplication.Controllers.Accesos
+namespace WebApplication.Manager.Accesos
 {
     public class Accesos_urlController : ApiController
     {

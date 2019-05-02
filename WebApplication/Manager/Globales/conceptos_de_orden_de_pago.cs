@@ -18,7 +18,7 @@ namespace WebApplication.Manager.Globales
         private void ObtenerConceptos_SQL()
         {
             Lista_conceptos.Add("Todos");
-            SqlCommand comando = new SqlCommand("select concepto_orden_de_pago from tb_conceptos_de_orden_de_pago;", CONEXION_SCOI);
+            SqlCommand comando = new SqlCommand("select concepto_orden_de_pago from tb_conceptos_de_orden_de_pago order by concepto_orden_de_pago;", CONEXION_SCOI);
 
             CONEXION_SCOI.Open();
             LECTOR = comando.ExecuteReader();

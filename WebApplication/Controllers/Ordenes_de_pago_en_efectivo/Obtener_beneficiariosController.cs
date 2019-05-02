@@ -8,7 +8,7 @@ using WebApplication.Manager.Ordenes_de_pago_en_efectivo;
 using WebApplication.Models.Ordenes_de_pago_en_efectivo;
 
 
-namespace WebApplication.Controllers.Ordenes_de_pago_en_efectivo
+namespace WebApplication.Manager.Ordenes_de_pago_en_efectivo
 {
     public class Obtener_beneficiariosController : ApiController
     {

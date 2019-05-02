@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Monitor Orden De Compra Interna";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="@Url.Content("~/src/styles/Indicadores/MonitorOrdenCompraInterna/main.css")" rel="stylesheet" />
+<div class="panel panel-default">
+    <div id="cavecera_monitor" class="panel-heading">
+        <h2>Monitor Orden Compra Interna</h2>
+        <div class="row">
+            @* fechas *@
+            <div class="form-group col-lg-2 contenedor_parametros">
+                <h4>Fechas</h4>
+                <div class="form-group">
+                    <label>Inicio: </label>
+                    <input type="date" class="form-control" v-model="parametros.fi" />
+                </div>
+                <div class="form-group">
+                    <label>Termino: </label>
+                    <input type="date" class="form-control" v-model="parametros.ff" />
+                </div>
+            </div>
+            @* Orden *@
+            <div class="form-group col-lg-2 contenedor_parametros">
+                <h4>Orden</h4>
+                <div class="form-group">
+                    <label> <i class="fa fa-spinner rotate" name="tipo" v-if="ListaTipoOrden.length==0"></i> Tipo:</label>
+                    <select class="form-control" v-model="parametros.tipo_orden">
+                        <option v-for="tipo in ListaTipoOrden" :key="tipo">{{tipo}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Estatus:</label>
+                    <select class="form-control" v-model="parametros.estatus">
+                        <option>SURTIDO</option>
+                        <option>AUTORIZADO</option>
+                        <option>CANCELADO</option>
+                        <option>EN VALIDACION</option>
+                    </select>
+                </div>
+            </div>
+            @* Recibo *@
+            <div class="form-group col-lg-2 contenedor_parametros">
+                <h4>Recibe</h4>
+                <div class="form-group">
+                    <label>Tipo:</label>
+                    <select class="form-control" v-model="parametros.tipo_recibe">
+                        <option>Todos</option>
+                        <option>Empleado</option>
+                        <option>Proveedor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label> <i class="fa fa-spinner rotate" name="tipo" v-if="ListaEstablecimientos.length==0"></i> Establecimiento:</label>
+                    <select class="form-control" v-model="parametros.establecimiento">
+                        <option value="0">Todos</option>
+                        <option v-for="estab in ListaEstablecimientos" :key="estab.folio" :value="estab.folio" v-if="estab.estatus==1">{{estab.nombre}}</option>
+                    </select>
+                </div>
+            </div>
+            @* Otros Parametros *@
+            <div class="form-group col-lg-5 contenedor_parametros">
+                <h4>Parametros Adicionales</h4>
+                <div class="form-group">
+                    <label>Persona Recibe :</label>
+                    <i class="form-control">{{parametros.nombre_recibe}}</i>
+                    <i class="btn btn-default fa fa-search"> Seleccionar.</i>
+                </div>
+            </div>
+            <hr />
+            @* Boton *@
+            <div id="btn_cavecera" class="form-group col-lg-12">
+                <i :class="btn_parametros.estado">{{btn_parametros.descripcion}} <i :class="btn_parametros.icono"></i></i>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" id="cuerpo_monitor">
+
+    </div>
+</div>
+<script src="@Url.Content("~/src/scripts/Indicadores/MonitorOrdenCompraInterna/MonitorOrdenCompraInterna.js")"></script>

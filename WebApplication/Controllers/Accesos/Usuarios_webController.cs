@@ -7,7 +7,7 @@ using System.Web.Http;
 using WebApplication.Manager.Sesion;
 using WebApplication.Models.Manejador_usuarios;
 
-namespace WebApplication.Controllers.Accesos
+namespace WebApplication.Manager.Accesos
 {
     public class Usuarios_webController : ApiController
     {

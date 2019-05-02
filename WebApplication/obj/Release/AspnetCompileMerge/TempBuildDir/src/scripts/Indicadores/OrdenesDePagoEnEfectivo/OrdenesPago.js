@@ -154,7 +154,7 @@ var semanas_obtenidas = function semanas_obtenidas(semanas) {
     var num_semana = [];
     semanas.forEach(function (sem) {
         if (num_semana.findIndex(function (e) {
-            return e.semana_del_anio_pago === sem.semana_del_anio_pago;
+            return e.semana_del_anio_pago === sem.semana_del_anio_pago && e.mes_pago === sem.mes_pago;
         }) === -1) {
             num_semana.push(sem); //semana_del_anio_pago
         }
@@ -169,14 +169,16 @@ var total_de_semanas_anio = function total_de_semanas_anio(anios) {
     anios.forEach(function (e) {
         //agrega los meses
         meses = meses.concat(e.meses.map(function (m) {
-            return m;
+            return m.semanas.map(function (s) {
+                return { semana: s, mes: m.mes };
+            });
         })) || meses;
     });
 
     //fila senamas en meses
     meses.forEach(function (m) {
         //agrega las semanas
-        semanas = semanas.concat(m.semanas);
+        semanas = semanas.concat(m);
     });
 
     return semanas;
@@ -287,14 +289,16 @@ var CaveceraTabla = function CaveceraTabla(_ref2) {
 var SemanasResultadosConceptos = function SemanasResultadosConceptos(_ref3) {
     var Lista = _ref3.Lista;
     var anios = _ref3.anios;
-
+    ///----------------->Pendiente
     var total_semanas_anio = total_de_semanas_anio(anios);
 
     return total_semanas_anio.map(function (dato) {
-
-        var filtro = Lista.filter(function (e) {
-            return e.semana_del_anio_pago == dato;
-        }).map(function (w) {
+        // && e.mes_pago == dato.mes
+        //console.log("lista Semanas =>", Lista.filter(e => e.semana_del_anio_pago == dato));
+        var semanas = Lista.filter(function (e) {
+            return e.semana_del_anio_pago == dato.semana && e.mes_pago == dato.mes;
+        });
+        var filtro = semanas.map(function (w) {
             return w.cantidad;
         }) || [];
         var valor = filtro.length > 0 ? filtro.reduce(function (ant, nvo) {
@@ -319,7 +323,7 @@ var TablaMonitor = function TablaMonitor(_ref4) {
 
     return React.createElement(
         "div",
-        { style: { height: "600px", overflow: "auto" } },
+        { style: { height: "700px", overflow: "auto" } },
         React.createElement(
             "table",
             { className: "table" },
@@ -449,7 +453,7 @@ var MostrarProveedores = function MostrarProveedores(_ref7) {
     //}
     if (lista.length > 0) return React.createElement(
         "div",
-        { className: "panel panel-info", style: { height: "650px" } },
+        { className: "panel panel-info", style: { height: "750px" } },
         React.createElement(
             "p",
             null,

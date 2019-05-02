@@ -7,7 +7,7 @@ using System.Web.Http;
 using WebApplication.Manager.MovimientosBancoInterno;
 using WebApplication.Models.MovimientosBancoInterno;
 
-namespace WebApplication.Controllers.MovimientosBancoInterno
+namespace WebApplication.Manager.MovimientosBancoInterno
 {
     public class ObtenerMovimientoOrdenDePagoController : ApiController
     {

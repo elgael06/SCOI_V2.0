@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using WebApplication.Manager.Accesos;
 using WebApplication.Manager.Sesion;
 
-namespace WebApplication.Controllers.web
+namespace WebApplication.Manager.web
 {
     public class UsuariosController : Controller
     {

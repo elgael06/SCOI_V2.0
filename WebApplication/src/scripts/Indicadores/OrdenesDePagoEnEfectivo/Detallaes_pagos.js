@@ -83,6 +83,11 @@ const vista_pagos_por_semana = new Vue({
             this.listaDetalles = [];
             document.querySelector("#tabla_pago_por_semana").style.display = "none";
         }
+    },
+    computed: {
+        verificar_detalles: function () {
+            return this.listaDetalles.length > 0;
+        }
     }
 });
 

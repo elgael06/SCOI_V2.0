@@ -249,6 +249,8 @@
     <Compile Include="Controllers\Estado_de_resultados\Estado_de_resultadosController.cs" />
     <Compile Include="Controllers\Monitor_auditoria_venta\monitor_auditoria_ventasController.cs" />
     <Compile Include="Controllers\Monitor_auditoria_venta\Monitor_auditoria__venta_detalle_corteController.cs" />
+    <Compile Include="Manager\Globales\Manejos_fechas.cs" />
+    <Compile Include="Manager\Monitor_cuadrantes\Obtener_monitor_cuadrantes.cs" />
     <Compile Include="Controllers\MovimientosBancoInterno\ObtenerMovimientoOrdenDePagoController.cs" />
     <Compile Include="Controllers\Ordenes_de_pago_en_efectivo\Obtener_beneficiariosController.cs" />
     <Compile Include="Controllers\Ordenes_de_pago_en_efectivo\Obtener_ordenes_pago_en_efectivoController.cs" />
@@ -294,11 +296,13 @@
     <Compile Include="Manager\Estado_de_resultados\Totales_y_truputs.cs" />
     <Compile Include="Manager\Globales\Combos.cs" />
     <Compile Include="Manager\Globales\conceptos_de_orden_de_pago.cs" />
+    <Compile Include="Manager\Globales\tipo_orden_compra_interna.cs" />
     <Compile Include="Manager\Incidencias_apertura_tienda\Incidencias_obtener_observaciones.cs" />
     <Compile Include="Manager\Incidencias_personal\Incidencias_personal_establecimiento.cs" />
     <Compile Include="Manager\Incidencias_personal\Reporte_incidencias_por_fecha.cs" />
     <Compile Include="Manager\Matrices\Obtener_conceptos.cs" />
     <Compile Include="Manager\Monitor_auditoria_venta\Monitor_obtener_auditorioa-venta.cs" />
+    <Compile Include="Manager\monitor_orden_compra_interna\Manager_monitor_orden_compra_interna.cs" />
     <Compile Include="Manager\MovimientosBancoInterno\Pagos_realizados_en_un_periodo_por_cuenta_consulta.cs" />
     <Compile Include="Manager\Ordenes_de_pago_en_efectivo\Obtener_beneficiarios.cs" />
     <Compile Include="Manager\Ordenes_de_pago_en_efectivo\Monitor_obtener_pagos_en_efectivo.cs" />
@@ -328,6 +332,7 @@
     <Compile Include="Models\Estado_de_resultados\Movimientos\MovimientoMes.cs" />
     <Compile Include="Models\Estado_de_resultados\Movimientos\MovimientoSemana.cs" />
     <Compile Include="Models\Estado_de_resultados\Periodo\PeriodoSemanaAnio.cs" />
+    <Compile Include="Models\Globales\Parametros_semana_actual.cs" />
     <Compile Include="Models\Incidencias_apertura_tienda\incidencia.cs" />
     <Compile Include="Models\Incidencias_apertura_tienda\Incidencias_crud_sql.cs" />
     <Compile Include="Models\Incidencias_apertura_tienda\Incidencias_cuestionario.cs" />
@@ -348,6 +353,8 @@
     <Compile Include="Models\Monitor_auditoria_venta\Monitor_venta_corte_folio.cs" />
     <Compile Include="Models\Monitor_auditoria_venta\Monitor_venta_detalle_corte.cs" />
     <Compile Include="Models\Monitor_auditoria_venta\Monitor_venta_totales.cs" />
+    <Compile Include="Models\Monitor_cuadrantes\Modelo_monitor_cuadrantes.cs" />
+    <Compile Include="Models\monitor_orden_compra_interna\Modelo_monitor_orden_compra_interna.cs" />
     <Compile Include="Models\MovimientosBancoInterno\concepto_compra_gasto.cs" />
     <Compile Include="Models\MovimientosBancoInterno\concepto_orden_de_pago.cs" />
     <Compile Include="Models\MovimientosBancoInterno\concepto_pagos_realizados_en_un_periodo.cs" />
@@ -652,6 +659,7 @@
       <DependentUpon>Accesos_urls.js</DependentUpon>
     </Content>
     <Content Include="Scripts\Sesion\login.js" />
+    <Content Include="Scripts\Sesion\menu_accesos.js" />
     <Content Include="Scripts\SurtidoEmbarque\vista_embarque.js">
       <DependentUpon>vista_embarque.jsx</DependentUpon>
     </Content>
@@ -672,6 +680,9 @@
     <Content Include="Scripts\Usuarios\main.min.js">
       <DependentUpon>main.js</DependentUpon>
     </Content>
+    <Content Include="src\scripts\Indicadores\Cuadrantes\monitor - Copia.js" />
+    <Content Include="src\scripts\Indicadores\Cuadrantes\monitor.js" />
+    <Content Include="src\scripts\Indicadores\MonitorOrdenCompraInterna\MonitorOrdenCompraInterna.js" />
     <Content Include="src\scripts\Indicadores\OrdenesDePagoEnEfectivo\Detallaes_pagos.js" />
     <Content Include="src\scripts\Indicadores\OrdenesDePagoEnEfectivo\Obtener_beneficioarios.js" />
     <Content Include="src\scripts\Indicadores\OrdenesDePagoEnEfectivo\Obtener_selectores.js" />
@@ -681,15 +692,11 @@
     <Content Include="src\scripts\Indicadores\OrdenesDePagoEnEfectivo\OrdenesPago.min.js">
       <DependentUpon>OrdenesPago.js</DependentUpon>
     </Content>
-    <Content Include="src\scripts\Indicadores\OrdenesDePagoEnEfectivo\Parametros_consulta.es5.js">
-      <DependentUpon>Parametros_consulta.js</DependentUpon>
-    </Content>
-    <Content Include="src\scripts\Indicadores\OrdenesDePagoEnEfectivo\Parametros_consulta.es5.min.js">
-      <DependentUpon>Parametros_consulta.es5.js</DependentUpon>
-    </Content>
     <Content Include="src\scripts\Indicadores\OrdenesDePagoEnEfectivo\Parametros_consulta.js" />
     <Content Include="src\scripts\Indicadores\OrdenesDePagoEnEfectivo\Realizar_consulta.js" />
     <Content Include="src\scripts\Indicadores\ReporteIncidenciasFecha\main.js" />
+    <Content Include="src\styles\Indicadores\Cuadrantes\main.css" />
+    <Content Include="src\styles\Indicadores\MonitorOrdenCompraInterna\main.css" />
     <Content Include="src\styles\Indicadores\OrdenesDePagoEnEfectivo\main.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -724,6 +731,7 @@
     <Content Include="Views\Error\_ErrorPage.cshtml" />
     <Content Include="Views\Indicadores\OrdenesDePagoEnEfectivo.cshtml" />
     <Content Include="Views\Indicadores\ReporteIncidenciasFecha.cshtml" />
+    <Content Include="Views\Indicadores\MonitorOrdenCompraInterna.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

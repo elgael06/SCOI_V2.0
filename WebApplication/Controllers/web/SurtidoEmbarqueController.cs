@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication.Manager.Sesion;
 
-namespace WebApplication.Controllers.web
+namespace WebApplication.Manager.web
 {
     public class SurtidoEmbarqueController : Controller
     {
