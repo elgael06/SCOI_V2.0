@@ -34,7 +34,7 @@ namespace WebApplication.Manager.monitor_orden_compra_interna
                         establecimiento_solicito = LECTOR["establecimiento_solicito"].ToString(),
                         folio_scoi_oci = int.Parse(LECTOR["folio_scoi_oci"].ToString()),
                         fecha_ultima_modificacion = LECTOR["fecha_ultima_modificacion"].ToString(),
-                        semana_del_año = int.Parse(LECTOR["semana_del_año"].ToString()),
+                        semana_del_anio = int.Parse(LECTOR["semana_del_año"].ToString()),
                         mes  = LECTOR["mes"].ToString(),
                         anio = int.Parse(LECTOR["año"].ToString()),
                         estatus = LECTOR["estatus"].ToString(),

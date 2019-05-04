@@ -8,7 +8,7 @@ namespace WebApplication.Models.monitor_orden_compra_interna
         public string establecimiento_solicito { get; set; }
         public int folio_scoi_oci { get; set; }
         public string fecha_ultima_modificacion { get; set; }
-        public int semana_del_año { get; set; }
+        public int semana_del_anio { get; set; }
         public string mes { get; set; }
         public int anio { get; set; }
         public string estatus { get; set; }

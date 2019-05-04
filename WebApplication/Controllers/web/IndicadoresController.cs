@@ -32,7 +32,7 @@ namespace WebApplication.Manager.web
         [HttpPost]
         public ActionResult ObtenerMonitorOrdenCompraInterna(string f1, string f2, string tipo_orden, string estatus, string tipo_recibe, int recibe, int establecimiento, string cod_prod) => Json(new Manager_monitor_orden_compra_interna().Obtener(f1,f2,tipo_orden,estatus,tipo_recibe,recibe,establecimiento,cod_prod), JsonRequestBehavior.AllowGet);
         [HttpPost]
-        public JsonResult Cuadrantes_reporte_para_monitor_general(string fi, string ff, string establecimiento) => Json(new Obtener_monitor_cuadrantes(fi,ff,establecimiento));
+        public JsonResult Cuadrantes_reporte_para_monitor_general(string fi, string ff, string establecimiento) => Json(new Obtener_monitor_cuadrantes(fi, ff, establecimiento));
         private ActionResult Accesos(int ruta) {
             Session["id_usuario"] = Session["id_usuario"] ?? 0;
             usuario = int.Parse(Session["id_usuario"].ToString());
