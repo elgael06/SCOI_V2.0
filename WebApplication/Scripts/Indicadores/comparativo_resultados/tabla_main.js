@@ -866,7 +866,7 @@ var VistaTablaPrincipal = function VistaTablaPrincipal(_ref3) {
                     total_total_componet(Totales.Total_Costo);
                     break;
                 case "UTILIDAD NETA DESPUES DE RETIRO":
-                    despues_de_retiro(totales + retiros);
+                    despues_de_retiro(totales);
                     break;
             }
         });

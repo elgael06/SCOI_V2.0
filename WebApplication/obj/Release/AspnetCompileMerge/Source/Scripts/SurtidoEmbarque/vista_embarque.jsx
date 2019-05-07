@@ -1,6 +1,6 @@
 ﻿
 const $MI_URL = `${window.location.protocol}//${window.location.hostname}`;
-const $URL_API = "/api/"
+const $URL_API = $MI_URL + ":90/api/"
 const $URL_API_IZA = $MI_URL + ":180/api/"
 
 class SeleccionEmbarque extends React.Component
@@ -161,7 +161,7 @@ const VistaSeleccionSurte = ({ seleccion, estableciminetos, pedidos, evEstableci
                             <th >{e.Establecimiento}</th>
                             <th >{e.Alterno}</th>
                             <th className="btn_tabla">
-                                <i className="btn btn-info fa fa-cogs btn_selector_pedido"
+                                <i className="btn btn-info fa fa-cogs btn-round btn_selector_pedido"
                                     onClick={() => evPedido(e)}></i>
                             </th>  
                         </tr>)}
@@ -172,23 +172,23 @@ const VistaSeleccionSurte = ({ seleccion, estableciminetos, pedidos, evEstableci
     }
     return (
         <div className="ventana">
-            <div id="modal_seleccionSurte">
-                <div className="selector_establecimiento">
-                    <h4 style={{ marginLeft: "40%", marginRight:"50%",color:"#000000"}}>Pedidos</h4>
+            <div id="modal_seleccionSurte" className="panel panel-default">
+                <div className="selector_establecimiento panel-heading" >
                     <strong style={{ color: "#000000" }}>
                         Establecimiento
                     </strong>
                     <select className="form-control"
+                        style={{ width: "80%" }}
                         onChange={evEstablecimineto}>
                         {estableciminetos.map(est_ => <option value={est_.nombre} selected={est_.nombre.search(seleccion) > -1} >{est_.nombre}</option>)}
                     </select>
+                    <i className="fa fa-refresh btn btn-default btn-round"
+                        onClick={recargar}
+                        style={{ float: "right", marginTop: "-40px",marginLeft:"10px", fontSize: "25px" }}
+                    ></i>
+                    <input type="text" className="form-control" value={filtro} onChange={evFiltrar} placeolder="filtro" style={{ pading: "2px" }} focus />
                 </div>
-                <i className="fa fa-refresh btn btn-default"
-                    onClick={recargar}
-                    style={{float:"right",marginTop:"-100px",fontSize:"25px"}}
-                ></i>
-                <input type="text" className="form-control" value={filtro} onChange={evFiltrar} placeolder="filtro" style={{pading:"2px"}} focus />
-                <div style={{ height: "75%" }} className="panel-body">
+                <div style={{ height: "80%" }} className="panel-body">
                     <TablaEmbarques />
                 </div>
             </div>
@@ -237,7 +237,7 @@ class EmbarquePedido extends React.Component {
         console.log("filtro", filtro);
         const $lista = this.state.Embarque;
 
-        const Filtrar = (function(){
+        const Filtrar = (() => {
             var resultado = () => null;
             switch (filtro) {
                 case "P"://pendiente
@@ -498,12 +498,11 @@ class EmbarquePedido extends React.Component {
 const ViewPedidoEmbarque = ({ pedido }) => {
     return (
         <div className="caja_contenedora_items">
-            <div className="form_vista_texto">
+            <div className="form_vista_texto" style={{ float:"left",marginLeft:"-10px"}}>
                 <label>Folio Embarque:</label>
                 <div className="caja_entrada_texto">{pedido.Folio}</div>
             </div>
-            <i className="btn btn_seseccion" id="btn_cancelar_embarque_pedido" onClick={eliminar_embarque_localStorange}>
-                Cancelar
+            <i className="btn btn-danger glyphicon glyphicon-trash btn-round" id="btn_cancelar_embarque_pedido" onClick={eliminar_embarque_localStorange}>
             </i>
         </div>
         );
@@ -788,7 +787,7 @@ if (location.protocol != "http:")
 class Embarque {
     constructor() {
         this.folio_pedido = "";
-        this.usuario = parseInt(USUARIO.id_scoi);
+        this.usuario = parseInt(ID_SCOI);
         this.productos = [];
         this.ContruirPedido();
     }
@@ -900,7 +899,7 @@ function init() {
     } else {
         View = SeleccionEmbarque;
     }
-    ReactDOM.render(<View  />, document.getElementById('root'));
+    ReactDOM.render(<View  />, document.getElementById('main'));
 }
 init();
 //setTimeout( ()=>console.clear(),1000);

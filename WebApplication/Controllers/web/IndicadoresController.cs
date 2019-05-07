@@ -2,6 +2,7 @@
 using WebApplication.Manager.Incidencias_personal;
 using WebApplication.Manager.Monitor_cuadrantes;
 using WebApplication.Manager.monitor_orden_compra_interna;
+using WebApplication.Manager.Monitor_precio_competencia;
 using WebApplication.Manager.MovimientosBancoInterno;
 using WebApplication.Manager.Sesion;
 
@@ -33,6 +34,8 @@ namespace WebApplication.Manager.web
         public ActionResult ObtenerMonitorOrdenCompraInterna(string f1, string f2, string tipo_orden, string estatus, string tipo_recibe, int recibe, int establecimiento, string cod_prod) => Json(new Manager_monitor_orden_compra_interna().Obtener(f1,f2,tipo_orden,estatus,tipo_recibe,recibe,establecimiento,cod_prod), JsonRequestBehavior.AllowGet);
         [HttpPost]
         public JsonResult Cuadrantes_reporte_para_monitor_general(string fi, string ff, string establecimiento) => Json(new Obtener_monitor_cuadrantes(fi, ff, establecimiento));
+        //[HttpPost]
+        public JsonResult Monitor_analisis_precios_competencias() => Json(new Obtener_Monitor_precio_competencia(), JsonRequestBehavior.AllowGet);
         private ActionResult Accesos(int ruta) {
             Session["id_usuario"] = Session["id_usuario"] ?? 0;
             usuario = int.Parse(Session["id_usuario"].ToString());

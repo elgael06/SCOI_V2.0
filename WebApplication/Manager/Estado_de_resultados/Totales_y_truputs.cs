@@ -81,12 +81,10 @@ namespace api_seguimiento.Manager.comparativo_resultados
             Total_Costo = Redondear_a_dos_decimales(UTILIDAD_EN_OPERACIONES.Total_Costo +
                                                              IMPUESTOS_PTU.Total_Costo +
                                                              IMPUESTOS_ISR.Total_Costo +
-                                                             GASTOS_FAMILIA_IZABAL.Total_Costo +
                                                              GASTOS_DE_OPERACION.Total_Costo);
             Total_Precio_venta = Redondear_a_dos_decimales(UTILIDAD_EN_OPERACIONES.Total_Precio_venta +
                                                              IMPUESTOS_PTU.Total_Precio_venta +
                                                              IMPUESTOS_ISR.Total_Precio_venta +
-                                                             GASTOS_FAMILIA_IZABAL.Total_Precio_venta +
                                                              GASTOS_DE_OPERACION.Total_Precio_venta);
 
             /*TRUPUT*/
