@@ -27,7 +27,7 @@
 }
 #tabla_embarques {
     margin-top: -10px;
-    height:90%;
+    max-height:70%;
     background:#ffffff;
     overflow:auto;
     z-index:9999;
@@ -208,10 +208,13 @@
     align-items: center;
     padding: 1px;
 }
-#main {
-    margin-top:50px;
-    padding:10px;
+.form_vista_texto > label {
+    font-size: 14px;
 }
+    #main {
+        margin-top: 50px;
+        padding: 10px;
+    }
 /*texto*/
 .form_vista_texto {
     width: 150px;
@@ -256,14 +259,14 @@
 }
 /*botones*/
 .btn_seseccion {
-    width: 105px;
+    width: 80px;
     height: 40px;
     border-radius: 5px;
     color: #ffffff;
     justify-content: center;
     align-items: stretch;
     font-family: "Segoe UI";
-    font-size: 18px;
+    font-size: 13px;
     font-style: normal;
     font-stretch: normal;
     font-weight: 400;
@@ -275,16 +278,12 @@
     margin:auto;
 }
 #btn_cancelar_embarque_pedido {
-    width: 130px;
-    height: 40px;
     border: 1px solid #646464;
     background: #e61b1b;
     color: #ffffff;
-    font-family: "Segoe UI";
     font-size: 18px;
     font-style: normal;
     font-stretch: normal;
-    font-weight: 400;
     float:right;
     line-height: 24px;
     text-align: center;

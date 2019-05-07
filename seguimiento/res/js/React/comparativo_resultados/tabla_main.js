@@ -866,7 +866,7 @@ var VistaTablaPrincipal = function VistaTablaPrincipal(_ref3) {
                     total_total_componet(Totales.Total_Costo);
                     break;
                 case "UTILIDAD NETA DESPUES DE RETIRO":
-                    despues_de_retiro(totales + retiros);
+                    despues_de_retiro(totales);
                     break;
             }
         });
@@ -1542,6 +1542,7 @@ var ModalMivimientosPorEstablecimiento = function ModalMivimientosPorEstablecimi
 
     //Varibles Globales ##########################################################################################
     var $ORDEN_DATOS_TABLA = ["VENTAS NETAS", "COSTO DE VENTAS", "UTILIDAD EN OPERACION", "GASTOS DE OPERACION"];
+    //"TRUPUT DE OPERACION","UTILIDAD NETA OPERACIONAL", "TRUPUT NETA OPERACIONAL", "IMPUESTOS ISR", "IMPUESTOS PTU 10%","TRUPUT NETA"
 
     //      Funciones Globales De Modal. #########################################################################
     ///<----------------------------------------------------------------- Funcion De Comprobacion.

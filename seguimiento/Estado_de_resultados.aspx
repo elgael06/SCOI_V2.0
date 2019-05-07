@@ -9,5 +9,5 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <main id="root"></main>
     
-     <script type="text/jsx;harmony=true" src="res/js/React/comparativo_resultados/tabla_main.min.js?1.1.4" ></script>
+     <script type="text/jsx;harmony=true" src="res/js/React/comparativo_resultados/tabla_main.min.js?1.1.5" ></script>
 </asp:Content>

@@ -297,7 +297,7 @@ var VistaSeleccionSurte = function VistaSeleccionSurte(_ref) {
                             React.createElement(
                                 "th",
                                 { className: "btn_tabla" },
-                                React.createElement("i", { className: "btn btn-info fa fa-cogs btn_selector_pedido",
+                                React.createElement("i", { className: "btn btn-info fa fa-cogs btn-round btn_selector_pedido",
                                     onClick: function () {
                                         return evPedido(e);
                                     } })
@@ -313,15 +313,10 @@ var VistaSeleccionSurte = function VistaSeleccionSurte(_ref) {
         { className: "ventana" },
         React.createElement(
             "div",
-            { id: "modal_seleccionSurte" },
+            { id: "modal_seleccionSurte", className: "panel panel-default" },
             React.createElement(
                 "div",
-                { className: "selector_establecimiento" },
-                React.createElement(
-                    "h4",
-                    { style: { marginLeft: "40%", marginRight: "50%", color: "#000000" } },
-                    "Pedidos"
-                ),
+                { className: "selector_establecimiento panel-heading" },
                 React.createElement(
                     "strong",
                     { style: { color: "#000000" } },
@@ -330,6 +325,7 @@ var VistaSeleccionSurte = function VistaSeleccionSurte(_ref) {
                 React.createElement(
                     "select",
                     { className: "form-control",
+                        style: { width: "80%" },
                         onChange: evEstablecimineto },
                     estableciminetos.map(function (est_) {
                         return React.createElement(
@@ -338,16 +334,16 @@ var VistaSeleccionSurte = function VistaSeleccionSurte(_ref) {
                             est_.nombre
                         );
                     })
-                )
+                ),
+                React.createElement("i", { className: "fa fa-refresh btn btn-default btn-round",
+                    onClick: recargar,
+                    style: { float: "right", marginTop: "-40px", marginLeft: "10px", fontSize: "25px" }
+                }),
+                React.createElement("input", { type: "text", className: "form-control", value: filtro, onChange: evFiltrar, placeolder: "filtro", style: { pading: "2px" }, focus: true })
             ),
-            React.createElement("i", { className: "fa fa-refresh btn btn-default",
-                onClick: recargar,
-                style: { float: "right", marginTop: "-100px", fontSize: "25px" }
-            }),
-            React.createElement("input", { type: "text", className: "form-control", value: filtro, onChange: evFiltrar, placeolder: "filtro", style: { pading: "2px" }, focus: true }),
             React.createElement(
                 "div",
-                { style: { height: "75%" }, className: "panel-body" },
+                { style: { height: "80%" }, className: "panel-body" },
                 React.createElement(TablaEmbarques, null)
             )
         )
@@ -747,7 +743,7 @@ var ViewPedidoEmbarque = function ViewPedidoEmbarque(_ref2) {
         { className: "caja_contenedora_items" },
         React.createElement(
             "div",
-            { className: "form_vista_texto" },
+            { className: "form_vista_texto", style: { float: "left", marginLeft: "-10px" } },
             React.createElement(
                 "label",
                 null,
@@ -759,11 +755,7 @@ var ViewPedidoEmbarque = function ViewPedidoEmbarque(_ref2) {
                 pedido.Folio
             )
         ),
-        React.createElement(
-            "i",
-            { className: "btn btn_seseccion", id: "btn_cancelar_embarque_pedido", onClick: eliminar_embarque_localStorange },
-            "Cancelar"
-        )
+        React.createElement("i", { className: "btn btn-danger glyphicon glyphicon-trash btn-round", id: "btn_cancelar_embarque_pedido", onClick: eliminar_embarque_localStorange })
     );
 };
 var ViewMovimientos = function ViewMovimientos(_ref3) {
