@@ -9,7 +9,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var $MI_URL = window.location.protocol + "//" + window.location.hostname;
-var $URL_API = "/api/";
+var $URL_API = $MI_URL + ":90/api/";
 var $URL_API_IZA = $MI_URL + ":180/api/";
 
 var SeleccionEmbarque = (function (_React$Component) {
@@ -297,7 +297,7 @@ var VistaSeleccionSurte = function VistaSeleccionSurte(_ref) {
                             React.createElement(
                                 "th",
                                 { className: "btn_tabla" },
-                                React.createElement("i", { className: "btn btn-info fa fa-cogs btn_selector_pedido",
+                                React.createElement("i", { className: "btn btn-info fa fa-cogs btn-round btn_selector_pedido",
                                     onClick: function () {
                                         return evPedido(e);
                                     } })
@@ -313,15 +313,10 @@ var VistaSeleccionSurte = function VistaSeleccionSurte(_ref) {
         { className: "ventana" },
         React.createElement(
             "div",
-            { id: "modal_seleccionSurte" },
+            { id: "modal_seleccionSurte", className: "panel panel-default" },
             React.createElement(
                 "div",
-                { className: "selector_establecimiento" },
-                React.createElement(
-                    "h4",
-                    { style: { marginLeft: "40%", marginRight: "50%", color: "#000000" } },
-                    "Pedidos"
-                ),
+                { className: "selector_establecimiento panel-heading" },
                 React.createElement(
                     "strong",
                     { style: { color: "#000000" } },
@@ -330,6 +325,7 @@ var VistaSeleccionSurte = function VistaSeleccionSurte(_ref) {
                 React.createElement(
                     "select",
                     { className: "form-control",
+                        style: { width: "80%" },
                         onChange: evEstablecimineto },
                     estableciminetos.map(function (est_) {
                         return React.createElement(
@@ -338,16 +334,16 @@ var VistaSeleccionSurte = function VistaSeleccionSurte(_ref) {
                             est_.nombre
                         );
                     })
-                )
+                ),
+                React.createElement("i", { className: "fa fa-refresh btn btn-default btn-round",
+                    onClick: recargar,
+                    style: { float: "right", marginTop: "-40px", marginLeft: "10px", fontSize: "25px" }
+                }),
+                React.createElement("input", { type: "text", className: "form-control", value: filtro, onChange: evFiltrar, placeolder: "filtro", style: { pading: "2px" }, focus: true })
             ),
-            React.createElement("i", { className: "fa fa-refresh btn btn-default",
-                onClick: recargar,
-                style: { float: "right", marginTop: "-100px", fontSize: "25px" }
-            }),
-            React.createElement("input", { type: "text", className: "form-control", value: filtro, onChange: evFiltrar, placeolder: "filtro", style: { pading: "2px" }, focus: true }),
             React.createElement(
                 "div",
-                { style: { height: "75%" }, className: "panel-body" },
+                { style: { height: "80%" }, className: "panel-body" },
                 React.createElement(TablaEmbarques, null)
             )
         )
@@ -512,7 +508,7 @@ var EmbarquePedido = (function (_React$Component2) {
                 this.setState({ producto: $producto, activar: $estatus });
                 document.querySelector("#captura_por_teclado").style.display = "flex";
             } else {
-                alert("El Producto " + producto.Codigo + " No Se Encuentra En El Embarque!!!");
+                alert("El Producto " + producto.Descripcion + " No Se Encuentra En El Embarque!!!");
                 this.restarProducto();
             }
             this.mostrarocultarCarga(0);
@@ -634,6 +630,7 @@ var EmbarquePedido = (function (_React$Component2) {
                 _this5.cargarProductonLocalStorange($seleccion);
                 _this5.calcular_totales();
                 document.querySelector("#captura_por_teclado").style.display = "none";
+                document.querySelector("#entrada_codigo_producto").disabled = false;
                 document.querySelector("#entrada_codigo_producto").select();
             };
             switch (value) {
@@ -668,9 +665,10 @@ var EmbarquePedido = (function (_React$Component2) {
         value: function ObtenerEnmbarque() {
             var _this6 = this;
 
-            var establecimiento = this.state.Pedido.Establecimiento || "cedis";
             var folio = this.state.producto.Codigo.toString() || "10201";
             var Alterno = this.state.Pedido.Alterno;
+
+            document.querySelector("#entrada_codigo_producto").disabled = true;
 
             fetch($URL_API + "Productos_clasificador_por_folio?folio=" + folio + "&establecimineto=" + Alterno, {
                 method: 'post',
@@ -747,7 +745,7 @@ var ViewPedidoEmbarque = function ViewPedidoEmbarque(_ref2) {
         { className: "caja_contenedora_items" },
         React.createElement(
             "div",
-            { className: "form_vista_texto" },
+            { className: "form_vista_texto", style: { float: "left", marginLeft: "-10px" } },
             React.createElement(
                 "label",
                 null,
@@ -759,11 +757,7 @@ var ViewPedidoEmbarque = function ViewPedidoEmbarque(_ref2) {
                 pedido.Folio
             )
         ),
-        React.createElement(
-            "i",
-            { className: "btn btn_seseccion", id: "btn_cancelar_embarque_pedido", onClick: eliminar_embarque_localStorange },
-            "Cancelar"
-        )
+        React.createElement("i", { className: "btn btn-danger glyphicon glyphicon-trash btn-round", id: "btn_cancelar_embarque_pedido", onClick: eliminar_embarque_localStorange })
     );
 };
 var ViewMovimientos = function ViewMovimientos(_ref3) {
@@ -906,9 +900,9 @@ var BuscarPruducto = function BuscarPruducto(_ref6) {
         React.createElement("hr", null),
         React.createElement(
             "i",
-            { className: "btn btn-success btn_seseccion", id: "btn_guardar_embarque_pedido", onClick: guardar_embarque },
-            "Guardar ",
-            React.createElement("i", { className: "fa fa-upload" })
+            { className: "btn btn-success btn-round btn_seseccion btn-block", style: { width: "150px", fontSize: "18px" }, id: "btn_guardar_embarque_pedido", onClick: guardar_embarque },
+            " Guardar ",
+            React.createElement("i", { className: "fa fa-cloud-upload" })
         ),
         React.createElement("i", { className: "btn btn-default fa fa-refresh", onClick: rotar })
     );
@@ -924,23 +918,23 @@ var ModalCaptura = function ModalCaptura(_ref7) {
         React.createElement(
             "div",
             null,
-            React.createElement("div", { className: "panel-heading" }),
+            React.createElement(
+                "div",
+                { className: "panel-heading" },
+                React.createElement("i", { className: "btn btn-danger fa fa-close", onClick: cerrar, style: { float: "right" } }),
+                React.createElement(
+                    "label",
+                    null,
+                    "Descripcion"
+                )
+            ),
             React.createElement(
                 "div",
                 { className: "panel-body" },
                 React.createElement(
-                    "div",
-                    { className: "" },
-                    React.createElement(
-                        "label",
-                        null,
-                        "Descripcion"
-                    ),
-                    React.createElement(
-                        "div",
-                        { className: "", style: { width: "300px", height: "50px" } },
-                        Descripcion
-                    )
+                    "span",
+                    { className: "", style: { width: "300px", height: "50px" } },
+                    Descripcion
                 ),
                 React.createElement(CapturaCantidad, {
                     cantidades: cantidades
@@ -951,6 +945,10 @@ var ModalCaptura = function ModalCaptura(_ref7) {
             )
         )
     );
+    function cerrar() {
+        document.querySelector("#entrada_codigo_producto").disabled = false;
+        document.querySelector("#captura_por_teclado").style.display = 'none';
+    }
 };
 
 //old
@@ -1249,12 +1247,9 @@ var ModalTabla = function ModalTabla(_ref15) {
             React.createElement(
                 "div",
                 { className: "panel-heading" },
-                React.createElement("i", { className: "btn btn-danger fa fa-close",
-                    style: { float: "right" },
-                    onClick: function () {
+                React.createElement("i", { className: "btn btn-danger fa fa-close", style: { float: "right" }, onClick: function () {
                         return document.getElementById("ventana_filtro").style.display = "none";
-                    }
-                }),
+                    } }),
                 React.createElement(
                     "h4",
                     null,
@@ -1263,9 +1258,7 @@ var ModalTabla = function ModalTabla(_ref15) {
             ),
             React.createElement(
                 "div",
-                { className: "panel-body",
-                    style: { height: "80%" }
-                },
+                { className: "panel-body", style: { height: "80%" } },
                 React.createElement(
                     "strong",
                     null,
@@ -1278,9 +1271,7 @@ var ModalTabla = function ModalTabla(_ref15) {
                 ),
                 React.createElement(
                     "div",
-                    {
-                        style: { height: "100%", overflow: "auto" }
-                    },
+                    { style: { height: "100%", overflow: "auto" } },
                     React.createElement(
                         "table",
                         { className: "table" },
@@ -1353,11 +1344,9 @@ var ModalTabla = function ModalTabla(_ref15) {
                                     React.createElement(
                                         "td",
                                         null,
-                                        React.createElement("i", { className: "btn btn-danger glyphicon glyphicon-trash",
-                                            onClick: function () {
+                                        React.createElement("i", { className: "btn btn-danger glyphicon glyphicon-trash", onClick: function () {
                                                 return modificar(e.cod_prod);
-                                            }
-                                        })
+                                            } })
                                     )
                                 );
                             })
@@ -1376,7 +1365,7 @@ var Embarque = (function () {
         _classCallCheck(this, Embarque);
 
         this.folio_pedido = "";
-        this.usuario = parseInt(USUARIO.id_scoi);
+        this.usuario = parseInt(USUARIO.id_scoi); //ID_SCOI
         this.productos = [];
         this.ContruirPedido();
     }
@@ -1445,10 +1434,7 @@ function guardar_embarque() {
         var _ret = (function () {
 
             var value = new Embarque();
-            console.log(value);
-
             var conexionBMS = function conexionBMS(estatus) {
-                console.log("estatus=>", estatus);
                 if (estatus) {
                     fetch($URL_API_IZA + "PedidoBms/EmbarqueBms", {
                         method: 'post',
@@ -1470,8 +1456,9 @@ function guardar_embarque() {
                     Alert("error Al Guardar!!!");
                 }
             };
-
-            var conexion = function conexion() {
+            if (value.productos.length > 0) {
+                alert("Guardar... \n" + value.productos.length + " Productos.");
+                //CONEXION BMS
                 fetch($URL_API_IZA + "Pedido/Embarque", {
                     method: 'post',
                     headers: {
@@ -1485,20 +1472,15 @@ function guardar_embarque() {
                 })["catch"](function (err) {
                     return ErrorPedido();
                 });
-            };
-            if (value.productos.length > 0) {
-                alert("Guardar... \n" + value.productos.length + " Productos.");
-                //CONEXION BMS
-                conexion();
                 return {
                     v: null
                 };
-            }
+            } else alert("Sin Productos A Guardar...");
         })();
 
         if (typeof _ret === "object") return _ret.v;
     }
-    alert("GUARDAR Cancelado!!!");
+    alert("GUARDADO CANCELADO!!!");
 }
 function init() {
     var View = null;
@@ -1508,7 +1490,7 @@ function init() {
     } else {
         View = SeleccionEmbarque;
     }
-    ReactDOM.render(React.createElement(View, null), document.getElementById('root'));
+    ReactDOM.render(React.createElement(View, null), document.getElementById('main'));
 }
 init();
 //setTimeout( ()=>console.clear(),1000);

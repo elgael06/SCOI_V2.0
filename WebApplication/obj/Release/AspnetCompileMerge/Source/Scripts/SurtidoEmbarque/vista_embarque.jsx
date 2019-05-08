@@ -237,7 +237,7 @@ class EmbarquePedido extends React.Component {
         console.log("filtro", filtro);
         const $lista = this.state.Embarque;
 
-        const Filtrar = (() => {
+        const Filtrar = (function(){
             var resultado = () => null;
             switch (filtro) {
                 case "P"://pendiente
@@ -316,7 +316,7 @@ class EmbarquePedido extends React.Component {
             this.setState({ producto: $producto, activar: $estatus });
             document.querySelector("#captura_por_teclado").style.display = "flex";
         } else {
-            alert(`El Producto ${producto.Codigo} No Se Encuentra En El Embarque!!!`);
+            alert(`El Producto ${producto.Descripcion} No Se Encuentra En El Embarque!!!`);
             this.restarProducto();
         }
         this.mostrarocultarCarga(0);
@@ -409,6 +409,7 @@ class EmbarquePedido extends React.Component {
             this.cargarProductonLocalStorange($seleccion);
             this.calcular_totales();
             document.querySelector("#captura_por_teclado").style.display = "none";
+            document.querySelector("#entrada_codigo_producto").disabled = false;
             document.querySelector("#entrada_codigo_producto").select();
         }
         switch (value) {
@@ -439,9 +440,9 @@ class EmbarquePedido extends React.Component {
     }
     /* Conexiones */
     ObtenerEnmbarque() {
-        const establecimiento = this.state.Pedido.Establecimiento || "cedis";
         const folio = this.state.producto.Codigo.toString() || "10201";
         const { Alterno } = this.state.Pedido;
+        document.querySelector("#entrada_codigo_producto").disabled = true;
 
         fetch(`${$URL_API}Productos_clasificador_por_folio?folio=${folio}&establecimineto=${Alterno}`, {
             method: 'post',
@@ -570,7 +571,7 @@ const BuscarPruducto = ({ evBuscar, evOn, Codigo}) => {
             </form>
             <hr />
 
-            <i className="btn btn-success btn_seseccion" id="btn_guardar_embarque_pedido" onClick={guardar_embarque}>Guardar <i className="fa fa-upload"></i></i>
+            <i className="btn btn-success btn-round btn_seseccion btn-block" style={{width:"150px",fontSize:"18px"}} id="btn_guardar_embarque_pedido" onClick={guardar_embarque}> Guardar <i className="fa fa-cloud-upload"></i></i>
             <i className="btn btn-default fa fa-refresh" onClick={rotar}></i>
         </div>
         );
@@ -579,12 +580,12 @@ const ModalCaptura = ({ cantidades, Descripcion,evTecla }) => {
     return (
         <div className="panel panel-success ventana" id="captura_por_teclado">
             <div>
-                <div className="panel-heading"></div>
+                <div className="panel-heading">
+                    <i className="btn btn-danger fa fa-close" onClick={cerrar} style={{float:"right"}}></i>
+                    <label>Descripcion</label>
+                </div>
                 <div className="panel-body">
-                    <div className="">
-                        <label>Descripcion</label>
-                        <div className="" style={{width:"300px",height:"50px"}}>{Descripcion}</div>
-                    </div>
+                    <span className="" style={{ width: "300px", height: "50px" }}>{Descripcion}</span>
                     <CapturaCantidad
                         cantidades={cantidades}
                     />
@@ -594,7 +595,11 @@ const ModalCaptura = ({ cantidades, Descripcion,evTecla }) => {
                 </div>
             </div>
         </div>
-        );
+    );
+    function cerrar() {
+        document.querySelector("#entrada_codigo_producto").disabled = false;
+        document.querySelector("#captura_por_teclado").style.display = 'none';
+    }
 }
 
 
@@ -726,59 +731,45 @@ const TeclaEspecial = ({ valor, evValor }) => {
 }
 
 const ModalTabla = ({ lista, modificar }) => {
-
-    return (
-        <div className="ventana" id="ventana_filtro">
-            <div className="paenl panel-default">
-                <div className="panel-heading">
-                    <i className="btn btn-danger fa fa-close"
-                        style={{ float: "right" }}
-                        onClick={() => document.getElementById("ventana_filtro").style.display = "none"}
-                    ></i>
-                    <h4>Productos</h4>
-                </div>
-                <div className="panel-body"
-                    style={{ height: "80%" }}
-                >
-                    <strong>Lista </strong>
+    return (<div className="ventana" id="ventana_filtro">
+        <div className="paenl panel-default">
+            <div className="panel-heading">
+                <i className="btn btn-danger fa fa-close" style={{ float: "right"}} onClick={() => document.getElementById("ventana_filtro").style.display = "none"} ></i>
+                <h4>Productos</h4>
+            </div>
+            <div className="panel-body" style={{ height: "80%" }} >
+                <strong>Lista </strong>
                     <i className="badge">{lista.length}</i>
-                    <div
-                        style={{ height: "100%", overflow: "auto" }}
-                    >
-                        <table className="table">
-                            <thead>
-                                <tr id="cavecera_tabla_filtro">
-                                    <th>Codigo</th>
-                                    <th>Descripcion</th>
-                                    <th>Pedido</th>
-                                    <th>Surtido</th>
-                                    <th>Pendiente</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {lista.map((e, p) => {
-                                    return (
-                                        <tr className="filtro_productos">
-                                            <td>{e.cod_prod}</td>
-                                            <td>{e.descripcion}</td>
-                                            <td style={{ textAlign: "right" }}>{e.pedido}</td>
-                                            <td style={{ textAlign: "right" }}>{e.surtido}</td>
-                                            <td style={{ textAlign: "right" }}>{e.pendiente}</td>
-                                            <td >
-                                                <i className="btn btn-danger glyphicon glyphicon-trash"
-                                                    onClick={() => modificar(e.cod_prod)}
-                                                ></i>
-                                            </td>
-                                        </tr>)
-                                })}
-                            </tbody>
-                        </table>
-                    </div>
+                <div style={{ height: "100%", overflow: "auto" }}>
+                    <table className="table">
+                        <thead>
+                            <tr id="cavecera_tabla_filtro">
+                                <th>Codigo</th>
+                                <th>Descripcion</th>
+                                <th>Pedido</th>
+                                <th>Surtido</th>
+                                <th>Pendiente</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {lista.map((e, p) => {
+                            return ( <tr className="filtro_productos">
+                                <td>{e.cod_prod}</td>
+                                <td>{e.descripcion}</td>
+                                <td style={{ textAlign: "right" }}>{e.pedido}</td>
+                                <td style={{ textAlign: "right" }}>{e.surtido}</td>
+                                <td style={{ textAlign: "right" }}>{e.pendiente}</td>
+                                <td >
+                                    <i className="btn btn-danger glyphicon glyphicon-trash" onClick={() => modificar(e.cod_prod)} ></i>
+                                </td>
+                            </tr>)})}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    );
+    </div>);
 }
 
 if (location.protocol != "http:")
@@ -787,7 +778,7 @@ if (location.protocol != "http:")
 class Embarque {
     constructor() {
         this.folio_pedido = "";
-        this.usuario = parseInt(ID_SCOI);
+        this.usuario = parseInt(USUARIO.id_scoi);//ID_SCOI
         this.productos = [];
         this.ContruirPedido();
     }
@@ -843,10 +834,7 @@ function guardar_embarque() {
     if (confirm("Esta Seguro De GUARDAR los Cambios De Embarque?") && e.toUpperCase() === 'IZAGAR') {
 
         const value = new Embarque();
-        console.log(value);
-
         const conexionBMS = (estatus) => {
-            console.log("estatus=>",estatus);
             if (estatus) {
                 fetch(`${$URL_API_IZA}PedidoBms/EmbarqueBms`, {
                     method: 'post',
@@ -868,8 +856,9 @@ function guardar_embarque() {
                 Alert("error Al Guardar!!!")
             }
         }
-        
-        const conexion = () => {
+        if (value.productos.length > 0) {
+            alert(`Guardar... \n${value.productos.length} Productos.`)
+            //CONEXION BMS
             fetch(`${$URL_API_IZA}Pedido/Embarque`, {
                 method: 'post',
                 headers: {
@@ -881,15 +870,11 @@ function guardar_embarque() {
                     e.json().then(res => conexionBMS(res))
                 })
                 .catch(err => ErrorPedido());
-        }
-        if (value.productos.length > 0) {
-            alert(`Guardar... \n${value.productos.length} Productos.`)
-            //CONEXION BMS
-            conexion();
             return null;
         }
+        else alert("Sin Productos A Guardar...");
     }
-    alert("GUARDAR Cancelado!!!");
+    alert("GUARDADO CANCELADO!!!");
 }
 function init() {
     var View = null;
@@ -899,7 +884,7 @@ function init() {
     } else {
         View = SeleccionEmbarque;
     }
-    ReactDOM.render(<View  />, document.getElementById('main'));
+    ReactDOM.render(<View />, document.getElementById('main'));
 }
 init();
 //setTimeout( ()=>console.clear(),1000);

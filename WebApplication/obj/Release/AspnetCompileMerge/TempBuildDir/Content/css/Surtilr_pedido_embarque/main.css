@@ -388,8 +388,10 @@
 }
 
     #captura_por_teclado > div {
-        height: 90%;
-        width: 90%;
+        height: 100%;
+        max-height:500px;
+        width: 100%;
+        max-width:750px;
         background: #ffffff;
         border-radius: 5px
     }

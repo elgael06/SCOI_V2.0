@@ -657,6 +657,8 @@
     <Content Include="Scripts\jquery-3_slim_min.js" />
     <Content Include="Scripts\lib\React\JSXTransformer.js" />
     <Content Include="Scripts\lib\React\react-dom.production.min.js" />
+    <Content Include="Scripts\lib\React\react.development-16.4.2.js" />
+    <Content Include="Scripts\lib\React\react.production.min-16.4.2.js" />
     <Content Include="Scripts\lib\React\react.production.min.js" />
     <Content Include="Scripts\lib\vue\vue.js" />
     <Content Include="Scripts\lib\vue\vue_.js" />
