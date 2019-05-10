@@ -35,7 +35,7 @@ namespace WebApplication.Manager.web
         [HttpPost]
         public JsonResult Cuadrantes_reporte_para_monitor_general(string fi, string ff, string establecimiento) => Json(new Obtener_monitor_cuadrantes(fi, ff, establecimiento));
         //[HttpPost]
-        public JsonResult Monitor_analisis_precios_competencias() => Json(new Obtener_Monitor_precio_competencia(), JsonRequestBehavior.AllowGet);
+        public JsonResult Monitor_analisis_precios_competencias(string filtro) => Json(new Obtener_Monitor_precio_competencia("", filtro), JsonRequestBehavior.AllowGet);
         private ActionResult Accesos(int ruta) {
             Session["id_usuario"] = Session["id_usuario"] ?? 0;
             usuario = int.Parse(Session["id_usuario"].ToString());

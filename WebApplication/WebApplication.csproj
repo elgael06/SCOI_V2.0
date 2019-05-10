@@ -249,6 +249,7 @@
     <Compile Include="Controllers\Estado_de_resultados\Estado_de_resultadosController.cs" />
     <Compile Include="Controllers\Monitor_auditoria_venta\monitor_auditoria_ventasController.cs" />
     <Compile Include="Controllers\Monitor_auditoria_venta\Monitor_auditoria__venta_detalle_corteController.cs" />
+    <Compile Include="Controllers\Monitor_precio_competencia\monitor_precio_competenciaController.cs" />
     <Compile Include="Manager\Globales\Manejos_fechas.cs" />
     <Compile Include="Manager\Monitor_cuadrantes\Obtener_monitor_cuadrantes.cs" />
     <Compile Include="Controllers\MovimientosBancoInterno\ObtenerMovimientoOrdenDePagoController.cs" />
@@ -304,6 +305,7 @@
     <Compile Include="Manager\Monitor_auditoria_venta\Monitor_obtener_auditorioa-venta.cs" />
     <Compile Include="Manager\monitor_orden_compra_interna\Manager_monitor_orden_compra_interna.cs" />
     <Compile Include="Manager\Monitor_precio_competencia\Obtener_Monitor_precio_competencia.cs" />
+    <Compile Include="Manager\Monitor_precio_competencia\Obtener_productos.cs" />
     <Compile Include="Manager\MovimientosBancoInterno\Pagos_realizados_en_un_periodo_por_cuenta_consulta.cs" />
     <Compile Include="Manager\Ordenes_de_pago_en_efectivo\Obtener_beneficiarios.cs" />
     <Compile Include="Manager\Ordenes_de_pago_en_efectivo\Monitor_obtener_pagos_en_efectivo.cs" />
@@ -357,13 +359,13 @@
     <Compile Include="Models\Monitor_cuadrantes\Modelo_monitor_cuadrantes.cs" />
     <Compile Include="Models\monitor_orden_compra_interna\Modelo_monitor_orden_compra_interna.cs" />
     <Compile Include="Models\Monitor_precio_competencia\Interface_Analisis.cs" />
+    <Compile Include="Models\Monitor_precio_competencia\Modelo_pasillo_productos.cs" />
     <Compile Include="Models\Monitor_precio_competencia\model_competencia.cs" />
     <Compile Include="Models\Monitor_precio_competencia\Model_detalles.cs" />
     <Compile Include="Models\Monitor_precio_competencia\Model_monitor_precio_competencia.cs" />
     <Compile Include="Models\Monitor_precio_competencia\Model_mueble.cs" />
     <Compile Include="Models\Monitor_precio_competencia\Model_pasillo.cs" />
     <Compile Include="Models\Monitor_precio_competencia\Model_producto.cs" />
-    <Compile Include="Models\Monitor_precio_competencia\Obtener_productos.cs" />
     <Compile Include="Models\MovimientosBancoInterno\concepto_compra_gasto.cs" />
     <Compile Include="Models\MovimientosBancoInterno\concepto_orden_de_pago.cs" />
     <Compile Include="Models\MovimientosBancoInterno\concepto_pagos_realizados_en_un_periodo.cs" />

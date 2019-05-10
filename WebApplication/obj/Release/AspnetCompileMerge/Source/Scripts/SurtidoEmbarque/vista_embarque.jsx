@@ -1,6 +1,6 @@
 ﻿
 const $MI_URL = `${window.location.protocol}//${window.location.hostname}`;
-const $URL_API = $MI_URL + ":90/api/"
+const $URL_API = $MI_URL + "/api/"
 const $URL_API_IZA = $MI_URL + ":180/api/"
 
 class SeleccionEmbarque extends React.Component
