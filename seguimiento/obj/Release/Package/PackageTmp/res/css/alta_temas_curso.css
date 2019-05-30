@@ -1,0 +1,133 @@
+﻿/*cabecera*/
+#botonera {
+    top:19px;
+    position:absolute;
+    width:80%;
+    margin-left:40px;
+}
+.botonera{
+    background-color:#8ca0b9;
+    color:azure;
+    border:double 1px #9dc4f5;
+    border-radius:2px;
+    height:35px;
+    font-size:14px;
+    font-family:'Comic Sans MS';
+}
+.botonera:hover {
+    background-color:#98b8de;
+    border:double 1px #b8cae1;
+}
+h3 {
+    font-family:'Comic Sans MS'; 
+}
+#nombre_tema {
+    width:50%;
+}
+.entradas {
+     border:solid 1px #808080;
+    background-color:azure;
+    border-radius:1px;
+}
+.entradas:focus {
+     border:solid 2px #0094ff;
+     box-shadow: 0 1px 1px rgba(86, 205, 228, 0.08)inset, 0 0 8px #b8cae1;
+      border-radius:5px;
+    }
+#selector_cursos {
+    width:230px;
+   
+}
+#cont_texto {
+    position:initial;
+    display:inline;
+    width:40%;
+    height:200px;
+    margin-right:5%;
+    margin-top:10px;
+}
+textarea {
+    text-align:left;
+    display:inline-block;
+    width:40%;
+    height:200px;
+    background:azure;
+    resize: none;
+}
+#cont_imagen {
+    display:inline-block;
+    width:40%;
+    height:200px;
+    align-content:center;
+    justify-content: center;
+}
+#img {
+    width:100%;
+    height:100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 0 auto;
+}
+#selector_imag {
+    text-align:center;
+    border-radius:6px;
+    width:100%;
+}
+#selector_imag:hover:enabled {
+    background:#0094ff;
+    color:azure; 
+}
+#tiempo {
+    margin-top:-20px;
+}
+#contador_tiempo {
+    margin-left:0px auto;
+}
+.btnTabla {
+    margin-top:-10px;
+    width:110px;
+    height:35px;
+    color:azure;
+    background:#0094ff;
+    border:solid 1px #808080; 
+    margin-left:5px;
+}
+.btnTabla:disabled {
+     color:#8ca0b9;
+    background:#dfe0e2;  
+    
+}
+.btnTabla:hover:enabled{
+   background:#7aa9e1;
+   box-shadow: 0 1px 1px rgba(86, 205, 228, 0.08)inset, 0 0 8px #b8cae1;
+}
+#borrar_activo {
+     background:#fc0f00;
+}
+#borrar_activo:hover:enabled {
+     background:#e4564d;
+}
+#borrar_activo:disabled {
+     color:#8ca0b9;
+    background:#dfe0e2;  
+    
+}
+#scroll {
+    height:220px;
+    background-color:azure;
+}
+#tabla_temas {
+    min-width:100%
+}
+.cabecera_tabla {
+    position:sticky;
+    top:1px;
+    background-color:#919598;
+    color:azure;
+}
+.datos_temas:hover {
+    background-color:#bce5f5;
+}
+.activo {
+    background-color:#cfd5dd;
+}

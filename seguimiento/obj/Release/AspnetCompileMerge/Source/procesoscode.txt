@@ -1,0 +1,1045 @@
+﻿Imports MySql.Data.MySqlClient
+Imports System.Data
+Imports System.IO
+
+Public Class procesos
+    Inherits System.Web.UI.Page
+    Public conn, conn1 As New MySqlConnection
+    Public estadodeconexionprevia As ConnectionState
+    Public comando, comando1 As MySqlCommand
+    Public adaptador, adaptador1 As New MySqlDataAdapter
+
+    Public consulta, consulta1 As String
+    Public fecha As Date
+    Public datareader, datareader1 As MySqlDataReader
+    Public data, data1 As New DataSet
+
+    'variables de los dias de la semana
+    Dim lun, mar, mie, jue, vie, sab, dom As Integer
+    'variables de los meses del año
+    Dim ene, feb, marz, abr, may, jun, jul, ago, sep, oct, nov, dic As Integer
+    Dim fechainicio, fechafinal As Date
+    Dim eldia As String
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        ' Esto sirve para cargar los controles una sola vez y no cada vez que se haga postback
+        If Page.IsPostBack Then
+            ' aqui no haremos nada
+        Else
+            'aca pones todos lo eventos y funciones que deben cargarse una unica vez
+            limpiar_campos()
+            limpiar_opcionales()
+            iniciar_checkboxes()
+            llenar_perfiles()
+            llenar_procesos()
+            cargar_tipoevidencias()
+            TabContainer1.ActiveTabIndex = 0
+            Button26.Visible = False : Button27.Visible = False
+            fechainicio = Now.ToString : fechafinal = Now.ToString
+
+        End If
+    End Sub
+    Sub cargar_tipoevidencias()
+        ComboBox7.Items.Clear()
+        '----------------------------cargar DDL2---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select tipo_evidencia from evidencias"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox7.Items.Add(datareader.GetValue(0))
+            End While
+        End If
+        conn.Close()
+    End Sub
+    Sub iniciar_checkboxes()
+        'inicializamos los dias de la semana
+        lun = 0 : mar = 0 : mie = 0 : jue = 0 : vie = 0 : sab = 0 : dom = 0
+        'inicializamos los dias de la semana
+        ene = 0 : feb = 0 : marz = 0 : abr = 0 : may = 0 : jun = 0 : jul = 0 : ago = 0 : sep = 0 : oct = 0 : nov = 0 : dic = 0
+        ' inicializamos el dia en que se realizara la tarea
+        eldia = "cualquiera"
+    End Sub
+    Sub llenar_procesos()
+        ComboBox3.Items.Clear()
+        '----------------------------cargar nombre de procesos en combobox3---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select nombre_proceso from procesos;"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox3.Items.Add(datareader.GetValue(0))
+            End While
+        End If
+        conn.Close()
+    End Sub
+    Sub limpiar_campos()
+        TextBox1.Text = "" : TextBox3.Text = "" : TextBox4.Text = ""
+        TextBox6.Text = "" : TextBox7.Text = "" : TextBox24.Text = ""
+        TextBox14.Text = "" : TextBox15.Text = "" : TextBox16.Text = ""
+        GridView2.Visible = False
+        Button1.Text = "Buscar" : Button22.Text = "Listar Coincidencias"
+        TabContainer1.Tabs(1).Visible = False
+        TabContainer1.Tabs(2).Visible = False
+        TabContainer1.Tabs(3).Visible = False
+        TabContainer1.Tabs(4).Visible = False
+    End Sub
+    Sub limpiar_opcionales()
+        'fecha inicio
+        TextBox17.Text = CDate(Now).ToString("yyyy-MM-dd") : TextBox17.Visible = True
+        ' fecha final y dias
+        Label23.Visible = False : Label24.Visible = False : Label25.Visible = False : Label26.Visible = False
+        TextBox22.Text = CDate(Now).ToString("yyyy-MM-dd") : TextBox22.Visible = False
+        TextBox23.Text = 0 : TextBox23.Visible = False
+        'checkboxes dias se la semana
+        CheckBox1.Visible = False : CheckBox2.Visible = False : CheckBox3.Visible = False : CheckBox4.Visible = False
+        CheckBox5.Visible = False : CheckBox6.Visible = False : CheckBox7.Visible = False
+        'checkboxes meses del año
+        CheckBox8.Visible = False : CheckBox9.Visible = False : CheckBox10.Visible = False : CheckBox11.Visible = False : CheckBox12.Visible = False
+        CheckBox13.Visible = False : CheckBox14.Visible = False : CheckBox15.Visible = False : CheckBox16.Visible = False : CheckBox17.Visible = False
+        CheckBox18.Visible = False : CheckBox19.Visible = False
+        'los dias
+        Label27.Visible = False : ComboBox10.Visible = False
+    End Sub
+    Sub llenar_perfiles()
+        ComboBox1.Items.Clear()
+        '----------------------------cargar nombre de perfiles  en combobox1---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select nombre_puesto from perfiles;"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox1.Items.Add(datareader.GetValue(0))
+            End While
+        End If
+        conn.Close()
+    End Sub
+    Sub llenar_responsabilidades()
+        ' este se debera de llenar cuando se cambie de item en el combobox2 que es el perfil a seleccionar
+        ComboBox6.Items.Clear()
+        '----------------------------cargar responsabilidades en combobox2---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select descripcion_respon from responsabilidad where codigo_puesto = '" & TextBox15.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox6.Items.Add(datareader.GetValue(0))
+            End While
+        End If
+        conn.Close()
+    End Sub
+
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        ' buscamos el codigo del proceso
+        busca_proceso
+    End Sub
+    Sub busca_proceso()
+        If Button1.Text = "Buscar" Then
+            ' REALIZAMOS LA CONSULTA DEL REGISTRO SOLICITADO EN TEXTBOX1.TEXT
+            conn1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            conn1.Open()
+            consulta1 = "select nombre_proceso, objetivo_proceso from procesos where codigo_proceso= '" & TextBox1.Text & "'"
+            comando1 = New MySqlCommand(consulta1, conn1)
+            datareader1 = comando1.ExecuteReader
+            ' si encontramos registros entonces colocamos la informacion en los textboxes correspondientes
+            If datareader1.HasRows Then
+                While datareader1.Read
+                    ' colocamos la informacion del query en cada uno de los elementos
+                    ComboBox3.Text = datareader1.GetValue(0)
+                    TextBox6.Text = datareader1.GetValue(0)
+                    TextBox9.Text = datareader1.GetValue(0)
+                    TextBox13.Text = datareader1.GetValue(0)
+                    TextBox3.Text = datareader1.GetValue(1)
+
+                End While
+                'cerramos la conexion
+                conn.Close()
+                'activamos los tabs del tabcontainer1
+                TabContainer1.Tabs(1).Visible = True
+                TabContainer1.Tabs(2).Visible = True
+                TabContainer1.Tabs(3).Visible = True
+                TabContainer1.Tabs(4).Visible = True
+                'cargamos la informacion en los gridviews correspondientes
+
+                'llenar_responsabilidades()
+
+                _llenargridview1()
+                _llenargridview3()
+                _llenargridview4()
+
+                'cambiamos el text del boton1 a limpiar
+                Button1.Text = "Limpiar"
+                ' cargamos el gridview1 con el detalle de los pasos del proceso
+                consulta_detalleprocesos()
+            End If
+        ElseIf Button1.Text = "Limpiar" Then
+            limpiar_campos()
+            'ocultamos los gridviewa
+            GridView1.Visible = False : GridView3.Visible = False : GridView4.Visible = False
+        End If
+    End Sub
+    Sub consulta_detalleprocesos()
+        ' cargamos en el gridview el detalle de los pasos a realizar en este proceso
+        _llenargridview1()
+    End Sub
+
+    Protected Sub Button22_Click(sender As Object, e As EventArgs) Handles Button22.Click
+        ' buscamos por nombre del proceso
+        If Button22.Text = "Listar Coincidencias" Then
+            'se crea una conexion a la base de datos MySQL
+            Dim connection As MySqlConnection
+            connection = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection.State
+            Try
+                If connection.State = ConnectionState.Closed Then
+                    connection.Open()
+                End If
+                Dim textoconsulta As String
+                textoconsulta = "%" & ComboBox3.Text & "%"
+                Dim ComandoSQL As New MySqlCommand("SELECT codigo_proceso, nombre_proceso, objetivo_proceso FROM procesos WHERE nombre_proceso LIKE '" & textoconsulta & "'", connection)
+                Dim ds As New DataSet
+                Dim da As New MySqlDataAdapter(ComandoSQL)
+                da.Fill(ds)
+                GridView2.DataSource = ds.Tables(0)
+                GridView2.DataBind()
+                Button22.Text = "Limpiar"
+                GridView2.Visible = True
+                Button21.Visible = True
+                Button1.Text = "Limpiar"
+            Catch ex As Exception
+                Throw ex
+            End Try
+        ElseIf Button22.Text = "Limpiar" Then
+            limpiar_campos()
+        End If
+    End Sub
+
+    Protected Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
+        limpiar_campos()
+    End Sub
+
+    Protected Sub Button16_Click(sender As Object, e As EventArgs) Handles Button16.Click
+        If Button16.Text = "Guardar Nuevo" Then
+            ' guardamos los datos del proceso que se ingresaron
+            consulta = "insert into procesos(codigo_proceso, nombre_proceso, objetivo_proceso)values('" & TextBox1.Text & "','" & ComboBox3.Text & "')"
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            conn.Open()
+            comando = New MySqlCommand(consulta, conn)
+            comando.ExecuteNonQuery()
+            'cerramos la conexion
+            conn.Close()
+            TabContainer1.Tabs(1).Visible = True
+            TabContainer1.Tabs(2).Visible = True
+            TabContainer1.Tabs(3).Visible = True
+            TabContainer1.Tabs(4).Visible = True
+        ElseIf Button16.Text = "Guardar Cambios" Then
+            'MODIFICAMOS LA INFORMACION DEL REGISTRO SOLICITADO
+            consulta = "update procesos set nombre_proceso = '" & ComboBox3.Text & "', objetivo_proceso = '" & TextBox3.Text & "' where codigo_proceso= '" & TextBox1.Text & "'"
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            conn.Open()
+            Try
+                comando = New MySqlCommand(consulta, conn)
+                comando.ExecuteNonQuery()
+                'Response.Write("<script language=javascript>alert('REGISTRO ACTUALIZADO');</script>")
+            Catch ex As Exception
+                'Response.Write("<script language=javascript>alert('ERROR AL ACTUALIZAR');</script>")
+            End Try
+            conn.Close()
+        End If
+    End Sub
+
+    Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        ' agregamos la responsabilidad al gridview
+        If Button2.Text = "Agregar" Then
+            agregar_actividad()
+        ElseIf Button2.Text = "Aplicar Cambios" Then
+            editar_actividad()
+        End If
+    End Sub
+    Sub agregar_actividad()
+        If TextBox7.Text <> "" Then
+            ' agregramos un paso a este proceso
+            'se crea una conexion a la base de datos MySQL
+            Dim connection As MySqlConnection
+            Dim cuentalineas As Integer
+            connection = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection.State
+            Try
+                If connection.State = ConnectionState.Closed Then
+                    connection.Open()
+                End If
+                'se ejecuta una consulta SQL
+                Dim ComandoSQL As New MySqlCommand("INSERT INTO actividad (codigo_proceso, detalle_actividad, orden_actividad) VALUES ('" & TextBox1.Text & "', '" & TextBox7.Text & "', '" & DropDownList4.Text & "')", connection)
+                cuentalineas = ComandoSQL.ExecuteNonQuery
+                If cuentalineas > 0 Then
+                    ' Response.Write("<script language=javascript>alert('Prospecto agregado correctamente');</script>")
+                    _llenargridview1()
+
+                Else
+                    'Response.Write("<script language=javascript>alert('Los datos del prospecto NO han sido guardados');</script>")
+                End If
+
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End If
+    End Sub
+    Sub editar_actividad()
+        'modificamos la responsabilidad colocada en textbox9, una vez que modificamos el texto
+        'MODIFICAMOS LA INFORMACION DEL REGISTRO SOLICITADO
+        consulta = "update actividad set detalle_actividad='" & TextBox7.Text & "', orden_actividad='" & DropDownList4.Text & "' where id_actividad=" & Val(TextBox8.Text)
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        comando = New MySqlCommand(consulta, conn)
+        comando.ExecuteNonQuery()
+        'Response.Write("<script language=javascript>alert('REGISTRO ACTUALIZADO');</script>")
+        conn.Close() 'cerramos la conexion
+        _llenargridview1() ' cargamos el gridview de nuevo
+    End Sub
+    Sub _llenargridview1()
+
+        ' primero cargamos el combo de actividades
+        ComboBox4.Items.Clear()
+        '----------------------------cargar actividades en el combobox4---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select detalle_actividad from actividad where codigo_proceso = '" & TextBox1.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox4.Items.Add(datareader.GetValue(0))
+            End While
+        End If
+        conn.Close()
+
+        'despues cargamos el gridview de las actividades
+        Dim connection As MySqlConnection
+        connection = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection.State
+        If connection.State = ConnectionState.Closed Then
+            connection.Open()
+        End If
+        Try
+            Dim ComandoSQL As New MySqlCommand("SELECT id_actividad, detalle_actividad, orden_actividad FROM actividad where codigo_proceso =  '" & TextBox1.Text & "'", connection)
+            Dim ds As New DataSet
+            Dim da As New MySqlDataAdapter(ComandoSQL)
+            da.Fill(ds)
+            GridView1.DataSource = ds.Tables(0)
+            GridView1.DataBind()
+            GridView1.Visible = True
+            TextBox7.Text = ""
+            Button2.Text = "Agregar"
+            GridView1.AutoGenerateDeleteButton = False
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Protected Sub Button17_Click(sender As Object, e As EventArgs) Handles Button17.Click
+        ' mostramos el catalogo de procesos
+        If Button17.Text = "Mostrar Catalogo" Then
+            ' mostramos el catalogo completo de todos los perfiles de puestos
+            'se crea una conexion a la base de datos MySQL
+            Dim connection1 As MySqlConnection
+            connection1 = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection1.State
+            Try
+                If connection1.State = ConnectionState.Closed Then
+                    connection1.Open()
+                End If
+                'se ejecuta una consulta SQL
+                Dim ComandoSQL As New MySqlCommand("SELECT codigo_proceso, nombre_proceso, codigo_perfil, nombre_perfil FROM procesos", connection1)
+                Dim ds1 As New DataSet
+                Dim da1 As New MySqlDataAdapter(ComandoSQL)
+                da1.Fill(ds1)
+                GridView2.DataSource = ds1.Tables(0)
+                GridView2.DataBind()
+                GridView2.Visible = True
+                Button21.Visible = True
+                Button17.Text = "Ocultar Catalogo"
+            Catch ex As Exception
+                'Response.Write("<script language=javascript>alert('Error de conexion a la base de datos');</script>")
+            End Try
+        ElseIf Button17.Text = "Ocultar Catalogo" Then
+            Button17.Text = "Mostrar Catalogo"
+            GridView2.Visible = False
+            Button21.Visible = False
+        End If
+    End Sub
+
+    Protected Sub GridView2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView2.SelectedIndexChanged
+        ' seleccionamos un registro y lo consultamos
+        ' Obtiene la el valor de la linea seleccionada actualmente
+        Dim row As GridViewRow = GridView2.SelectedRow
+        'Call limpiar_campos()
+        TextBox1.Text = row.Cells(1).Text
+        GridView2.Visible = False
+        Button21.Visible = False
+        Button1.Text = "Buscar"
+        Button17.Text = "Mostrar Catalogo"
+        busca_proceso()
+    End Sub
+
+    Protected Sub Button21_Click(sender As Object, e As EventArgs) Handles Button21.Click
+        ' ocultamos el gridview2 del catalogo de perfiles de puesto
+        GridView2.Visible = False
+        Button21.Visible = False
+        Button17.Text = "Mostrar Catalogo"
+    End Sub
+    Protected Sub GridView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView1.SelectedIndexChanged
+        ' Obtiene la el valor de la linea seleccionada actualmente
+        Dim row As GridViewRow = GridView1.SelectedRow
+        TextBox7.Text = row.Cells(2).Text
+        TextBox8.Text = row.Cells(1).Text
+        GridView1.AutoGenerateDeleteButton = True
+    End Sub
+
+    Private Sub GridView1_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles GridView1.RowDeleting
+        ' eliminamos la responsabilidad seleccionada del gridview1
+        Dim connection As MySqlConnection
+        connection = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection.State
+        If connection.State = ConnectionState.Closed Then
+            connection.Open()
+        End If
+        Dim query As String = "DELETE FROM actividad where id_actividad=" & Val(TextBox8.Text)
+        Dim cmd As New MySqlCommand(query, connection)
+        cmd.ExecuteNonQuery()
+        _llenargridview1()
+    End Sub
+
+    Protected Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
+        ' seleccionamos el perfil para cargar el id del mismo y con eso buscar las responsabilidades que le corresponden al perfil
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select codigo_puesto from perfiles where nombre_puesto = '" & ComboBox1.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                TextBox4.Text = datareader.GetValue(0)
+            End While
+        End If
+        conn.Close()
+        ' cargamos la responsabilidades del perfil seleccionado
+        llenar_responsabilidades()
+    End Sub
+
+    Protected Sub ComboBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox3.SelectedIndexChanged
+        ' PRIMERO  CREAMOS LA CONSULTA DEL NOMBRE DEL PUESTO
+        ' REALIZAMOS LA CONSULTA DEL REGISTRO SOLICITADO EN TEXTBOX1.TEXT
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select codigo_proceso from procesos where nombre_proceso= '" & ComboBox3.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        ' si encontramos registros entonces colocamos la informacion en los textboxes correspondientes
+        If datareader.HasRows Then
+            While datareader.Read
+                TextBox1.Text = datareader.GetValue(0) ' codigo puesto
+            End While
+            conn.Close()
+            'busca_proceso()
+            'Button22.Visible = False
+            TabContainer1.Tabs(1).Visible = False
+            TabContainer1.Tabs(2).Visible = False
+            TabContainer1.Tabs(3).Visible = False
+            TabContainer1.Tabs(4).Visible = False
+            Button1.Text = "Buscar"
+            TextBox3.Text = "" : TextBox6.Text = "" : TextBox9.Text = ""
+            Button16.Text = "Guardar Cambios" : Button16.Enabled = True
+            GridView1.Visible = False : GridView2.Visible = False : GridView3.Visible = False : GridView4.Visible = False
+        Else
+            TabContainer1.Tabs(1).Visible = False
+            TabContainer1.Tabs(2).Visible = False
+            TabContainer1.Tabs(3).Visible = False
+            TabContainer1.Tabs(4).Visible = False
+            Button16.Text = "Guardar Nuevo" : Button16.Enabled = False
+        End If
+
+    End Sub
+
+    Protected Sub Button23_Click(sender As Object, e As EventArgs) Handles Button23.Click
+        ' agregamos la responsabilidad al gridview
+        If Button23.Text = "Agregar" Then
+            agregar_politica()
+        ElseIf Button23.Text = "Aplicar Cambios" Then
+            editar_politica()
+        End If
+    End Sub
+    Sub editar_politica()
+        'modificamos la responsabilidad colocada en textbox10, una vez que modificamos el texto
+        'MODIFICAMOS LA INFORMACION DEL REGISTRO SOLICITADO
+        consulta = "update politicas set detalle_politica='" & TextBox10.Text & "' where id_politica=" & Val(TextBox11.Text)
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        comando = New MySqlCommand(consulta, conn)
+        comando.ExecuteNonQuery()
+        conn.Close() 'cerramos la conexion
+        _llenargridview3() ' cargamos el gridview de nuevo
+    End Sub
+    Sub agregar_politica()
+        If TextBox10.Text <> "" Then
+            ' agregramos un paso a este proceso
+            'se crea una conexion a la base de datos MySQL
+            Dim connection As MySqlConnection
+            Dim cuentalineas As Integer
+            connection = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection.State
+            Try
+                If connection.State = ConnectionState.Closed Then
+                    connection.Open()
+                End If
+                'se ejecuta una consulta SQL
+                Dim ComandoSQL As New MySqlCommand("INSERT INTO politicas (codigo_proceso, detalle_politica) VALUES ('" & TextBox1.Text & "', '" & TextBox10.Text & "')", connection)
+                cuentalineas = ComandoSQL.ExecuteNonQuery
+                If cuentalineas > 0 Then
+                    _llenargridview3()
+                Else
+                    'Mensaje en caso de que no se haya grabado nada
+                End If
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End If
+    End Sub
+    Sub _llenargridview3()
+        'se crea una conexion a la base de datos MySQL
+        Dim connection As MySqlConnection
+        connection = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection.State
+        If connection.State = ConnectionState.Closed Then
+            connection.Open()
+        End If
+        Try
+            Dim ComandoSQL As New MySqlCommand("SELECT id_politica, detalle_politica FROM politicas where codigo_proceso =  '" & TextBox1.Text & "'", connection)
+            Dim ds As New DataSet
+            Dim da As New MySqlDataAdapter(ComandoSQL)
+            da.Fill(ds)
+            GridView3.DataSource = ds.Tables(0)
+            GridView3.DataBind()
+            GridView3.Visible = True
+            TextBox10.Text = ""
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Private Sub GridView3_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles GridView3.RowDeleting
+        ' eliminamos la responsabilidad seleccionada del gridview1
+        Dim connection As MySqlConnection
+        connection = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection.State
+
+        If connection.State = ConnectionState.Closed Then
+            connection.Open()
+        End If
+        Dim query As String = "DELETE FROM politicas where id_politica=" & Val(TextBox11.Text)
+        Dim cmd As New MySqlCommand(query, connection)
+        cmd.ExecuteNonQuery()
+        _llenargridview3()
+    End Sub
+
+    Protected Sub GridView3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView3.SelectedIndexChanged
+        ' Obtiene la el valor de la linea seleccionada actualmente
+        Dim row As GridViewRow = GridView3.SelectedRow
+        TextBox11.Text = row.Cells(1).Text
+        TextBox10.Text = row.Cells(2).Text
+        GridView3.AutoGenerateDeleteButton = True
+        Button26.Visible = True
+    End Sub
+
+    Protected Sub Button26_Click(sender As Object, e As EventArgs) Handles Button26.Click
+        TextBox10.Text = "" : TextBox11.Text = ""
+        Button23.Text = "Agregar"
+        Button26.Visible = False
+    End Sub
+
+    Sub _llenargridview4()
+
+        ' primero cargamos el combo de actividades
+        ComboBox5.Items.Clear()
+        '----------------------------cargar actividades en el combobox4---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select nombre_puesto from perfilesprocesos where codigo_proceso = '" & TextBox1.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox5.Items.Add(datareader.GetValue(0))
+            End While
+        End If
+        conn.Close()
+
+        'despues cargamos el gridview 4 con los perfiles que corresponden a este proceso
+        Dim connection As MySqlConnection
+        connection = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection.State
+        If connection.State = ConnectionState.Closed Then
+            connection.Open()
+        End If
+        Try
+            Dim ComandoSQL As New MySqlCommand("SELECT id_perfilproceso, nombre_puesto FROM perfilesprocesos where codigo_proceso =  '" & TextBox1.Text & "'", connection)
+            Dim ds As New DataSet
+            Dim da As New MySqlDataAdapter(ComandoSQL)
+            da.Fill(ds)
+            GridView4.DataSource = ds.Tables(0)
+            GridView4.DataBind()
+            GridView4.Visible = True
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Private Sub GridView4_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles GridView4.RowDeleting
+        ' eliminamos la responsabilidad seleccionada del gridview1
+        Dim connection As MySqlConnection
+        connection = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection.State
+
+        If connection.State = ConnectionState.Closed Then
+            connection.Open()
+        End If
+        Dim query As String = "DELETE FROM perfilesprocesos where id_perfilproceso=" & Val(TextBox12.Text)
+        Dim cmd As New MySqlCommand(query, connection)
+        cmd.ExecuteNonQuery()
+        _llenargridview4()
+    End Sub
+
+    Protected Sub GridView4_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView4.SelectedIndexChanged
+        ' Obtiene la el valor de la linea seleccionada actualmente
+        Dim row As GridViewRow = GridView4.SelectedRow
+        TextBox12.Text = row.Cells(1).Text
+        GridView1.AutoGenerateDeleteButton = True
+    End Sub
+
+    Protected Sub Button29_Click(sender As Object, e As EventArgs) Handles Button29.Click
+        If ComboBox1.Text <> "" Then
+            ' agregramos un paso a este proceso
+            'se crea una conexion a la base de datos MySQL
+            Dim connection As MySqlConnection
+            Dim cuentalineas As Integer
+            connection = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection.State
+            Try
+                If connection.State = ConnectionState.Closed Then
+                    connection.Open()
+                End If
+                'se ejecuta una consulta SQL
+                Dim ComandoSQL As New MySqlCommand("INSERT INTO perfilesprocesos (codigo_proceso, codigo_puesto, nombre_puesto) VALUES ('" & TextBox1.Text & "', '" & TextBox4.Text & "', '" & ComboBox1.Text & "')", connection)
+                cuentalineas = ComandoSQL.ExecuteNonQuery
+                If cuentalineas > 0 Then
+                    ' Response.Write("<script language=javascript>alert('Prospecto agregado correctamente');</script>")
+                    _llenargridview4()
+
+                Else
+                    'Response.Write("<script language=javascript>alert('Los datos del prospecto NO han sido guardados');</script>")
+                End If
+
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End If
+    End Sub
+
+    Protected Sub Button27_Click(sender As Object, e As EventArgs) Handles Button27.Click
+        Button2.Text = "Agregar"
+        Button27.Visible = False
+        TextBox7.Text = "" : TextBox8.Text = ""
+    End Sub
+
+    Protected Sub ComboBox5_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox5.SelectedIndexChanged
+        ' seleccionamos el perfil para cargar el id del mismo y con eso buscar las responsabilidades que le corresponden al perfil
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select codigo_puesto from perfiles where nombre_puesto = '" & ComboBox5.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                TextBox15.Text = datareader.GetValue(0)
+            End While
+        End If
+        conn.Close()
+
+        ' seleccionamos el perfil para cargar el id del mismo y con eso buscar las responsabilidades que le corresponden al perfil
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select id_usuario from relacionup where codigo_puesto = '" & TextBox15.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                TextBox21.Text = datareader.GetValue(0)
+            End While
+        End If
+        conn.Close()
+
+        ' cargamos la responsabilidades del perfil seleccionado
+        llenar_responsabilidades()
+    End Sub
+
+    Protected Sub ComboBox4_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox4.SelectedIndexChanged
+        ' seleccionamos la actividad para cargar el id de la misma
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select id_actividad from actividad where detalle_actividad = '" & ComboBox4.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                TextBox14.Text = datareader.GetValue(0)
+            End While
+        End If
+        conn.Close()
+    End Sub
+
+    Protected Sub ComboBox6_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox6.SelectedIndexChanged
+       ' seleccionamos el perfil para cargar el id del mismo y con eso buscar las responsabilidades que le corresponden al perfil
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select id_respon from responsabilidad where descripcion_respon = '" & ComboBox6.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                TextBox16.Text = datareader.GetValue(0)
+            End While
+        End If
+        conn.Close()
+    End Sub
+
+    Protected Sub ComboBox9_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox9.SelectedIndexChanged
+        If ComboBox9.Text = "Una vez" Then
+            'fecha inicio
+            TextBox17.Text = CDate(Now).ToString("yyyy-MM-dd") : TextBox17.Visible = True
+            ' fecha final y dias
+            Label23.Visible = False : Label24.Visible = False : Label25.Visible = False : Label26.Visible = False
+            TextBox22.Text = CDate(Now).ToString("yyyy-MM-dd") : TextBox22.Visible = False
+            TextBox23.Text = "" : TextBox23.Visible = False
+            'checkboxes dias se la semana
+            CheckBox1.Visible = False : CheckBox2.Visible = False : CheckBox3.Visible = False : CheckBox4.Visible = False
+            CheckBox5.Visible = False : CheckBox6.Visible = False : CheckBox7.Visible = False
+            'checkboxes meses del año
+            CheckBox8.Visible = False : CheckBox9.Visible = False : CheckBox10.Visible = False : CheckBox11.Visible = False : CheckBox12.Visible = False
+            CheckBox13.Visible = False : CheckBox14.Visible = False : CheckBox15.Visible = False : CheckBox16.Visible = False : CheckBox17.Visible = False
+            CheckBox18.Visible = False : CheckBox19.Visible = False
+            'los dias
+            Label27.Visible = False : ComboBox10.Visible = False
+        ElseIf ComboBox9.Text = "Diario" Then
+            'fecha inicio
+            TextBox17.Text = CDate(Now).ToString("yyyy-MM-dd") : TextBox17.Visible = True
+            ' fecha final y dias
+            Label23.Visible = True : Label24.Visible = True : Label25.Visible = True : Label26.Visible = False
+            TextBox22.Text = CDate(Now).ToString("yyyy-MM-dd") : TextBox22.Visible = True
+            TextBox23.Text = "" : TextBox23.Visible = True
+            'checkboxes dias se la semana
+            CheckBox1.Visible = False : CheckBox2.Visible = False : CheckBox3.Visible = False : CheckBox4.Visible = False
+            CheckBox5.Visible = False : CheckBox6.Visible = False : CheckBox7.Visible = False
+            'checkboxes meses del año
+            CheckBox8.Visible = False : CheckBox9.Visible = False : CheckBox10.Visible = False : CheckBox11.Visible = False : CheckBox12.Visible = False
+            CheckBox13.Visible = False : CheckBox14.Visible = False : CheckBox15.Visible = False : CheckBox16.Visible = False : CheckBox17.Visible = False
+            CheckBox18.Visible = False : CheckBox19.Visible = False
+            'los dias
+            Label27.Visible = False : ComboBox10.Visible = False
+        ElseIf ComboBox9.Text = "Semanal" Then
+            'fecha inicio
+            TextBox17.Text = CDate(Now).ToString("yyyy-MM-dd") : TextBox17.Visible = True
+            ' fecha final y dias
+            Label23.Visible = True : Label24.Visible = True : Label25.Visible = False : Label26.Visible = True
+            TextBox22.Text = CDate(Now).ToString("yyyy-MM-dd") : TextBox22.Visible = True
+            TextBox23.Text = "" : TextBox23.Visible = True
+            'checkboxes dias se la semana
+            CheckBox1.Visible = True : CheckBox2.Visible = True : CheckBox3.Visible = True : CheckBox4.Visible = True
+            CheckBox5.Visible = True : CheckBox6.Visible = True : CheckBox7.Visible = True
+            'checkboxes meses del año
+            CheckBox8.Visible = False : CheckBox9.Visible = False : CheckBox10.Visible = False : CheckBox11.Visible = False : CheckBox12.Visible = False
+            CheckBox13.Visible = False : CheckBox14.Visible = False : CheckBox15.Visible = False : CheckBox16.Visible = False : CheckBox17.Visible = False
+            CheckBox18.Visible = False : CheckBox19.Visible = False
+            'los dias
+            Label27.Visible = False : ComboBox10.Visible = False
+        ElseIf ComboBox9.Text = "Mensual" Then
+            'fecha inicio
+            TextBox17.Text = CDate(Now).ToString("yyyy-MM-dd") : TextBox17.Visible = True
+            ' fecha final y dias
+            Label23.Visible = True : Label24.Visible = False : Label25.Visible = False : Label26.Visible = False
+            TextBox22.Text = CDate(Now).ToString("yyyy-MM-dd") : TextBox22.Visible = True
+            TextBox23.Text = "" : TextBox23.Visible = False
+            'checkboxes dias se la semana
+            CheckBox1.Visible = False : CheckBox2.Visible = False : CheckBox3.Visible = False : CheckBox4.Visible = False
+            CheckBox5.Visible = False : CheckBox6.Visible = False : CheckBox7.Visible = False
+            'checkboxes meses del año
+            CheckBox8.Visible = True : CheckBox9.Visible = True : CheckBox10.Visible = True : CheckBox11.Visible = True : CheckBox12.Visible = True
+            CheckBox13.Visible = True : CheckBox14.Visible = True : CheckBox15.Visible = True : CheckBox16.Visible = True : CheckBox17.Visible = True
+            CheckBox18.Visible = True : CheckBox19.Visible = True
+            'los dias
+            Label27.Visible = True : ComboBox10.Visible = True
+        End If
+    End Sub
+
+    Protected Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        ' primero validamos los opcionales
+        validar_opcionales()
+
+        ' guardamos la informacion
+        If TextBox24.Text <> "" Then
+            'se crea una conexion a la base de datos MySQL
+            Dim connection As MySqlConnection
+            Dim cuentalineas As Integer
+            connection = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection.State
+            'Try
+            If connection.State = ConnectionState.Closed Then
+                connection.Open()
+            End If
+            If ComboBox9.Text = "Una vez" Then
+                fechainicio = TextBox17.Text : fechafinal = Now.ToString
+                eldia = "Cualquiera"
+            ElseIf ComboBox9.Text = "Diario" Then
+                fechainicio = TextBox17.Text : fechafinal = TextBox22.Text
+                eldia = "Cualquiera"
+            ElseIf ComboBox9.Text = "Semanal" Then
+                fechainicio = TextBox17.Text : fechafinal = TextBox22.Text
+                eldia = "Cualquiera"
+            ElseIf ComboBox9.Text = "Mensual" Then
+                fechainicio = TextBox17.Text : fechafinal = TextBox22.Text
+                eldia = ComboBox10.Text
+            End If
+
+            Dim ComandoSQL As New MySqlCommand("INSERT INTO tareas (nombre_tarea, periodicidad, fecha_inicio, fecha_fin, repetir_cada," & _
+                                               "lu, ma, mi, ju, vi, sa, do, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic," & _
+                                               "el_dia, id_perfil, id_usuario, id_responsabilidad, id_proceso," & _
+                                               "id_actividad, evidencia, ruta_evidencia) VALUES ('" & _
+                                               TextBox24.Text & "', '" & ComboBox9.Text & "', '" & CDate(fechainicio).ToString("yyyy-MM-dd") & "', '" & CDate(fechafinal).ToString("yyyy-MM-dd") & "', '" & TextBox23.Text & "', '" & _
+                                               lun & "', '" & mar & "', '" & mie & "', '" & jue & "', '" & vie & "', '" & sab & "', '" & dom & "', '" & _
+                                               ene & "', '" & feb & "', '" & marz & "', '" & abr & "', '" & may & "', '" & jun & "', '" & _
+                                               jul & "', '" & ago & "', '" & sep & "', '" & oct & "', '" & nov & "', '" & dic & "', '" & _
+                                               eldia & "', '" & TextBox15.Text & "', '" & TextBox21.Text & "', '" & TextBox16.Text & "', '" & TextBox1.Text & "', '" & _
+                                               TextBox14.Text & "', '" & ComboBox7.Text & "', '" & TextBox20.Text & "')", connection)
+            cuentalineas = ComandoSQL.ExecuteNonQuery
+            If cuentalineas > 0 Then ' si se encontraron registros entonces hacemos esto
+                Label13.Text = "¡La tarea se ha agregado correctamente!"
+                limpiar_campos()
+            Else
+                Label13.Text = "¡La tarea no se ha agregado correctamente!"
+            End If
+            'Catch ex As Exception ' si hay algun error se hace esto
+            'Label13.Text = "¡ha ocurrido un error al conectar con la base de datos!"
+            'End Try
+        Else
+            ' aqui mostramos el mensaje que indique que al menos se necesita este dato
+            Label13.Text = "¡Es necesario que escriba la tarea a agregar!"
+        End If
+    End Sub
+    Sub validar_opcionales()
+        'validamos los checkboxes de los dias de la semana
+        'lunes
+        If CheckBox1.Checked = True Then
+            lun = 1
+        Else
+            lun = 0
+        End If
+        ' martes
+        If CheckBox2.Checked = True Then
+            mar = 1
+        Else
+            mar = 0
+        End If
+        'miercoles
+        If CheckBox3.Checked = True Then
+            mie = 1
+        Else
+            mie = 0
+        End If
+        'jueves
+        If CheckBox4.Checked = True Then
+            jue = 1
+        Else
+            jue = 0
+        End If
+        'viernes
+        If CheckBox5.Checked = True Then
+            vie = 1
+        Else
+            vie = 0
+        End If
+        'sabado
+        If CheckBox6.Checked = True Then
+            sab = 1
+        Else
+            sab = 0
+        End If
+        'domingo
+        If CheckBox7.Checked = True Then
+            dom = 1
+        Else
+            dom = 0
+        End If
+
+        'validamos los checkboxes de los meses del año
+        'Enero
+        If CheckBox8.Checked = True Then
+            ene = 1
+        Else
+            ene = 0
+        End If
+        ' febrero
+        If CheckBox9.Checked = True Then
+            feb = 1
+        Else
+            feb = 0
+        End If
+        ' marzo
+        If CheckBox10.Checked = True Then
+            marz = 1
+        Else
+            marz = 0
+        End If
+        ' abril
+        If CheckBox11.Checked = True Then
+            abr = 1
+        Else
+            abr = 0
+        End If
+        'mayo
+        If CheckBox12.Checked = True Then
+            may = 1
+        Else
+            may = 0
+        End If
+        'junio
+        If CheckBox13.Checked = True Then
+            jun = 1
+        Else
+            jun = 0
+        End If
+        'julio
+        If CheckBox14.Checked = True Then
+            jul = 1
+        Else
+            jul = 0
+        End If
+        'agosto
+        If CheckBox15.Checked = True Then
+            ago = 1
+        Else
+            ago = 0
+        End If
+        'septiembre
+        If CheckBox16.Checked = True Then
+            sep = 1
+        Else
+            sep = 0
+        End If
+        'octubre
+        If CheckBox17.Checked = True Then
+            oct = 1
+        Else
+            oct = 0
+        End If
+        'noviembre
+        If CheckBox18.Checked = True Then
+            nov = 1
+        Else
+            nov = 0
+        End If
+        'diciembre
+        If CheckBox19.Checked = True Then
+            dic = 1
+        Else
+            dic = 0
+        End If
+    End Sub
+
+    Protected Sub ComboBox7_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox7.SelectedIndexChanged
+        If ComboBox7.Text = "SQL" Then
+            ComboBox8.Enabled = True
+        Else
+            ComboBox8.Enabled = False
+        End If
+    End Sub
+
+    Protected Sub ComboBox8_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox8.SelectedIndexChanged
+        ' cargamos el id del proceso
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select id_query, consulta from querys where nombre_query = '" & ComboBox8.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                TextBox18.Text = datareader.GetValue(0)
+                TextBox19.Text = datareader.GetValue(1)
+            End While
+        End If
+        conn.Close()
+    End Sub
+    Private Sub Submit1_ServerClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Submit1.ServerClick
+        If Not File1.PostedFile Is Nothing And File1.PostedFile.ContentLength > 0 Then
+
+            Dim fn As String = System.IO.Path.GetFileName(File1.PostedFile.FileName)
+            Dim SaveLocation As String = Server.MapPath("Data") & "\" & fn
+            Try
+                File1.PostedFile.SaveAs(SaveLocation)
+                TextBox20.Text = fn
+                'Response.Write("El archivo ha sido cargado.")
+                Label11.Text = "Se cargo el archivo:"
+
+            Catch Exc As Exception
+                Response.Write("Error: " & Exc.Message)
+            End Try
+        Else
+            Label11.Text = "Seleccione un archivo para cargar."
+        End If
+    End Sub
+
+    Protected Sub ASPxComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ASPxComboBox1.SelectedIndexChanged
+
+    End Sub
+End Class

@@ -21,7 +21,7 @@ namespace WebApplication.Manager.Sesion
             string query = string.Format("update usuarios set nombre_usuario='{0}',nombrecompleto_usuario='{1}',email_usuario='{2}',id_scoi={4} where id_usuario='{3}'",
                 Usuario.nombre_usuario,Usuario.nombrecompleto_usuario,Usuario.email_usuario, Usuario.id_usuario, Usuario.id_scoi);
 
-            SqlCommand comando = new SqlCommand(query,conexion_web);
+            SqlCommand comando = new SqlCommand(query, conexion_web);
             conexion_web.Open();
             comando.ExecuteNonQuery();
             conexion_web.Close();

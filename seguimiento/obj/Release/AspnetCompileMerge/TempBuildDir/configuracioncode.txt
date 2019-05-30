@@ -1,0 +1,414 @@
+﻿
+Imports MySql.Data.MySqlClient
+Imports System.Data
+Imports System.IO
+Public Class configuracion
+    Inherits System.Web.UI.Page
+    Public conn As New MySqlConnection
+    Public estadodeconexionprevia As ConnectionState
+    Public comando As MySqlCommand
+    Public adaptador As New MySqlDataAdapter
+
+    Public consulta As String = ""
+    Public sentencia As String = ""
+    Public fecha As Date
+    Public comentario As String = ""
+    Public datareader As MySqlDataReader
+    Public data As New DataSet
+    Dim existe As Boolean
+    Dim vencimiento As String
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        ' Esto sirve para cargar los controles una sola vez y no cada vez que se haga postback
+        If Page.IsPostBack Then
+            ' aqui no haremos nada
+        Else
+            'aca pones todos lo eventos y funciones que deben cargarse una unica vez
+            'limpiar_campos()
+            cargar_querys()
+            limpiar_campos()
+            cargar_parametrosmotor()
+            cargar_unidadesnegocio()
+            TabContainer1.ActiveTabIndex = 0
+
+        End If
+        ASPxQueryBuilder1.OpenConnection("Conexion")
+    End Sub
+    Sub cargar_unidadesnegocio()
+        ComboBox2.Items.Clear()
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select nombre_unidad from unidadnegocio ORDER BY nombre_unidad ASC;"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox2.Items.Add(datareader.GetValue(0))
+            End While
+        End If
+        conn.Close()
+    End Sub
+    Sub limpiar_campos()
+        TextBox1.Text = "" : TextBox2.Text = "" : TextBox3.Text = "" : TextBox4.Text = ""
+        TextBox5.Text = "" : TextBox6.Text = "" : TextBox7.Text = "" : TextBox8.Text = ""
+    End Sub
+    Sub cargar_parametrosmotor()
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select * from parametrosmotor;"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                TextBox3.Text = datareader.GetValue(0)
+                TextBox4.Text = datareader.GetValue(1)
+                TextBox5.Text = datareader.GetValue(2)
+                TextBox6.Text = datareader.GetValue(3)
+                TextBox7.Text = datareader.GetValue(4)
+                TextBox8.Text = datareader.GetValue(5)
+            End While
+        End If
+        conn.Close()
+    End Sub
+    Sub cargar_querys()
+        ComboBox1.Items.Clear()
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select nombre_query from querys ORDER BY nombre_query ASC;"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox1.Items.Add(datareader.GetValue(0))
+            End While
+        End If
+        conn.Close()
+    End Sub
+
+    Protected Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
+        Label5.Text = ""
+        buscar_query()
+    End Sub
+    Sub buscar_query()
+        ' cargamos el id del proceso
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select id_query, consulta from querys where nombre_query = '" & ComboBox1.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                TextBox1.Text = datareader.GetValue(0)
+                TextBox2.Text = datareader.GetValue(1)
+            End While
+        End If
+        conn.Close()
+    End Sub
+
+    Protected Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        ' eliminamos el query seleccionada del gridview1
+        Dim connection As MySqlConnection
+        connection = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection.State
+        If connection.State = ConnectionState.Closed Then
+            connection.Open()
+        End If
+        Dim query As String = "DELETE FROM querys where id_query=" & Val(TextBox1.Text)
+        Dim cmd As New MySqlCommand(query, connection)
+        cmd.ExecuteNonQuery()
+        TextBox1.Text = "" : TextBox2.Text = ""
+        cargar_querys()
+    End Sub
+
+    Protected Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        'MODIFICAMOS LA INFORMACION DEL REGISTRO SOLICITADO
+
+        consulta = "update querys set nombre_query = '" & ComboBox1.Text & "', consulta = '" & TextBox2.Text & "' where id_query= '" & TextBox1.Text & "'"
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        Try
+            comando = New MySqlCommand(consulta, conn)
+            comando.ExecuteNonQuery()
+            Label5.Text = "¡Los cambios han sido aplicados correctamente!"
+        Catch ex As Exception
+            Label5.Text = "¡Ha ocurrido un error, verifique por favor!"
+        End Try
+        conn.Close()
+        TextBox1.Text = "" : TextBox2.Text = ""
+        cargar_querys()
+    End Sub
+
+    Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        If ComboBox1.Text <> "" Then
+            'se crea una conexion a la base de datos MySQL
+            Dim connection As MySqlConnection
+            Dim cuentalineas As Integer
+            connection = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection.State
+            'Try
+            If connection.State = ConnectionState.Closed Then
+                connection.Open()
+            End If
+            'se ejecuta una consulta SQL
+            Dim ComandoSQL As New MySqlCommand("INSERT INTO querys (nombre_query, consulta) VALUES ('" & ComboBox1.Text & "', '" & TextBox2.Text & "')", connection)
+            cuentalineas = ComandoSQL.ExecuteNonQuery
+            If cuentalineas > 0 Then ' si se encontraron registros entonces hacemos esto
+                Label5.Text = "¡La actividad se ha agregado correctamente!"
+                TextBox1.Text = "" : TextBox2.Text = ""
+                cargar_querys()
+            Else
+                Label5.Text = "¡La actividad no se ha agregado correctamente!"
+            End If
+            'Catch ex As Exception ' si hay algun error se hace esto
+            'Label13.Text = "¡ha ocurrido un error al conectar con la base de datos!"
+            'End Try
+        Else
+            ' aqui mostramos el mensaje que indique que al menos se necesita este dato
+            Label5.Text = "¡Es necesario que escriba la actividad a agregar!"
+        End If
+    End Sub
+
+    Protected Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        'MODIFICAMOS LA INFORMACION DEL REGISTRO SOLICITADO
+        consulta = "update parametrosmotor set dias = '" & TextBox3.Text & "', verde = '" & TextBox5.Text & "', amarillo = '" & TextBox4.Text & "', rojo = '" & TextBox6.Text & "', violeta = '" & TextBox7.Text & "', blanco = '" & TextBox8.Text & "'"
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        Try
+            comando = New MySqlCommand(consulta, conn)
+            comando.ExecuteNonQuery()
+            Label9.Text = "¡Los cambios han sido aplicados correctamente!"
+        Catch ex As Exception
+            Label9.Text = "¡Ha ocurrido un error, verifique por favor!"
+        End Try
+        conn.Close()
+
+    End Sub
+
+    Protected Sub TextBox4_TextChanged(sender As Object, e As EventArgs) Handles TextBox4.TextChanged
+        Label6.Text = TextBox4.Text
+    End Sub
+
+    Protected Sub TextBox5_TextChanged(sender As Object, e As EventArgs) Handles TextBox5.TextChanged
+        Label7.Text = TextBox5.Text
+
+    End Sub
+
+    Protected Sub TextBox6_TextChanged(sender As Object, e As EventArgs) Handles TextBox6.TextChanged
+        Label8.Text = TextBox6.Text
+    End Sub
+
+    Protected Sub TextBox7_TextChanged(sender As Object, e As EventArgs) Handles TextBox7.TextChanged
+        TextBox8.Text = TextBox7.Text
+    End Sub
+
+    Protected Sub ComboBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox2.SelectedIndexChanged
+        GridView1.Visible = False : GridView2.Visible = False : GridView3.Visible = False
+        GridView4.Visible = False : GridView5.Visible = False : GridView6.Visible = False
+        ' cargamos los puestos conforme este combobox2 cambia de opcion
+        buscar_unidadnegocio()
+    End Sub
+    Sub buscar_unidadnegocio()
+        ' cargamos el id del proceso
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select id_unidadnegocio from unidadnegocio where nombre_unidad = '" & ComboBox2.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                TextBox9.Text = datareader.GetValue(0)
+            End While
+        End If
+        conn.Close()
+        cargar_departamentos()
+    End Sub
+    Sub cargar_departamentos()
+        'se crea una conexion a la base de datos MySQL
+        Dim connection1 As MySqlConnection
+        connection1 = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection1.State
+        Try
+            If connection1.State = ConnectionState.Closed Then
+                connection1.Open()
+            End If
+            'se ejecuta una consulta SQL
+            Dim ComandoSQL As New MySqlCommand("SELECT * FROM departamento ORDER BY nombre_departamento ASC", connection1)
+            Dim ds1 As New DataSet
+            Dim da1 As New MySqlDataAdapter(ComandoSQL)
+            da1.Fill(ds1)
+            GridView6.DataSource = ds1.Tables(0)
+            GridView6.DataBind()
+            GridView6.Visible = True
+        Catch ex As Exception
+            'Response.Write("<script language=javascript>alert('Error de conexion a la base de datos');</script>")
+        End Try
+    End Sub
+
+    Protected Sub GridView6_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView6.SelectedIndexChanged
+        ' seleccionamos un registro y lo consultamos
+        ' Obtiene la el valor de la linea seleccionada actualmente
+        Dim row As GridViewRow = GridView6.SelectedRow
+        TextBox10.Text = row.Cells(2).Text
+        cargar_perfiles()
+    End Sub
+    Sub cargar_perfiles()
+        'se crea una conexion a la base de datos MySQL
+        Dim connection1 As MySqlConnection
+        connection1 = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection1.State
+        Try
+            If connection1.State = ConnectionState.Closed Then
+                connection1.Open()
+            End If
+            'se ejecuta una consulta SQL
+            Dim ComandoSQL As New MySqlCommand("SELECT * FROM perfiles WHERE departamento = '" & TextBox10.Text & "' AND unidad_negocio = '" & ComboBox2.Text & "'", connection1)
+            Dim ds1 As New DataSet
+            Dim da1 As New MySqlDataAdapter(ComandoSQL)
+            da1.Fill(ds1)
+            GridView5.DataSource = ds1.Tables(0)
+            GridView5.DataBind()
+            GridView5.Visible = True
+        Catch ex As Exception
+            'Response.Write("<script language=javascript>alert('Error de conexion a la base de datos');</script>")
+        End Try
+    End Sub
+
+    Protected Sub GridView5_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView5.SelectedIndexChanged
+        ' seleccionamos un registro y lo consultamos
+        ' Obtiene la el valor de la linea seleccionada actualmente
+        Dim row As GridViewRow = GridView5.SelectedRow
+        TextBox11.Text = row.Cells(1).Text
+        cargar_responsabilidades()
+    End Sub
+    Sub cargar_responsabilidades()
+        'se crea una conexion a la base de datos MySQL
+        Dim connection1 As MySqlConnection
+        connection1 = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection1.State
+        Try
+            If connection1.State = ConnectionState.Closed Then
+                connection1.Open()
+            End If
+            'se ejecuta una consulta SQL
+            Dim ComandoSQL As New MySqlCommand("SELECT * FROM responsabilidad WHERE codigo_puesto = '" & TextBox11.Text & "'", connection1)
+            Dim ds1 As New DataSet
+            Dim da1 As New MySqlDataAdapter(ComandoSQL)
+            da1.Fill(ds1)
+            GridView4.DataSource = ds1.Tables(0)
+            GridView4.DataBind()
+            GridView4.Visible = True
+        Catch ex As Exception
+            'Response.Write("<script language=javascript>alert('Error de conexion a la base de datos');</script>")
+        End Try
+    End Sub
+
+    Protected Sub GridView4_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView4.SelectedIndexChanged
+        ' seleccionamos un registro y lo consultamos
+        ' Obtiene la el valor de la linea seleccionada actualmente
+        Dim row As GridViewRow = GridView4.SelectedRow
+        TextBox12.Text = row.Cells(1).Text
+        cargar_procesos()
+    End Sub
+    Sub cargar_procesos()
+        'se crea una conexion a la base de datos MySQL
+        Dim connection1 As MySqlConnection
+        connection1 = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection1.State
+        Try
+            If connection1.State = ConnectionState.Closed Then
+                connection1.Open()
+            End If
+            'se ejecuta una consulta SQL
+            Dim ComandoSQL As New MySqlCommand("SELECT * FROM procesos WHERE id_responsabilidad = '" & TextBox12.Text & "' AND codigo_perfil = '" & TextBox11.Text & "'", connection1)
+            Dim ds1 As New DataSet
+            Dim da1 As New MySqlDataAdapter(ComandoSQL)
+            da1.Fill(ds1)
+            GridView3.DataSource = ds1.Tables(0)
+            GridView3.DataBind()
+            GridView3.Visible = True
+        Catch ex As Exception
+            'Response.Write("<script language=javascript>alert('Error de conexion a la base de datos');</script>")
+        End Try
+    End Sub
+
+    Protected Sub GridView3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView3.SelectedIndexChanged
+        ' seleccionamos un registro y lo consultamos
+        ' Obtiene la el valor de la linea seleccionada actualmente
+        Dim row As GridViewRow = GridView3.SelectedRow
+        TextBox13.Text = row.Cells(1).Text
+        cargar_detallesprocesos()
+    End Sub
+    Sub cargar_detallesprocesos()
+        'se crea una conexion a la base de datos MySQL
+        Dim connection1 As MySqlConnection
+        connection1 = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection1.State
+        Try
+            If connection1.State = ConnectionState.Closed Then
+                connection1.Open()
+            End If
+            'se ejecuta una consulta SQL
+            Dim ComandoSQL As New MySqlCommand("SELECT * FROM detalleprocesos WHERE codigo_proceso = '" & TextBox13.Text & "' ORDER BY orden_proceso ASC", connection1)
+            Dim ds1 As New DataSet
+            Dim da1 As New MySqlDataAdapter(ComandoSQL)
+            da1.Fill(ds1)
+            GridView2.DataSource = ds1.Tables(0)
+            GridView2.DataBind()
+            GridView2.Visible = True
+        Catch ex As Exception
+            'Response.Write("<script language=javascript>alert('Error de conexion a la base de datos');</script>")
+        End Try
+    End Sub
+
+    Protected Sub GridView2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView2.SelectedIndexChanged
+        ' seleccionamos un registro y lo consultamos
+        ' Obtiene la el valor de la linea seleccionada actualmente
+        Dim row As GridViewRow = GridView2.SelectedRow
+        TextBox14.Text = row.Cells(1).Text
+        cargar_actividades()
+    End Sub
+    Sub cargar_actividades()
+        'se crea una conexion a la base de datos MySQL
+        Dim connection1 As MySqlConnection
+        connection1 = New MySqlConnection
+        'se apunta a la cadena de conexion guardada en el archivo Web.config
+        connection1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        Dim estadodeconexionprevia As ConnectionState
+        estadodeconexionprevia = connection1.State
+        Try
+            If connection1.State = ConnectionState.Closed Then
+                connection1.Open()
+            End If
+            'se ejecuta una consulta SQL
+            Dim ComandoSQL As New MySqlCommand("SELECT * FROM actividades WHERE id_detalle = '" & TextBox14.Text & "' AND codigo_proceso = '" & TextBox13.Text & "'", connection1)
+            Dim ds1 As New DataSet
+            Dim da1 As New MySqlDataAdapter(ComandoSQL)
+            da1.Fill(ds1)
+            GridView1.DataSource = ds1.Tables(0)
+            GridView1.DataBind()
+            GridView1.Visible = True
+        Catch ex As Exception
+            'Response.Write("<script language=javascript>alert('Error de conexion a la base de datos');</script>")
+        End Try
+    End Sub
+End Class

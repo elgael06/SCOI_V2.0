@@ -1,0 +1,396 @@
+﻿ #botones {    
+    float:left;
+    display:inline;
+    width:100%;
+    height:37px;
+}
+.btns{
+    margin:0px;
+    float:left;
+    margin-top:-3px; 
+    cursor:pointer;
+    height:33px;
+    background-color:#888888;
+    color:white;
+    box-shadow:0px 7px 0px #484848;
+    border:none;
+    border-right:1px solid white;
+}
+.btns:first-child{    
+    background-color:#484848;    
+}
+#contenedorPrincipal{
+    margin-top:5%;    
+    height:83vh;
+    padding:0px;    
+    display:none;        
+    box-shadow:0px 1px 10px 3px;             
+}
+
+#contenedorTabla{
+    width:100%;
+    height:400px;                
+    overflow:scroll;                         
+}
+#tablaPrincipal{
+    width:170%;       
+}        
+td{
+    border:1px solid black;
+    padding:0px;                
+}
+tr{
+    padding:0px;
+}
+   
+#cabeceraTabs{
+    height:30px;    
+    width:300px;
+    background-color: #2A3F54;
+    color:white;    
+    text-align:center;
+}   
+
+#numero{
+    height:30px;    
+    width:20px;
+    background-color: #2A3F54;
+    color:white;    
+    text-align:center;
+}
+
+.celdas{
+    height:30px;    
+    width:30px;
+    background-color: #2A3F54;
+    color:white;    
+    text-align:center;
+         
+}
+
+#flechasAdelAtras{
+    margin-top:10px;    
+}
+#ventanaModal{
+    width:100%;
+    height:100vh; 
+    position:fixed; 
+    background:rgba(0,0,0,0.2);           
+    top:0;
+    left:0;    
+}
+.formCol-obs{
+    top:50%;
+    left:50%;
+    width:25%;
+    height:25vh;
+    position:absolute;
+    background-color:#fff;
+    margin-left:-5%;
+    margin-top:-5%;
+    padding:10px;    
+    font-size:15px;      
+    box-shadow:5px 5px 20px 5px #888888;
+    display:none    
+}
+.formCol-obs #cerrarCuadroColor{
+    border:none;
+    color:black; 
+    font-size:16px;        
+}
+#textoTitulo{    
+    width:130px;
+    float:left;
+}
+
+#formAplicEstab{
+    top:50%;
+    left:50%;
+    width:425px;
+    height:370px;
+    padding-left:60px;             
+    padding-top:30px;             
+    background-color:#fff;
+    color:#666;    
+    position:absolute;
+    margin-left:-100px;
+    margin-top:-190px;    
+    box-shadow:4px 4px 10px #888888;    
+    padding-left:34px;    
+    
+}
+#formTablaAux {
+    top:50%;
+    left:50%;
+    width:465px;
+    height:400px;    
+    padding-top:20px;             
+    background-color:#fff;
+    color:#666;    
+    position:absolute;
+    margin-left:-119px;
+    margin-top:-190px;    
+    box-shadow:4px 4px 10px #888888;    
+    padding-left:34px;
+    display:none;
+}
+#tabAux{
+    width:100%;  
+             
+}
+#tabAux td{
+    border:none;
+    border-bottom:1px solid #888888;
+    cursor:pointer;    
+}
+#contenido{
+    width:70%;
+    height:30px;        
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:30px;
+}
+#tabColor{
+    width:100%;
+}
+.cuadroColor{
+    height:27px;    
+}
+#rojo{
+    background-color:red;
+}
+#amarillo{
+    background-color:yellow;
+}
+#verde{
+    background-color:green;
+}
+#titulo{
+    font-size:24px;
+    padding-left:120px;         
+}
+#adelante{
+    margin-left:870px;    
+    width:60px;    
+    cursor:pointer;    
+}
+#atras{
+    float:left;
+    margin-left:40px;    
+    width:60px; 
+    cursor:pointer;       
+}
+#tablaAux{   
+    text-align:center;
+    width:400px;
+    height:300px;    
+}
+#tabContainer{   
+    box-shadow:0px 0px 5px 1px #888888; 
+    height:220px;
+    overflow:auto;    
+}
+
+#btnsTabAux{
+    margin-top:20px;    
+}
+#btnsTabAux #flechaAdel{
+    float:right;
+    margin-right:30px;         
+}
+
+#btnsTabAux #flechaAtras{    
+   /* background-color:#2A3F54;
+    color:white;*/
+}
+
+#buscarEnTabla{
+    width:380px;
+}
+.cabTabAux{
+    background-color: #2A3F54;
+    color:white;
+}
+
+#aplicEstab{    
+    width:360px;
+    height:222px;
+    padding-left:40px;    
+    padding-top:1px;
+    box-shadow:0px 0px 10px 1px #888888;   
+}
+
+#aplicEstab select{    
+    width:250px;    
+}
+
+#btSiguiente{    
+    margin-left:51px;
+    margin-top:20px;
+    width:250px;
+    height:40px;
+    border-radius:6px 6px;
+    background-color:#2A3F54;
+    color:white;
+    border:none;
+    font-size:13px;   
+    cursor:pointer;
+}
+
+#tituloObs{    
+    padding-left:95px;
+    margin-top:10px;
+}
+#btnCerrarVentanaObs{
+             
+}
+
+#textoTituloObs{    
+    width:167px;
+    float:left;
+    color:#484848;
+    font-size:19px;
+}
+
+#contenidoObs{    
+    margin-top:10px;
+    padding-left:32px;
+}
+
+#contenidoObs #btAceptarObservacion{
+    margin-top:10px;
+    margin-left:70px;
+    cursor:pointer;
+    border-radius:3px 4px;
+    width:100px;
+    background-color:#2A3F54;
+    color:white;
+}
+#contenidoObs #txObservacion{
+    height:50px;
+    width:250px;    
+}
+#divGuardar{    
+    float:right;
+    margin-top:20px;
+}
+#btGuardarMatriz{
+    width:200px;
+    height:25px;
+    background-color:#2A3F54;
+    color:white;
+    border-radius:2px 18px;
+    margin-right:5px;
+    cursor:pointer;
+}
+#btFinalizarMatriz{
+    width:200px;
+    height:25px;
+    background-color:#2A3F54;
+    color:white;
+    border-radius:2px 18px;
+    margin-right:663px;
+    cursor:pointer;
+}
+#estabAplicador{
+    color:black;        
+    margin-bottom:10px;
+    width:30%;
+    text-align:center;
+}
+#imgCargando{
+    top:50%;
+    left:50%;
+    width:35%;
+    height:25vh;
+    position:absolute;    
+    margin-left:-10%;
+    margin-top:-7%;
+    padding:10px;
+    display:none;               
+}
+#formListaObservaciones{
+
+    top:50%;
+    left:50%;
+    width:565px;
+    height:600px;            
+    background-color:#fff;
+    color:#666;    
+    position:absolute;
+    margin-left:-159px;
+    margin-top:-300px;    
+    box-shadow:4px 4px 10px #888888;        
+    padding:18px;  
+    display:none;    
+}
+
+#txtDelForm{
+    box-shadow:0px 0px 12px 1px  #888888;        
+    width:100%;
+    height:95%;
+    overflow:auto;    
+    padding:2px;
+}
+#tablaListaObservaciones{
+    width:100%;    
+}
+#tablaListaObservaciones td{
+    padding:4px;
+}
+.datoObs{
+    word-wrap:break-word;
+    width:325px;
+}
+.datoObs:nth-child(odd){
+    background-color:#ADADAA;
+}
+.datoObs:nth-child(even){
+    background-color:aqua;
+}
+#imagenFoto{    
+    background-color:aquamarine;
+    width:180px;
+    text-align:center;
+}
+#foto{
+    width:50px;
+    height:50px;
+}
+#filaColor td{
+    border:none;
+    color:black;            
+}
+#filaColor {
+    border:none;
+}
+#btnCerrarLista{
+    border:none;
+    float:right;
+    margin-bottom:5px;
+}
+#lista{
+    margin-left:-40px;    
+    cursor:pointer;
+}
+#formObservacion{
+    top:50%;
+    left:50%;
+    width:565px;
+    height:150px;            
+    background-color:#fff;
+    color:#666;    
+    position:absolute;
+    margin-left:-159px;
+    margin-top:-328px;    
+    box-shadow:4px 4px 10px #888888;        
+    padding:6px;       
+    display:none;
+}
+#cerrarFormAplEstab{
+    margin-bottom:3px;     
+    border:none;
+    margin-left:350px;   
+    width:30px;
+    height:30px;
+}

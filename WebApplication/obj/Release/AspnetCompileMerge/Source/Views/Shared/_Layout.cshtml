@@ -28,7 +28,6 @@
     <script src="@Url.Content("~/Scripts/Componentes/Estaticos/BotonToggle.js")"></script>
     <script src="@Url.Content("~/Scripts/Componentes/Estaticos/efecto_carga.js")"></script>
     <script src="@Url.Content("~/Scripts/generales/alertas.js")"></script>
-
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body class="nav-md">
@@ -174,8 +173,20 @@
     </div>
     <!--modal Carga-->
     <div class="modal" id="modal_de_efecto_carga">
-        <span style="color:black;font-size:18px;"><i style="font-size:25px;" class="rotate fa fa-spinner"></i> Cargando...</span>
+        <span style="color:black;font-size:18px;"><i style="font-size:25px;" class="rotate fa fa-circle-o-notch"></i> Cargando <i id="puntos"></i></span>
     </div>
+    <script>
+        function puntos_carga() {
+            console.log("puntos...");
+            setInterval(() => {
+                let a = document.querySelector("#puntos").textContent;
+                a.length < 5 ?
+                    document.querySelector("#puntos").textContent += " .":
+            document.querySelector("#puntos").textContent = ".";
+                }, 1000);
+        }
+        puntos_carga();
+    </script>
     <!-- Perfil De Usuario -->
     <div class="modal" id="modal_perfil_usuario">
         <div class="panel panel-default animate">
@@ -210,10 +221,12 @@
     </div>
 
     <script src="@Url.Content("~/Scripts/Sesion/Accesos_urls.min.js")?1.0.3"></script>
-    <script src="@Url.Content("~/Scripts/Usuarios/Perfil.js")?1.0.1"></script>
+    <script src="@Url.Content("~/Scripts/Usuarios/Perfil.js")?1.0.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    @*<script src="@Url.Content("~/Scripts/lib/chart_1.js")?1.0.1"></script>*@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/ChartJS")
+
     @Scripts.Render("~/bundles/custom")
 
     @*<script src="@Url.Content("~/Scripts/jquery-3.3.1.min.js")"></script>*@

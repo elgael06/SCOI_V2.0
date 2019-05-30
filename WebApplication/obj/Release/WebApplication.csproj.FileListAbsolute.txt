@@ -144,8 +144,9 @@ E:\WWW\WebApplication\bin\es\System.Web.Razor.resources.dll
 E:\WWW\WebApplication\bin\es\System.Web.WebPages.resources.dll
 E:\WWW\WebApplication\bin\es\System.Web.WebPages.Deployment.resources.dll
 E:\WWW\WebApplication\bin\es\System.Web.WebPages.Razor.resources.dll
+E:\WWW\WebApplication\obj\Release\WebApplication.csprojAssemblyReference.cache
 E:\WWW\WebApplication\obj\Release\WebApplication.csproj.CoreCompileInputs.cache
 E:\WWW\WebApplication\obj\Release\WebApplication.csproj.CopyComplete
 E:\WWW\WebApplication\obj\Release\WebApplication.dll
 E:\WWW\WebApplication\obj\Release\WebApplication.pdb
-E:\WWW\WebApplication\obj\Release\WebApplication.csprojAssemblyReference.cache
+E:\WWW\WebApplication\bin\Webpack.NET.dll

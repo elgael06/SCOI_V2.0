@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Selector de tabla monitora.</title>
+	<meta charset="utf-8" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div id="modal_accesos">
+        <div>
+            <h2> <i class="fa fa-cubes"></i>Monitoreo De Cuadrantes Y Apertura Establecimientos.</h2>
+                <section onclick="ir_monitor_cuadrantes()">
+                    <i class="fa fa-pencil-square-o" style="font-size:20px"></i>
+                    <p >Resultados Seguimiento Cuadrantes.</p></section>
+                <section  onclick="ir_monitor_aspectos()">
+                    <i class="material-icons" style="position:center;font-size:25px;color:#23897a">assessment</i>
+                    <i class="material-icons" style="position:absolute;font-size:20px;margin-left:-25px;margin-top:26px;z-index:999999; color:#343030">search</i>
+            <p >Apertura Establecimientos</p></section>
+        </div>
+    </div>
+    <script>
+        ir_monitor_cuadrantes = function () { location.href = "../cumplimiento_cuadrantes_por_establecimiento.aspx" }
+        ir_monitor_aspectos = function () { location.href = "../monitor_aspectos_tiendas.html" }
+    </script>
+    <style>
+        i {
+            margin-right:3px;  
+             margin-left:10px;  
+            display:inline-block;
+        }
+        section {
+            font-size:25px;
+        }
+        section:hover {
+            background:#bcc4c8;
+            border-top-left-radius:10px;
+            border-top-right-radius:10px;   
+            border-bottom:solid #24a2f6; 
+        }
+        h2 {
+            font-size:28px;
+            background:rgb(132, 153, 174);
+            border-bottom:solid rgb(128, 128, 128);
+            border-top-left-radius:5px;
+            border-top-right-radius:5px;  
+        }
+        p{
+            display:inline-block;
+        }
+        #modal_accesos {
+            position: fixed;
+	        top: -15px;
+	        right: 0;
+	        bottom: 0;
+	        left: 0;
+	        background: rgb(255, 255, 255) ;
+	        z-index: 99999;
+	        opacity:1;
+	        -webkit-transition: opacity 100ms ease-in;
+	        -moz-transition: opacity 200ms ease-in;
+	        transition: opacity 100ms ease-in;
+            }
+        #modal_accesos>div {
+            min-width:395px;
+            max-width:445px;
+            min-height:250px;
+	        position: relative;
+	        margin: 1% auto;
+            border:none;
+	        padding: 5px 20px 13px 20px;
+	        border-radius:0 0 5px 5px ;
+	        background-color:rgb(173, 180, 186);
+            color:black;
+            -webkit-transition: opacity 100ms ease-in;
+            -moz-transition: opacity 10ms ease-in;
+            transition: opacity 10ms ease-in;
+            /**sombra*/
+           -webkit-box-shadow: 0px 0px 23px 10px rgb(128, 128, 128);
+            -moz-box-shadow: 0px 0px 23px 10px rgb(128, 128, 128);
+            box-shadow: 0px 0px 23px 10px rgb(128, 128, 128);
+            }
+    </style>
+</body>
+</html>

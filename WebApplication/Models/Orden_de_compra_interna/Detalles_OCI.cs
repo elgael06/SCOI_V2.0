@@ -28,7 +28,7 @@ namespace api_seguimiento.Models.Orden_de_compra_interna
 
             string query = string.Format("exec orden_de_compra_interna_buscar_tabla {0} ;", folio);
 
-            SqlCommand comando = new SqlCommand(query,conexion_scoi);
+            SqlCommand comando = new SqlCommand(query, conexion_scoi);
             conexion_scoi.Open();
             lector = comando.ExecuteReader();
 

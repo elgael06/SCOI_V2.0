@@ -10,10 +10,10 @@ namespace WebApplication.Manager.web
     public class GlobalesController : Controller
     {
         // GET: Globales
-        public string Index()
-        {
-            return "Datos De Interaccion Globales";
-        }
+        public string Index() => "Datos De Interaccion Globales...";
+
+        public ActionResult CodigoBarrasGrande() => View();
+
         [HttpPost]
         public JsonResult Combos(string tipo) => Json(new Combos(tipo).Lista_combos);
         [HttpPost]

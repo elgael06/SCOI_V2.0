@@ -1,0 +1,75 @@
+﻿
+/*PANTALLA PRINCIPAL*/
+#contenedor_viewDepartamentos {
+    display:marker;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+    overflow-y:auto;
+}
+.viewDepartamento .fa {
+    margin-left: 5px
+}
+.viewDepartamento {
+    height: 180px;
+    background-color: rgba(186, 218, 234, 0.55) /* rgb(172, 179, 182)*/;
+    border: solid 1px #808080;
+    border-radius:1px;
+    color: #000000;
+    display: inline-block;
+    margin-bottom: 30px;
+    margin-left: 30px;
+    margin: 30px,30px,30px,30px;
+    max-width: 450px;
+    min-width: 400px;
+    padding: 2%;
+    text-align: center;
+    width: 96%;
+    /*Sombras*/
+    -webkit-box-shadow: -10px 10px 5px 0px #526471;
+    -moz-box-shadow: -10px 10px 5px 0px #526471;
+    box-shadow: -10px 10px 5px 0px #526471;
+}
+    .viewDepartamento label {
+        padding:10px;
+        font-size:15px;
+        border-radius:10px;
+        margin-top:20px;
+    }
+    .viewDepartamento h4 {
+        font-size:20px;
+        padding:3px;
+    }
+/*MODAL INCIDENCIAS*/
+#modal_incidencias {
+    position:fixed;
+    align-content:center;
+    justify-content:center;
+    align-items:center;
+    display:none;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background:rgba(169, 177, 182, 0.7);
+
+    z-index:9999;
+}
+    #modal_incidencias > div {
+        height: 95%;
+        max-height: 700px;
+        width: 95%;
+        max-width: 600px;
+        background: #ffffff;
+        border-radius:5px;
+        /*Sombras*/
+        -webkit-box-shadow: -10px 10px 5px 0px #526471;
+        -moz-box-shadow: -10px 10px 5px 0px #526471;
+        box-shadow: -10px 10px 5px 0px #526471;
+    }
+    #modal_incidencias fa-close {
+        display: inline-block;
+        float: right;
+        font-size: 40px
+    }

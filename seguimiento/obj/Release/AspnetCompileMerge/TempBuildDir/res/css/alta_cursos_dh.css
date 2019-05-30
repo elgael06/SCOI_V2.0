@@ -1,0 +1,102 @@
+﻿/*cabecera*/
+#botonera {
+    top:19px;
+    position:absolute;
+    width:80%;
+    margin-left:40px;
+}
+.botonera{
+    background-color:#8ca0b9;
+    color:azure;
+    border:double 1px #9dc4f5;
+    border-radius:5px;
+    height:35px;
+    font-size:14px;
+    font-family:'Comic Sans MS';
+}
+.botonera:hover {
+    background-color:#98b8de;
+    border:double 1px #b8cae1;
+}
+#edicion {
+    display:inline-block;
+    width:80%;
+}
+#imagen {
+    position:absolute;
+   display:inline-block;
+    width:140px;
+    height:140px;
+    text-align:center;
+    border-radius:100px;
+    border:double 3px #9dc4f5;
+}
+#imagen>p{
+    display:none;
+    position:absolute;
+    display:inline-block;
+    font-size:18px;
+    margin-top:40px;
+    text-align:center;
+    margin-left:1px;
+}
+#img{
+   display:inline-block;
+    margin-top:2px;
+    margin-left:2px;
+    border-radius:30px;
+    width:130px;
+    height:130px;
+    border-radius:100px;
+}
+h3 {
+    font-family:'Comic Sans MS'; 
+}
+/*area de cajas de entrada*/
+.cajadatos {
+     position:inherit;      
+    margin-top:10px;
+    border-radius:5px;
+    background-color:azure;
+    border:solid 2px #9dc4f5;
+    font-family:'Comic Sans MS'; 
+}
+.cajadatos:focus {
+     border-radius:10px;
+    background-color:azure;
+    border:solid 3px rgba(100, 200, 238, 0.87);
+    font-family:'Comic Sans MS'; 
+}
+.cajadatos:enabled{
+    color:black;
+}
+#Nombre_curso {
+    margin-left:20px;
+    width:60%;
+}
+#selector_puestos {
+    width:50%;
+}
+#filtro_tabla_cursos {
+    width:90%;
+    margin-left:5%;
+}
+/*seccion de objetos de cursos guardados*/
+#tabla_cursos {
+   font-family:'Comic Sans MS'; 
+}
+.datos_curso:hover{
+    background-color:rgba(129, 210, 241, 0.77)
+}
+.seleccio_curso {
+    background-color:#9dc4f5;
+}
+.seleccio_curso:hover{
+    background-color:rgb(6, 178, 245)
+}
+.cabecera_tabla {
+    position:sticky;
+    top:1px;
+    background-color:#919598;
+    color:azure;
+}

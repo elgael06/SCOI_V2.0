@@ -44,7 +44,8 @@ namespace api_seguimiento.Controllers.matrices
         public List<Unidad_de_inspeccion_por_etapa> PostUnidad_de_inspeccion_por_etapa(string etapa,string matriz)
         {
             var lista = new List<Unidad_de_inspeccion_por_etapa>();
-            SqlCommand comando = new SqlCommand("matrices_unidad_de_inspeccion_por_etapa " + etapa +","+ matriz, conexion_scoi);
+            string query = string.Format("matrices_unidad_de_inspeccion_por_etapa '{0}','{1}';", etapa, matriz);
+            SqlCommand comando = new SqlCommand(query, conexion_scoi);
                 conexion_scoi.Open();
                 lector = comando.ExecuteReader();
                 if (lector.HasRows)
@@ -75,7 +76,8 @@ namespace api_seguimiento.Controllers.matrices
             var lista = new List<Unidad_de_inspeccion_por_etapa>();
             var lista_respuestas = new List<Unidad_de_inspeccion_por_etapa>();
 
-            SqlCommand comando = new SqlCommand("matrices_unidad_de_inspeccion_por_etapa_res '" + fecha +"',"+etapa+","+matriz, conexion_scoi);
+            string query = string.Format("matrices_unidad_de_inspeccion_por_etapa_res '{0}','{1}',{2};", fecha, etapa, matriz);
+            SqlCommand comando = new SqlCommand(query, conexion_scoi);
             conexion_scoi.Open();
             lector = comando.ExecuteReader();
             if (lector.HasRows)

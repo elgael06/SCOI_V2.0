@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title> Monitor De Cumplimiento De Cuadrantes. </title>
+	<meta charset="utf-8" />
+    
+    <link href="../res/css/monitor_cumplimiento_cuadrantes.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.js"
+           crossorigin="anonymous"></script>
+
+    <script src="../res/js/monitor_cumplimiento_cuadrante.js"></script>
+    <script src="../res/js/conexion_ajax.js"></script>
+</head>
+<body>
+    <div id="modal_contenedora">
+        <div id="modal_principal">
+            <a class="fa fa-pencil-square-o" style="font-size:50px"></a>
+            <p id="fecha_1" class="fecha" >Fecha Inicio<br /> <input type="date" onchange="" /></p>
+            <p id="fecha_2" class="fecha" >Fecha Fin<br /> <input type="date" disabled  /></p>
+            <h2 id="titulo">Monitor De Cumplimiento De Cuadrantes.</h2>
+            <i class="fa fa-refresh" style="font-size:30px"></i>
+            <p class="fecha">Semana:<input type="number" id="selector_semana" disabled step="1" min=0 max=52  style="width:35px"/></p>
+            <p class="fecha">Año:<input type="number" id="selector_anio" disabled style="width:50px" /></p>
+           
+            <div id="contenedor">
+               
+            </div>
+        </div>
+    </div>
+    <div id="modal_empleado">
+        <div>
+            <section id="cerrar" class="fa fa-remove"></section>
+            <h3 id="nombre_empleado" style="display:inline-block">Nombre Empleado</h3>
+            <i id="gdr_tabla_semana" class="material-icons" title="Guardar" >file_download</i>
+            <div id="contenido_datos">
+
+            </div>
+        </div>
+    </div>
+    <div id="dialog" title="cuadro de carga de datos">
+        <br />
+        <br />
+        <br />
+        <img id="cargando" src="../Data/loadin_izagar.gif" />
+    </div>
+    <script>
+        init_llenado_tabla()
+    </script>
+    <script src="../res/js/tableToExcel.js"></script>
+</body>
+</html>

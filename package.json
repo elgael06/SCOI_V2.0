@@ -1,0 +1,25 @@
+{
+  "name": "WWW",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elgael06/SCOI_V2.0.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elgael06/SCOI_V2.0/issues"
+  },
+  "homepage": "https://github.com/elgael06/SCOI_V2.0#readme",
+  "devDependencies": {
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
+  },
+  "dependencies": {},
+  "description": ""
+}

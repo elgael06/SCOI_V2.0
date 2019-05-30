@@ -1,0 +1,144 @@
+﻿Imports MySql.Data.MySqlClient
+Imports System.Data
+Imports System.IO
+
+Public Class evidencias
+    Inherits System.Web.UI.Page
+    Public conn As New MySqlConnection
+    Public estadodeconexionprevia As ConnectionState
+    Public comando As MySqlCommand
+    Public adaptador As New MySqlDataAdapter
+
+    Public consulta As String = ""
+    Public sentencia As String = ""
+    Public fecha As Date
+    Public comentario As String = ""
+    Public datareader As MySqlDataReader
+    Public data As New DataSet
+    Dim existe As Boolean
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        ' Esto sirve para cargar los controles una sola vez y no cada vez que se haga postback
+        If Page.IsPostBack Then
+            ' aqui no haremos nada
+        Else
+            'aca pones todos lo eventos y funciones que deben cargarse una unica vez
+            _llenarcombo1()
+            limpiar_campos()
+        End If
+    End Sub
+    Sub _llenarcombo1()
+        ComboBox1.Items.Clear()
+        '----------------------------cargar DDL2---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select tipo_evidencia from evidencias;"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox1.Items.Add(datareader.GetValue(0))
+            End While
+        End If
+        conn.Close()
+    End Sub
+    Sub limpiar_campos()
+        TextBox1.Text = "" : TextBox2.Text = "" : TextBox3.Text = ""
+        Button1.Text = "Buscar" : Button2.Text = "Agregar Tipo"
+    End Sub
+
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If Button1.Text = "Buscar" Then
+            ' REALIZAMOS LA CONSULTA DEL REGISTRO SOLICITADO EN TEXTBOX1.TEXT
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            conn.Open()
+            consulta = "select tipo_evidencia, detalle_evidencia, id_evidencia from evidencias where tipo_evidencia= '" & ComboBox1.Text & "'"
+            comando = New MySqlCommand(consulta, conn)
+            datareader = comando.ExecuteReader
+            ' si encontramos registros entonces colocamos la informacion en los textboxes correspondientes
+            If datareader.HasRows Then
+                While datareader.Read
+                    TextBox1.Text = datareader.GetValue(0)
+                    TextBox2.Text = datareader.GetValue(1)
+                    TextBox3.Text = datareader.GetValue(2)
+                End While
+                Button1.Text = "Limpiar"
+            End If
+            'cerramos la conexion
+            conn.Close()
+
+        ElseIf Button1.Text = "Limpiar" Then
+            limpiar_campos()
+            Button1.Text = "Buscar"
+        End If
+    End Sub
+
+    Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        valida_siexiste()
+        If existe = False Then ' si no existe un registro parecido entonces lo agregamos
+            If TextBox1.Text <> "" Then  ' si se requiere que valide tambien el detalle de la evidencia hay que agregar or textbox2.text = ""
+                'se crea una conexion a la base de datos MySQL
+                Dim connection As MySqlConnection
+                Dim cuentalineas As Integer
+                connection = New MySqlConnection
+                'se apunta a la cadena de conexion guardada en el archivo Web.config
+                connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+                Dim estadodeconexionprevia As ConnectionState
+                estadodeconexionprevia = connection.State
+                Try
+                    If connection.State = ConnectionState.Closed Then
+                        connection.Open()
+                    End If
+                    'se ejecuta una consulta SQL
+                    Dim ComandoSQL As New MySqlCommand("INSERT INTO evidencias (tipo_evidencia, detalle_evidencia) VALUES ('" & TextBox1.Text & "', '" & TextBox2.Text & "')", connection)
+                    cuentalineas = ComandoSQL.ExecuteNonQuery
+                    If cuentalineas > 0 Then ' si se encontraron registros entonces hacemos esto
+                        Response.Write("<script language=javascript>alert('El puesto ha sido agregado correctamente');</script>")
+                        _llenarcombo1()
+                        limpiar_campos()
+                    Else
+                        Response.Write("<script language=javascript>alert('El puesto no se agrego correctamente');</script>")
+                    End If
+                Catch ex As Exception ' si hay algun error se hace esto
+                    Response.Write("<script language=javascript>alert('Ha ocurrido un error');</script>")
+                End Try
+            Else
+                Response.Write("<script language=javascript>alert('Es necesario proporcionar la informacion requerida');</script>")
+            End If
+        Else
+            Response.Write("<script language=javascript>alert('Este elemento ya existe');</script>")
+        End If
+    End Sub
+    Sub valida_siexiste()
+        existe = False
+        ' REALIZAMOS LA CONSULTA DEL REGISTRO SOLICITADO EN TEXTBOX1.TEXT
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select tipo_evidencia, detalle_evidencia, id_evidencia from evidencias where tipo_evidencia= '" & TextBox1.Text & "'"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        ' si encontramos registros entonces colocamos la informacion en los textboxes correspondientes
+        If datareader.HasRows Then
+            existe = True
+        Else
+            existe = False
+        End If
+        'cerramos la conexion
+        conn.Close()
+    End Sub
+
+    Protected Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        'MODIFICAMOS LA INFORMACION DEL REGISTRO SOLICITADO
+        consulta = "update evidencias set tipo_evidencia = '" & TextBox1.Text & "', detalle_evidencia = '" & TextBox2.Text & "' where id_evidencia= '" & TextBox3.Text & "'"
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        Try
+            comando = New MySqlCommand(consulta, conn)
+            comando.ExecuteNonQuery()
+            Response.Write("<script language=javascript>alert('REGISTRO ACTUALIZADO');</script>")
+        Catch ex As Exception
+            Response.Write("<script language=javascript>alert('ERROR AL ACTUALIZAR');</script>")
+        End Try
+        conn.Close()
+    End Sub
+End Class

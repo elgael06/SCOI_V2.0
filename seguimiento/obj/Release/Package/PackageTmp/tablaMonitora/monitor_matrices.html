@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Monitor Matrices.</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../vendors/fa%20fa-font/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    
+    <!---conexion ajax-->
+    <script src="../res/js/conexion_ajax.js?2.2"></script>
+    <!-- react--->
+    <script src="../vendors/React/react.development.js"></script>
+    <script src="../vendors/React/react-dom.development.js"></script>
+    <script src="../vendors/React/librerias/JSXTransformer.js"></script>
+</head>
+<body>
+    <div id="contenedor">
+
+    </div>
+    <style>
+        #contenedor{
+            position:absolute;
+            width:100%;
+            height:100%
+        }
+        .contenedor_tabla {
+            overflow-x:auto;
+            overflow-y:auto;
+            height:500px;
+            min-width:400px;
+            border:solid 2px #808080;
+            border-radius:5px;
+        }
+        #moda_vista_unidad {
+            display:none;
+            position:absolute;
+            background-color:rgba(144, 144, 146, 0.29);
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+            z-index:999;
+            justify-content: center;
+            align-items: center;
+        }
+        #moda_vista_unidad > div {
+            height:400px;
+            width:700px;
+        }
+    </style>
+    <script type="text/jsx;harmony=true" src="../res/js/React/componentes/Modal.jsx">
+    </script>
+    <script type="text/jsx;harmony=true" src="../res/js/React/componentes/Btn_seleccion.jsx">
+    </script>
+    <script type="text/jsx;harmony=true" src="../res/js/React/componentes/Botonera.jsx">
+    </script>
+    <script type="text/jsx;harmony=true" src="../res/js/React/componentes/Entradas.jsx">
+    </script>
+    <script type="text/jsx;harmony=true" src="../res/js/React/componentes/Tabla.jsx">
+    </script>
+    <script type="text/jsx;harmony=true" src="../res/js/React/Usuarios/seleccion_usuario.jsx?1.02">
+    </script>
+    <script type="text/jsx;harmony=true" src="../res/js/React/matrices/monitor_matrices.jsx?1.3">
+    </script>
+</body>
+</html>

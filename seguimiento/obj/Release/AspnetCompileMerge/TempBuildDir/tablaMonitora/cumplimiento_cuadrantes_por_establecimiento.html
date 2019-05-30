@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title> Monitor De Cumplimiento De Cuadrantes. </title>
+    <meta charset="utf-8" />
+
+    <link href="../res/css/monitor_cumplimiento_cuadrantes.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.js"
+            crossorigin="anonymous"></script>
+
+    <script src="../res/js/monitor_cumplimiento_cuadrante.js"></script>
+    <script src="../res/js/conexion_ajax.js"></script>
+</head>
+<body>
+    <div id="modal_contenedora">
+        <div id="modal_principal">
+            <p id="fecha_1" class="fecha">Fecha Inicio<br /> <input type="date" /></p>
+            <p id="fecha_2" class="fecha">Fecha Inicio<br /> <input type="date" /></p>
+            <i class="fa fa-refresh"></i>
+            <h2 id="titulo">Monitor De Cumplimiento De Cuadrantes.</h2>
+            <div id="contenedor">
+
+            </div>
+        </div>
+    </div>
+    <div id="selector_est">
+        <content>
+            <h2>Verificacion de Empleado:</h2>
+            
+            <input autofocus  type="text" id="empleado_id" placeholder="USUARIO" />
+               <br /> <!---onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 ' --->
+            <input autofocus type="password" id="empleado_cont" placeholder="CONTRASEÑA" />
+            <br />
+            <input type="button" value="Limpiar." id="selec_est_limp" onclick="$('#empleado_id').val(''); $('#empleado_cont').val('')" />
+            <input type="button" value="Ingresar." id="selec_est" />
+            
+        </content>
+    </div>
+    <div id="modal_empleado">
+        <div>
+            <section id="cerrar" class="fa fa-remove"></section>
+            <h3 id="nombre_empleado">Nombre Empleado</h3>
+            <div id="contenido_datos">
+
+            </div>
+        </div>
+    </div>
+    
+    <div id="dialog" title="cuadro de carga de datos">
+        <br />
+        <br />
+        <br />
+        <img id="cargando" src="../Data/loadin_izagar.gif" />
+    </div>
+
+</body>
+</html>

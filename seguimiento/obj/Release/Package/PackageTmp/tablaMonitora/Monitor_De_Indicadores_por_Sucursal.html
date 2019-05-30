@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Monitor De Indicadores Por Sucursal.</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="../res/js/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="../res/js/concurrent.Thread.js"></script>
+    <script src="../res/js/conexion_ajax.js"></script>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <div id="modal_indicadores">
+        <div>
+            <h3>Monitor Online De Indicadores De Establecimientos.</h3>
+            <input type="button" value="X" class="cerrar" onclick="location.href = '../Default.aspx'" />
+            <input type="date" id="fecha_larga" onchange="" /><input type="date" id="fecha_larga2" onchange="" />
+            <br />
+            <section id="titlulo">
+                Indicadores.
+                <span class="glyphicon glyphicon-refresh" onclick=""></span>
+            </section>
+            <div class="scroll contenedora" style="">
+                <table id="tabla_monitora">
+                    <tr id="cabecera_tabla">
+                        <th>Establecimiento</th>
+                        <th>N.Surtido Canasta Basica.</th>
+                        <th>Nivel De Agotado</th>
+                        <th>Recepcion Mercancia Pendiente.</th>
+                        <th>Recepcion Transf. pendiente</th>
+                        <th>Merma</th>
+                        <th>Nivel De Obsoleto</th>
+                        <th>Ordenes De Compras Pendiente De Aut.</th>
+                        <th>Nivel De Pedidos Completos</th>
+                        <th>Nivel De Pedidos En Tiempo</th>
+                        <th>Nivel De Plantilla</th>
+                    </tr>
+                    
+                </table>
+            </div>
+            <div id="modal_vista">
+                <div class="">
+                    <input type="button" class="cerrar" value="X" onclick='$("#modal_vista").hide()' />
+                    <h3 id="nom_sucursal">Establecimiento</h3>
+                    <section id="btnera_modal">
+                        <input type="button" id="nivel_indicador" class="menu" value="Sucursal">
+
+                    </section>
+                    <div class="scroll" >
+                        <table id="tabla_vistas" ></table>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="dialog" title="cuadro de carga de datos">
+        <br />
+        <br />
+        <br />
+        <img id="cargando" src="Data/loadin_izagar.gif" />
+    </div>
+    <style>
+        tr {
+            border-bottom-color: rgba(99, 101, 103, 1);
+        }
+    </style>
+    <link href="res/css/base.css" rel="stylesheet" />
+    <script src="../res/js/Monitor_Indicadores_Sucursal.js"></script>
+    <link href="../res/css/monitor_indicadores_sucursal.css" rel="stylesheet" />
+</body>
+</html>

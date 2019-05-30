@@ -1,6 +1,6 @@
 ﻿
 const $MI_URL = `${window.location.protocol}//${window.location.hostname}`;
-const $URL_API = $MI_URL + "/api/"
+const $URL_API =  "/api/"
 const $URL_API_IZA = $MI_URL + ":180/api/"
 
 class SeleccionEmbarque extends React.Component
@@ -109,8 +109,7 @@ class SeleccionEmbarque extends React.Component
         const { cargando,
             estableciminetos,
             pedidos,
-            establecimiento,
-            filtro } = this.state;
+            establecimiento } = this.state;
 
         return (
             <div className="panel panel-default">
@@ -121,8 +120,6 @@ class SeleccionEmbarque extends React.Component
                     evEstablecimineto={this.evObtenerPedidos}
                     evPedido={this.evPedido}
                     recargar={this.recargar}
-                    filtro={filtro}
-                    evFiltrar={this.filtrar}
                 />
                 <EfectoCargar
                     estatus={cargando}
@@ -131,11 +128,7 @@ class SeleccionEmbarque extends React.Component
             );
     }
 }
-const VistaSeleccionSurte = ({ seleccion, estableciminetos, pedidos, evEstablecimineto, evPedido, recargar, filtro, evFiltrar }) => {
-
-    const lista_pedidos = (function () {
-        return pedidos.filter(e => e.Folio.toString().search(filtro) > -1);
-    }());
+const VistaSeleccionSurte = ({ seleccion, estableciminetos, pedidos, evEstablecimineto, evPedido, recargar}) => {
 
     const TablaEmbarques = () => {
         return (
@@ -153,7 +146,7 @@ const VistaSeleccionSurte = ({ seleccion, estableciminetos, pedidos, evEstableci
                         </tr>
                     </thead>
                     <tbody>
-                        {lista_pedidos.map(e => <tr>
+                        {pedidos.map(e => <tr>
                             <th >{e.Folio}</th>
                             <th >{e.Usuario_capturo}</th>
                             <th >{e.Elaboraccion}</th>
@@ -186,7 +179,6 @@ const VistaSeleccionSurte = ({ seleccion, estableciminetos, pedidos, evEstableci
                         onClick={recargar}
                         style={{ float: "right", marginTop: "-40px",marginLeft:"10px", fontSize: "25px" }}
                     ></i>
-                    <input type="text" className="form-control" value={filtro} onChange={evFiltrar} placeolder="filtro" style={{ pading: "2px" }} focus />
                 </div>
                 <div style={{ height: "80%" }} className="panel-body">
                     <TablaEmbarques />
@@ -235,7 +227,8 @@ class EmbarquePedido extends React.Component {
     /* Eventos */
     on_mostrar_productos(filtro) {
         console.log("filtro", filtro);
-        const $lista = this.state.Embarque;
+        const $lista = JSON.parse(localStorage.getItem("Embarque"));
+       // this.setState({ Embarque: JSON.parse(localStorage.getItem("Embarque")) });
 
         const Filtrar = (function(){
             var resultado = () => null;
@@ -255,7 +248,7 @@ class EmbarquePedido extends React.Component {
         }());
         console.log("Tabla=>", Filtrar);
 
-        this.setState({ filtro_embarque: Filtrar});
+        this.setState({ filtro_embarque: Filtrar, Embarque: JSON.parse(localStorage.getItem("Embarque"))});
     }
     on_codigo_producto(event) {
         const $producto = this.state.producto;
@@ -265,8 +258,14 @@ class EmbarquePedido extends React.Component {
         event.preventDefault();
     }
     on_buscar_producto(event) {
-        this.mostrarocultarCarga(1);
-        this.ObtenerEnmbarque();
+        const folio = this.state.producto.Codigo.toString() || "";
+        if (folio > 0) {
+            this.mostrarocultarCarga(1);
+            this.ObtenerEnmbarque();
+        } else {
+            alert("Coloque Codigo...");
+            document.querySelector("#entrada_codigo_producto").select();
+        }
         event.preventDefault();
     }
     on_teclado(tecla) {
@@ -308,16 +307,24 @@ class EmbarquePedido extends React.Component {
         const $estatus = this.comprobarEnEmbarque(producto.Codigo);
         if ($estatus) {
             const $producto = {
-                Codigo: parseInt( producto.Codigo),
+                Codigo: "",
                 Descripcion: producto.Descripcion,
                 decimales: producto.Decimales,
                 Existencia : producto.Existencia_pz
             }
+            console.log("producto=>", producto);
+            viewSurtido.obtener_seleccion({
+                Codigo: producto.Codigo,
+                Descripcion: producto.Descripcion,
+                decimales: producto.Decimales,
+                Existencia: producto.Existencia_pz
+            });
             this.setState({ producto: $producto, activar: $estatus });
-            document.querySelector("#captura_por_teclado").style.display = "flex";
+            //document.querySelector("#captura_por_teclado").style.display = "flex";
         } else {
-            alert(`El Producto ${producto.Descripcion} No Se Encuentra En El Embarque!!!`);
+            alert(`El Producto\n Folio: ${producto.Codigo || "N/A"}.\n Descripcion: ${producto.Descripcion || "Desconocido"}.\n No Se Encuentra En El Embarque!!!`);
             this.restarProducto();
+            document.querySelector("#entrada_codigo_producto").disabled = false;
         }
         this.mostrarocultarCarga(0);
     }
@@ -440,10 +447,9 @@ class EmbarquePedido extends React.Component {
     }
     /* Conexiones */
     ObtenerEnmbarque() {
-        const folio = this.state.producto.Codigo.toString() || "10201";
+        const folio = this.state.producto.Codigo.toString() || "";
         const { Alterno } = this.state.Pedido;
         document.querySelector("#entrada_codigo_producto").disabled = true;
-
         fetch(`${$URL_API}Productos_clasificador_por_folio?folio=${folio}&establecimineto=${Alterno}`, {
             method: 'post',
             headers: {
@@ -454,7 +460,7 @@ class EmbarquePedido extends React.Component {
             .then(e => {
                 e.json().then(res => this.codigo_producto(res))
             })
-            .catch(err => console.error("Error=>",err));
+            .catch(err => console.error("Error=>", err)) 
     }
     render() {
         const { cargando, Pedido, Embarque, producto, edicion, activar, totales, filtro_embarque } = this.state;
@@ -524,16 +530,17 @@ const ViewMovimientos = ({ Pedido }) => {
     );
 }
 const ViewCantidades = ({ totales }) => {
+   let embarque_ = JSON.parse(localStorage.getItem("Embarque"));
     const { surtido, embarque } = totales;
     return (
         <div className="caja_contenedora_items">
             <div className="form_vista_texto">
                 <label>Surtido:</label>
-                <div className="caja_entrada_texto">{surtido}</div>
+                <div className="caja_entrada_texto">{embarque_.filter(e => e.surtido > 0).length}</div>
             </div>
             <div className="form_vista_texto">
                 <label>Embarque:</label>
-                <div className="caja_entrada_texto">{embarque}</div>
+                <div className="caja_entrada_texto">{embarque_.length}</div>
             </div>
         </div>
         );
@@ -569,10 +576,13 @@ const BuscarPruducto = ({ evBuscar, evOn, Codigo}) => {
                     active
                     value={Codigo} />
             </form>
-            <hr />
 
-            <i className="btn btn-success btn-round btn_seseccion btn-block" style={{width:"150px",fontSize:"18px"}} id="btn_guardar_embarque_pedido" onClick={guardar_embarque}> Guardar <i className="fa fa-cloud-upload"></i></i>
-            <i className="btn btn-default fa fa-refresh" onClick={rotar}></i>
+            <strong className="btn btn-success btn-round btn_seseccion btn-block"
+                style={{ width: "150px", fontSize: "18px",float:"right" }}
+                id="btn_guardar_embarque_pedido"
+                onClick={guardar_embarque}>
+                Guardar  <i className="glyphicon glyphicon-saved"></i>
+            </strong>
         </div>
         );
 }
@@ -604,45 +614,45 @@ const ModalCaptura = ({ cantidades, Descripcion,evTecla }) => {
 
 
 //old
-const CaveceraPedido = ({ pedido, totales }) => {
-    const { surtido, embarque } = totales;
-    return (
-        <div className="panel-heading">
-            <span className="vista_datos_embarque" id="contenedor_folio">
-                <div className="vista_numero">
-                    <label>Folio:</label>
-                    <div className="form-control">{pedido.Folio}</div>
-                </div>
-                <i className="btn btn-danger fa fa-close"
-                    onClick={eliminar_embarque_localStorange}
-                    id="btn_recargar"> Cancelar</i>
-            </span>
-                <span className="vista_datos_embarque">
-                    <div>
-                        <label>Del:</label>
-                        <strong style={{ display: "inline-block" }} className="form-control">{pedido.Alterno}</strong>
-                    </div>
-                    <div>
-                        <label>Al:</label>
-                        <div className="form-control">{pedido.Establecimiento}</div>
-                    </div>
-                </span>
-                <span className="vista_datos_embarque">
-                    <div className="vista_numero">
-                        <label>Surtido:</label>
-                        <div className="form-control">{surtido}</div>
-                    </div>
-                    <div className="vista_numero">
-                        <label>Embarque:</label>
-                        <div className="form-control">{embarque}</div>
-                    </div>
-            </span>
-            <i className="btn btn-success fa fa-save"
-                onClick={guardar_embarque}
-                id="btn_guardar"> </i>
-        </div>   
-        );
-}
+//const CaveceraPedido = ({ pedido, totales }) => {
+//    const { surtido, embarque } = totales;
+//    return (
+//        <div className="panel-heading">
+//            <span className="vista_datos_embarque" id="contenedor_folio">
+//                <div className="vista_numero">
+//                    <label>Folio:</label>
+//                    <div className="form-control">{pedido.Folio}</div>
+//                </div>
+//                <i className="btn btn-danger fa fa-close"
+//                    onClick={eliminar_embarque_localStorange}
+//                    id="btn_recargar"> Cancelar</i>
+//            </span>
+//                <span className="vista_datos_embarque">
+//                    <div>
+//                        <label>Del:</label>
+//                        <strong style={{ display: "inline-block" }} className="form-control">{pedido.Alterno}</strong>
+//                    </div>
+//                    <div>
+//                        <label>Al:</label>
+//                        <div className="form-control">{pedido.Establecimiento}</div>
+//                    </div>
+//                </span>
+//                <span className="vista_datos_embarque">
+//                    <div className="vista_numero">
+//                        <label>Surtido:</label>
+//                        <div className="form-control">{surtido}</div>
+//                    </div>
+//                    <div className="vista_numero">
+//                        <label>Embarque:</label>
+//                        <div className="form-control">{embarque}</div>
+//                    </div>
+//            </span>
+//            <i className="btn btn-success fa fa-save"
+//                onClick={guardar_embarque}
+//                id="btn_guardar"> </i>
+//        </div>   
+//        );
+//}
 const BotonesEmbarque = ({ evMostrar })=>{
     return (<div className="contenedor_botones_productos">
         <i className="btn btn-warning" onClick={() => evMostrar("P")}>Pendientes</i>
@@ -798,15 +808,18 @@ class Embarque {
 }
 
 function eliminar_embarque_localStorange() {
-    const e = prompt("Escriba 'IZAGAR' Para Confirmar Borrado!!!");
-    console.log(e.toUpperCase())
-    if (confirm("Esta Seguro De Eliminar los Cambios De Embarque?") && e.toUpperCase() === 'IZAGAR') {
-        localStorage.removeItem('Embarque');
-        localStorage.removeItem('Pedido');
-        init();
-        return null;
+    let e = prompt("Escriba '1379' Para Confirmar Borrado!!!") || " ";   
+    if (e.toUpperCase() === '1379') {
+        console.log(e.toUpperCase())
+        if (confirm("Esta Seguro De Eliminar los Cambios De Embarque?")) {
+            localStorage.removeItem('Embarque');
+            localStorage.removeItem('Pedido');
+            init();
+            return null;
+        }
     }
-    alert("Eliminacion Cancelada!!!");
+    else
+        alert("Eliminacion Cancelada!!!");
 }
 
 function ErrorPedido(){
@@ -829,14 +842,40 @@ function ErrorPedido(){
 }
 
 function guardar_embarque() {
-    const e = prompt("Escriba 'IZAGAR' Para Confirmar!!!");
+    document.querySelector("#modal_de_efecto_carga").style.display = 'flex';
+    const e = prompt("Escriba '1379' Para Confirmar!!!") || " ";
     console.log(e.toUpperCase())
-    if (confirm("Esta Seguro De GUARDAR los Cambios De Embarque?") && e.toUpperCase() === 'IZAGAR') {
+    if (e.toUpperCase() === '1379') {
+        if (confirm("Esta Seguro De GUARDAR los Cambios De Embarque?")) {
 
-        const value = new Embarque();
-        const conexionBMS = (estatus) => {
-            if (estatus) {
-                fetch(`${$URL_API_IZA}PedidoBms/EmbarqueBms`, {
+            const value = new Embarque();
+            const conexionBMS = (estatus) => {
+                if (estatus) {
+                    fetch(`${$URL_API_IZA}PedidoBms/EmbarqueBms`, {
+                        method: 'post',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(value)
+                    })
+                        .then(e => {
+                            e.json().then(res => {
+                                localStorage.removeItem('Embarque');
+                                localStorage.removeItem('Pedido');
+                                alert("Guardado..." + res);
+                                document.querySelector("#modal_de_efecto_carga").style.display = 'none';
+                                init();
+                            })
+                        })
+                        .catch(err => ErrorPedido());
+                } else {
+                    Alert("error Al Guardar!!!")
+                }
+            }
+            if (value.productos.length > 0) {
+                alert(`Guardar... \n${value.productos.length} Productos.`)
+                //CONEXION BMS
+                fetch(`${$URL_API_IZA}Pedido/Embarque`, {
                     method: 'post',
                     headers: {
                         'Content-Type': 'application/json'
@@ -844,37 +883,20 @@ function guardar_embarque() {
                     body: JSON.stringify(value)
                 })
                     .then(e => {
-                        e.json().then(res => {
-                            localStorage.removeItem('Embarque');
-                            localStorage.removeItem('Pedido');
-                            alert("Guardado..." + res);
-                            init();
-                        })
+                        e.json().then(res => conexionBMS(res))
                     })
                     .catch(err => ErrorPedido());
-            } else {
-                Alert("error Al Guardar!!!")
+                return null;
+            }
+            else {
+                alert("Sin Productos A Guardar...");
+                document.querySelector("#modal_de_efecto_carga").style.display = 'none';
             }
         }
-        if (value.productos.length > 0) {
-            alert(`Guardar... \n${value.productos.length} Productos.`)
-            //CONEXION BMS
-            fetch(`${$URL_API_IZA}Pedido/Embarque`, {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(value)
-            })
-                .then(e => {
-                    e.json().then(res => conexionBMS(res))
-                })
-                .catch(err => ErrorPedido());
-            return null;
-        }
-        else alert("Sin Productos A Guardar...");
+    } else {
+        document.querySelector("#modal_de_efecto_carga").style.display = 'none';
+        alert("GUARDADO CANCELADO!!!");
     }
-    alert("GUARDADO CANCELADO!!!");
 }
 function init() {
     var View = null;

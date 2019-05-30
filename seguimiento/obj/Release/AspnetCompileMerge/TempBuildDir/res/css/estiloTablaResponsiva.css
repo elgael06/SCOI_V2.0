@@ -1,0 +1,32 @@
+﻿@media screen And (max-width:1024px) {
+    
+    #tablaPrincipal{
+        width:185%;               
+    }
+    #tituloObs{    
+        padding-left:75px;        
+        margin-top:20px;   
+    }
+    .formCol-obs{
+        padding:0px;   
+        width:27%;    
+    }
+    #contenidoObs{          
+        padding-left:12px;
+    }
+    #contenidoObs #btAceptarObservacion{    
+        margin-left:80px;    
+    }
+    #titulo{        
+        padding-left:100px;         
+    }
+    #textoTitulo{    
+        width:110px;                
+    }
+    #contenedorTabla{    
+        height:80%;                
+    }
+    #cabeceraTabs{
+        width:250px;        
+    }
+}

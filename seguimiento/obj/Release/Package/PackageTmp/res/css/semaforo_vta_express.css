@@ -1,0 +1,171 @@
+﻿@media only screen and (min-width:768px) {
+    /* For desktop: */
+    #scroll_tabla {
+        width: 100%;
+        height: 70%;
+        overflow: auto;
+        background-color: rgb(207, 213, 215);
+        border: medium;
+        border-color: rgb(200,190,150);
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        margin-left: 0;
+    }
+    #titulo {
+        font-size:28px;
+        font-style:italic;
+    }
+    #vista {
+    width:100%;
+    }
+    #cavecera {
+    background-color:#7a8e9d;
+    border-top-left-radius:8px;
+    border-top-right-radius:8px;
+    }
+    #tabla_cabecera {
+     width:100%;
+    }
+    .t_semaforo {
+        width:6%;
+    }
+    .t_estatus {
+        width:6%; 
+    }
+    .t_fVta {
+        width:6%; 
+    }
+    .t_cliente {
+        width:10%; 
+    }
+    .t_vendedor {
+        width:10%; 
+    }
+    .t_inicio {
+         width:6%;
+    }
+    .t_final {
+         width:6%;
+    }
+    .t_proveedor {
+        width:12%;
+    }
+    .t_autorizo {
+        width:10%
+    }
+    .t_establecimiento {
+         width:6%;
+    }
+    .t_notas {
+         width:15%;
+    }
+    .t_total {
+        width:11%;
+    }
+
+}
+@media only screen and (max-width: 768px) {
+    #scroll_tabla {
+        width: 100%;
+        height: 78%;
+        overflow: auto;
+        background-color: rgb(207, 213, 215);
+        border: medium;
+        border-color: rgb(200,190,150);
+        border-radius: 5px;
+        margin-left: 0;
+    }
+    #titulo {
+        font-size:18px;
+         font-style:italic;
+    }
+    #vista {
+    width:1340px;
+    }
+    #cavecera {
+    display: none;
+    }
+}
+
+
+th, td {
+    border-bottom: 1px solid #32454e;
+}
+.btnSemaforo {
+    border-radius:20px;
+    height:30px;
+    width:30px;
+    border:none;
+}
+.observacio_de_tabla:hover {
+    background-color:#94d3ef;
+}
+.datos_semaforo {
+    background-color:  rgb(207, 213, 215);
+}
+.tr_activo {
+        background-color:#94d3ef;
+}
+/**modal */
+#modal_ventas {
+ position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(99, 101, 103, 0.60) ;
+	z-index: 99999;
+	opacity:1;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 800ms ease-in;
+	transition: opacity 800ms ease-in;
+    text-align:center;
+}
+#modal_ventas > div {
+	width:95%;    height:95%;	position: relative;	margin: 1% auto;	padding: 5px 20px 13px 20px;	border-radius: 10px;
+	background-color:rgb(23, 74, 241); color:azure;  -webkit-transition: opacity 400ms ease-in;-moz-transition: opacity 400ms ease-in;transition: opacity 400ms ease-in; border:none;  font-size:18px;
+  /**sombra*/ -webkit-box-shadow: 0px 0px 23px 6px rgba(0,0,0,0.75);-moz-box-shadow: 0px 0px 43px 6px rgba(0,0,0,0.75);box-shadow: 0px 0px 23px 6px rgba(0,0,0,0.75);
+/**tono*/
+
+}
+
+.cerrar {
+	background: #ff6a00;	color: #FFFFFF;
+	line-height: 25px;
+	position: absolute;
+	right:2px;
+	text-align: center;
+	top: 0px;
+	width: 43px;
+    height:43px;
+	text-decoration: none;
+	font-weight: bold;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 2px;
+	-moz-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 3px #000;
+	box-shadow: 1px 1px 3px #000;
+    border:none;
+}
+#refrescar {
+    margin-right:90%;
+    border:none;
+    height:30px;
+    width:70px;
+    background-color:rgb(99, 101, 103);
+     display: inline;
+    color:azure;
+    border-radius:3px
+}
+#seleccion_estatus {
+    margin-right:90%;
+    border:none;
+    height:30px;
+    width:70px;
+    background-color:rgb(99, 101, 103);
+    display: inline;
+    color:azure;
+    border-radius:3px
+}

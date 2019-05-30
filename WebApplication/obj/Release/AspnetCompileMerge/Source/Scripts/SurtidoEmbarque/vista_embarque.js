@@ -9,7 +9,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var $MI_URL = window.location.protocol + "//" + window.location.hostname;
-var $URL_API = $MI_URL + "/api/";
+var $URL_API = "/api/";
 var $URL_API_IZA = $MI_URL + ":180/api/";
 
 var SeleccionEmbarque = (function (_React$Component) {
@@ -166,7 +166,6 @@ var SeleccionEmbarque = (function (_React$Component) {
             var estableciminetos = _state.estableciminetos;
             var pedidos = _state.pedidos;
             var establecimiento = _state.establecimiento;
-            var filtro = _state.filtro;
 
             return React.createElement(
                 "div",
@@ -177,9 +176,7 @@ var SeleccionEmbarque = (function (_React$Component) {
                     pedidos: pedidos,
                     evEstablecimineto: this.evObtenerPedidos,
                     evPedido: this.evPedido,
-                    recargar: this.recargar,
-                    filtro: filtro,
-                    evFiltrar: this.filtrar
+                    recargar: this.recargar
                 }),
                 React.createElement(EfectoCargar, {
                     estatus: cargando
@@ -198,14 +195,6 @@ var VistaSeleccionSurte = function VistaSeleccionSurte(_ref) {
     var evEstablecimineto = _ref.evEstablecimineto;
     var evPedido = _ref.evPedido;
     var recargar = _ref.recargar;
-    var filtro = _ref.filtro;
-    var evFiltrar = _ref.evFiltrar;
-
-    var lista_pedidos = (function () {
-        return pedidos.filter(function (e) {
-            return e.Folio.toString().search(filtro) > -1;
-        });
-    })();
 
     var TablaEmbarques = function TablaEmbarques() {
         return React.createElement(
@@ -260,7 +249,7 @@ var VistaSeleccionSurte = function VistaSeleccionSurte(_ref) {
                 React.createElement(
                     "tbody",
                     null,
-                    lista_pedidos.map(function (e) {
+                    pedidos.map(function (e) {
                         return React.createElement(
                             "tr",
                             null,
@@ -338,8 +327,7 @@ var VistaSeleccionSurte = function VistaSeleccionSurte(_ref) {
                 React.createElement("i", { className: "fa fa-refresh btn btn-default btn-round",
                     onClick: recargar,
                     style: { float: "right", marginTop: "-40px", marginLeft: "10px", fontSize: "25px" }
-                }),
-                React.createElement("input", { type: "text", className: "form-control", value: filtro, onChange: evFiltrar, placeolder: "filtro", style: { pading: "2px" }, focus: true })
+                })
             ),
             React.createElement(
                 "div",
@@ -399,7 +387,8 @@ var EmbarquePedido = (function (_React$Component2) {
         key: "on_mostrar_productos",
         value: function on_mostrar_productos(filtro) {
             console.log("filtro", filtro);
-            var $lista = this.state.Embarque;
+            var $lista = JSON.parse(localStorage.getItem("Embarque"));
+            // this.setState({ Embarque: JSON.parse(localStorage.getItem("Embarque")) });
 
             var Filtrar = (function () {
                 var resultado = function resultado() {
@@ -430,7 +419,7 @@ var EmbarquePedido = (function (_React$Component2) {
             })();
             console.log("Tabla=>", Filtrar);
 
-            this.setState({ filtro_embarque: Filtrar });
+            this.setState({ filtro_embarque: Filtrar, Embarque: JSON.parse(localStorage.getItem("Embarque")) });
         }
     }, {
         key: "on_codigo_producto",
@@ -444,8 +433,14 @@ var EmbarquePedido = (function (_React$Component2) {
     }, {
         key: "on_buscar_producto",
         value: function on_buscar_producto(event) {
-            this.mostrarocultarCarga(1);
-            this.ObtenerEnmbarque();
+            var folio = this.state.producto.Codigo.toString() || "";
+            if (folio > 0) {
+                this.mostrarocultarCarga(1);
+                this.ObtenerEnmbarque();
+            } else {
+                alert("Coloque Codigo...");
+                document.querySelector("#entrada_codigo_producto").select();
+            }
             event.preventDefault();
         }
     }, {
@@ -500,17 +495,25 @@ var EmbarquePedido = (function (_React$Component2) {
             var $estatus = this.comprobarEnEmbarque(producto.Codigo);
             if ($estatus) {
                 var $producto = {
-                    Codigo: parseInt(producto.Codigo),
+                    Codigo: "",
                     Descripcion: producto.Descripcion,
                     decimales: producto.Decimales,
                     Existencia: producto.Existencia_pz
                 };
+                console.log("producto=>", producto);
+                viewSurtido.obtener_seleccion({
+                    Codigo: producto.Codigo,
+                    Descripcion: producto.Descripcion,
+                    decimales: producto.Decimales,
+                    Existencia: producto.Existencia_pz
+                });
                 this.setState({ producto: $producto, activar: $estatus });
-                document.querySelector("#captura_por_teclado").style.display = "flex";
+                //document.querySelector("#captura_por_teclado").style.display = "flex";
             } else {
-                alert("El Producto " + producto.Descripcion + " No Se Encuentra En El Embarque!!!");
-                this.restarProducto();
-            }
+                    alert("El Producto\n Folio: " + (producto.Codigo || "N/A") + ".\n Descripcion: " + (producto.Descripcion || "Desconocido") + ".\n No Se Encuentra En El Embarque!!!");
+                    this.restarProducto();
+                    document.querySelector("#entrada_codigo_producto").disabled = false;
+                }
             this.mostrarocultarCarga(0);
         }
     }, {
@@ -665,11 +668,10 @@ var EmbarquePedido = (function (_React$Component2) {
         value: function ObtenerEnmbarque() {
             var _this6 = this;
 
-            var folio = this.state.producto.Codigo.toString() || "10201";
+            var folio = this.state.producto.Codigo.toString() || "";
             var Alterno = this.state.Pedido.Alterno;
 
             document.querySelector("#entrada_codigo_producto").disabled = true;
-
             fetch($URL_API + "Productos_clasificador_por_folio?folio=" + folio + "&establecimineto=" + Alterno, {
                 method: 'post',
                 headers: {
@@ -800,6 +802,8 @@ var ViewMovimientos = function ViewMovimientos(_ref3) {
 };
 var ViewCantidades = function ViewCantidades(_ref4) {
     var totales = _ref4.totales;
+
+    var embarque_ = JSON.parse(localStorage.getItem("Embarque"));
     var surtido = totales.surtido;
     var embarque = totales.embarque;
 
@@ -817,7 +821,9 @@ var ViewCantidades = function ViewCantidades(_ref4) {
             React.createElement(
                 "div",
                 { className: "caja_entrada_texto" },
-                surtido
+                embarque_.filter(function (e) {
+                    return e.surtido > 0;
+                }).length
             )
         ),
         React.createElement(
@@ -831,7 +837,7 @@ var ViewCantidades = function ViewCantidades(_ref4) {
             React.createElement(
                 "div",
                 { className: "caja_entrada_texto" },
-                embarque
+                embarque_.length
             )
         )
     );
@@ -897,14 +903,15 @@ var BuscarPruducto = function BuscarPruducto(_ref6) {
                 active: true,
                 value: Codigo })
         ),
-        React.createElement("hr", null),
         React.createElement(
-            "i",
-            { className: "btn btn-success btn-round btn_seseccion btn-block", style: { width: "150px", fontSize: "18px" }, id: "btn_guardar_embarque_pedido", onClick: guardar_embarque },
-            " Guardar ",
-            React.createElement("i", { className: "fa fa-cloud-upload" })
-        ),
-        React.createElement("i", { className: "btn btn-default fa fa-refresh", onClick: rotar })
+            "strong",
+            { className: "btn btn-success btn-round btn_seseccion btn-block",
+                style: { width: "150px", fontSize: "18px", float: "right" },
+                id: "btn_guardar_embarque_pedido",
+                onClick: guardar_embarque },
+            "Guardar  ",
+            React.createElement("i", { className: "glyphicon glyphicon-saved" })
+        )
     );
 };
 var ModalCaptura = function ModalCaptura(_ref7) {
@@ -952,115 +959,47 @@ var ModalCaptura = function ModalCaptura(_ref7) {
 };
 
 //old
-var CaveceraPedido = function CaveceraPedido(_ref8) {
-    var pedido = _ref8.pedido;
-    var totales = _ref8.totales;
-    var surtido = totales.surtido;
-    var embarque = totales.embarque;
-
-    return React.createElement(
-        "div",
-        { className: "panel-heading" },
-        React.createElement(
-            "span",
-            { className: "vista_datos_embarque", id: "contenedor_folio" },
-            React.createElement(
-                "div",
-                { className: "vista_numero" },
-                React.createElement(
-                    "label",
-                    null,
-                    "Folio:"
-                ),
-                React.createElement(
-                    "div",
-                    { className: "form-control" },
-                    pedido.Folio
-                )
-            ),
-            React.createElement(
-                "i",
-                { className: "btn btn-danger fa fa-close",
-                    onClick: eliminar_embarque_localStorange,
-                    id: "btn_recargar" },
-                " Cancelar"
-            )
-        ),
-        React.createElement(
-            "span",
-            { className: "vista_datos_embarque" },
-            React.createElement(
-                "div",
-                null,
-                React.createElement(
-                    "label",
-                    null,
-                    "Del:"
-                ),
-                React.createElement(
-                    "strong",
-                    { style: { display: "inline-block" }, className: "form-control" },
-                    pedido.Alterno
-                )
-            ),
-            React.createElement(
-                "div",
-                null,
-                React.createElement(
-                    "label",
-                    null,
-                    "Al:"
-                ),
-                React.createElement(
-                    "div",
-                    { className: "form-control" },
-                    pedido.Establecimiento
-                )
-            )
-        ),
-        React.createElement(
-            "span",
-            { className: "vista_datos_embarque" },
-            React.createElement(
-                "div",
-                { className: "vista_numero" },
-                React.createElement(
-                    "label",
-                    null,
-                    "Surtido:"
-                ),
-                React.createElement(
-                    "div",
-                    { className: "form-control" },
-                    surtido
-                )
-            ),
-            React.createElement(
-                "div",
-                { className: "vista_numero" },
-                React.createElement(
-                    "label",
-                    null,
-                    "Embarque:"
-                ),
-                React.createElement(
-                    "div",
-                    { className: "form-control" },
-                    embarque
-                )
-            )
-        ),
-        React.createElement(
-            "i",
-            { className: "btn btn-success fa fa-save",
-                onClick: guardar_embarque,
-                id: "btn_guardar" },
-            " "
-        )
-    );
-};
-var BotonesEmbarque = function BotonesEmbarque(_ref9) {
-    var evMostrar = _ref9.evMostrar;
+//const CaveceraPedido = ({ pedido, totales }) => {
+//    const { surtido, embarque } = totales;
+//    return (
+//        <div className="panel-heading">
+//            <span className="vista_datos_embarque" id="contenedor_folio">
+//                <div className="vista_numero">
+//                    <label>Folio:</label>
+//                    <div className="form-control">{pedido.Folio}</div>
+//                </div>
+//                <i className="btn btn-danger fa fa-close"
+//                    onClick={eliminar_embarque_localStorange}
+//                    id="btn_recargar"> Cancelar</i>
+//            </span>
+//                <span className="vista_datos_embarque">
+//                    <div>
+//                        <label>Del:</label>
+//                        <strong style={{ display: "inline-block" }} className="form-control">{pedido.Alterno}</strong>
+//                    </div>
+//                    <div>
+//                        <label>Al:</label>
+//                        <div className="form-control">{pedido.Establecimiento}</div>
+//                    </div>
+//                </span>
+//                <span className="vista_datos_embarque">
+//                    <div className="vista_numero">
+//                        <label>Surtido:</label>
+//                        <div className="form-control">{surtido}</div>
+//                    </div>
+//                    <div className="vista_numero">
+//                        <label>Embarque:</label>
+//                        <div className="form-control">{embarque}</div>
+//                    </div>
+//            </span>
+//            <i className="btn btn-success fa fa-save"
+//                onClick={guardar_embarque}
+//                id="btn_guardar"> </i>
+//        </div>  
+//        );
+//}
+var BotonesEmbarque = function BotonesEmbarque(_ref8) {
+    var evMostrar = _ref8.evMostrar;
 
     return React.createElement(
         "div",
@@ -1088,10 +1027,10 @@ var BotonesEmbarque = function BotonesEmbarque(_ref9) {
         )
     );
 };
-var BuscarProductos = function BuscarProductos(_ref10) {
-    var producto = _ref10.producto;
-    var evOn = _ref10.evOn;
-    var evBuscar = _ref10.evBuscar;
+var BuscarProductos = function BuscarProductos(_ref9) {
+    var producto = _ref9.producto;
+    var evOn = _ref9.evOn;
+    var evBuscar = _ref9.evBuscar;
 
     return React.createElement(
         "div",
@@ -1132,8 +1071,8 @@ var BuscarProductos = function BuscarProductos(_ref10) {
         )
     );
 };
-var CapturaCantidad = function CapturaCantidad(_ref11) {
-    var cantidades = _ref11.cantidades;
+var CapturaCantidad = function CapturaCantidad(_ref10) {
+    var cantidades = _ref10.cantidades;
     var cantidad = cantidades.cantidad;
     var surtido = cantidades.surtido;
     var total = cantidades.total;
@@ -1177,8 +1116,8 @@ var CapturaCantidad = function CapturaCantidad(_ref11) {
         )
     );
 };
-var TecladoCaptura = function TecladoCaptura(_ref12) {
-    var tecla = _ref12.tecla;
+var TecladoCaptura = function TecladoCaptura(_ref11) {
+    var tecla = _ref11.tecla;
 
     var dato = function dato(dat, sig) {
         return { valor: dat, signo: sig || dat };
@@ -1208,9 +1147,9 @@ var TecladoCaptura = function TecladoCaptura(_ref12) {
         )
     );
 };
-var TeclaNumero = function TeclaNumero(_ref13) {
-    var valor = _ref13.valor;
-    var evValor = _ref13.evValor;
+var TeclaNumero = function TeclaNumero(_ref12) {
+    var valor = _ref12.valor;
+    var evValor = _ref12.evValor;
 
     evValor = evValor ? evValor : function () {
         return console.log(valor);
@@ -1222,9 +1161,9 @@ var TeclaNumero = function TeclaNumero(_ref13) {
         valor
     );
 };
-var TeclaEspecial = function TeclaEspecial(_ref14) {
-    var valor = _ref14.valor;
-    var evValor = _ref14.evValor;
+var TeclaEspecial = function TeclaEspecial(_ref13) {
+    var valor = _ref13.valor;
+    var evValor = _ref13.evValor;
 
     var res = " btn btn-default glyphicon glyphicon-" + valor;
     evValor = evValor ? evValor : function () {
@@ -1234,9 +1173,9 @@ var TeclaEspecial = function TeclaEspecial(_ref14) {
         onClick: evValor });
 };
 
-var ModalTabla = function ModalTabla(_ref15) {
-    var lista = _ref15.lista;
-    var modificar = _ref15.modificar;
+var ModalTabla = function ModalTabla(_ref14) {
+    var lista = _ref14.lista;
+    var modificar = _ref14.modificar;
 
     return React.createElement(
         "div",
@@ -1397,15 +1336,16 @@ var Embarque = (function () {
 })();
 
 function eliminar_embarque_localStorange() {
-    var e = prompt("Escriba 'IZAGAR' Para Confirmar Borrado!!!");
-    console.log(e.toUpperCase());
-    if (confirm("Esta Seguro De Eliminar los Cambios De Embarque?") && e.toUpperCase() === 'IZAGAR') {
-        localStorage.removeItem('Embarque');
-        localStorage.removeItem('Pedido');
-        init();
-        return null;
-    }
-    alert("Eliminacion Cancelada!!!");
+    var e = prompt("Escriba '1379' Para Confirmar Borrado!!!") || " ";
+    if (e.toUpperCase() === '1379') {
+        console.log(e.toUpperCase());
+        if (confirm("Esta Seguro De Eliminar los Cambios De Embarque?")) {
+            localStorage.removeItem('Embarque');
+            localStorage.removeItem('Pedido');
+            init();
+            return null;
+        }
+    } else alert("Eliminacion Cancelada!!!");
 }
 
 function ErrorPedido() {
@@ -1428,15 +1368,41 @@ function ErrorPedido() {
 }
 
 function guardar_embarque() {
-    var e = prompt("Escriba 'IZAGAR' Para Confirmar!!!");
+    document.querySelector("#modal_de_efecto_carga").style.display = 'flex';
+    var e = prompt("Escriba '1379' Para Confirmar!!!") || " ";
     console.log(e.toUpperCase());
-    if (confirm("Esta Seguro De GUARDAR los Cambios De Embarque?") && e.toUpperCase() === 'IZAGAR') {
-        var _ret = (function () {
+    if (e.toUpperCase() === '1379') {
+        if (confirm("Esta Seguro De GUARDAR los Cambios De Embarque?")) {
+            var _ret = (function () {
 
-            var value = new Embarque();
-            var conexionBMS = function conexionBMS(estatus) {
-                if (estatus) {
-                    fetch($URL_API_IZA + "PedidoBms/EmbarqueBms", {
+                var value = new Embarque();
+                var conexionBMS = function conexionBMS(estatus) {
+                    if (estatus) {
+                        fetch($URL_API_IZA + "PedidoBms/EmbarqueBms", {
+                            method: 'post',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(value)
+                        }).then(function (e) {
+                            e.json().then(function (res) {
+                                localStorage.removeItem('Embarque');
+                                localStorage.removeItem('Pedido');
+                                alert("Guardado..." + res);
+                                document.querySelector("#modal_de_efecto_carga").style.display = 'none';
+                                init();
+                            });
+                        })["catch"](function (err) {
+                            return ErrorPedido();
+                        });
+                    } else {
+                        Alert("error Al Guardar!!!");
+                    }
+                };
+                if (value.productos.length > 0) {
+                    alert("Guardar... \n" + value.productos.length + " Productos.");
+                    //CONEXION BMS
+                    fetch($URL_API_IZA + "Pedido/Embarque", {
                         method: 'post',
                         headers: {
                             'Content-Type': 'application/json'
@@ -1444,43 +1410,26 @@ function guardar_embarque() {
                         body: JSON.stringify(value)
                     }).then(function (e) {
                         e.json().then(function (res) {
-                            localStorage.removeItem('Embarque');
-                            localStorage.removeItem('Pedido');
-                            alert("Guardado..." + res);
-                            init();
+                            return conexionBMS(res);
                         });
                     })["catch"](function (err) {
                         return ErrorPedido();
                     });
+                    return {
+                        v: null
+                    };
                 } else {
-                    Alert("error Al Guardar!!!");
+                    alert("Sin Productos A Guardar...");
+                    document.querySelector("#modal_de_efecto_carga").style.display = 'none';
                 }
-            };
-            if (value.productos.length > 0) {
-                alert("Guardar... \n" + value.productos.length + " Productos.");
-                //CONEXION BMS
-                fetch($URL_API_IZA + "Pedido/Embarque", {
-                    method: 'post',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(value)
-                }).then(function (e) {
-                    e.json().then(function (res) {
-                        return conexionBMS(res);
-                    });
-                })["catch"](function (err) {
-                    return ErrorPedido();
-                });
-                return {
-                    v: null
-                };
-            } else alert("Sin Productos A Guardar...");
-        })();
+            })();
 
-        if (typeof _ret === "object") return _ret.v;
+            if (typeof _ret === "object") return _ret.v;
+        }
+    } else {
+        document.querySelector("#modal_de_efecto_carga").style.display = 'none';
+        alert("GUARDADO CANCELADO!!!");
     }
-    alert("GUARDADO CANCELADO!!!");
 }
 function init() {
     var View = null;

@@ -51,7 +51,7 @@ namespace WebApplication.Manager.Sesion
         {
             int acceso = 0;
             string query = string.Format("exec acceso_permiso_url_usuario {0},{1};", id,url);
-            SqlCommand comando = new SqlCommand(query,conexion_web);
+            SqlCommand comando = new SqlCommand(query, conexion_web);
 
             conexion_web.Open();
             lector = comando.ExecuteReader();

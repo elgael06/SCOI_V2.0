@@ -97,7 +97,7 @@
   min-height: 100%;
   width: 70px;
   padding: 0;
-  z-index: 9999;
+  z-index: 9996;
   position: absolute; }
 
 .nav-sm .container.body .col-md-3.left_col.menu_fixed {

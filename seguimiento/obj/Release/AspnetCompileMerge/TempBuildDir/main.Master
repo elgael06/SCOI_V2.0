@@ -1,0 +1,926 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="main.master.vb" Inherits="seguimiento.main" %>
+
+<!DOCTYPE html>
+<html lang="es">
+<head runat="server">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>SCOI WEB.</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="vendors/fa%20fa-font/css/font-awesome.min.css" rel="stylesheet" />
+       <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/build/css/custom.min.css" rel="stylesheet">
+
+    <script src="vendors/select2/dist/js/select2.min.js"></script>
+    <script src="res/js/InterfazNivelUsuario.js"></script>
+    <link href="vendors/select2/dist/css/select2.min.css" rel="stylesheet"/>
+     <link href="res/css/style_n_usr.css" rel="stylesheet"/>
+    <link href="res/css/c.css" rel="stylesheet"/>
+    <script src="res/js/verificador.js"></script>
+    <script src="res/js/nivel_acceso.js?1.1"></script> 
+    <!---conexion ajax-->
+    <script src="res/js/conexion_ajax.js?2.3"></script>
+    <script src="res/js/obtener_ip_cliente.js"></script>
+    <link href="res/css/base.css" rel="stylesheet" />
+    <script src="res/js/descargar_datos.js"></script> 
+    <!-- react--->
+<%--    <script src="vendors/React/react.development.js"></script>
+    <script src="vendors/React/react-dom.development.js"></script>--%>
+    <script src="vendors/React/production/react.production.min.js"></script>
+    <script src="vendors/React/production/react-dom.production.min.js"></script>
+    <script src="vendors/React/librerias/JSXTransformer.js"></script>
+    <!--require-->
+<%--    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>--%>
+    <script src="vendors/pnotify/dist/pnotify.js"></script>
+    <!---Echarts--->
+    <script src="vendors/echarts/index.common.js"></script>
+    <script src="vendors/echarts/index.js"></script>
+
+    <script src="vendors/echarts/src/CoordinateSystem.js"></script>
+    <script src="vendors/echarts/src/echarts.js"></script>
+    <script src="vendors/echarts/src/ExtensionAPI.js"></script>
+    <script src="Scripts/eCharts/echarts.min.js"></script>
+    <!-- varificador de navegador-->
+    <asp:ContentPlaceHolder ID="head" runat="server">
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+ <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
+        <%-- aqui pegamos el contenido del master anterior --%>
+    </asp:ContentPlaceHolder>
+  </head>
+
+  <body class="nav-md" style="height:100%;">
+
+     <script>         
+         var usuario="<%=nivelUsuario %> ";         
+     </script>
+       
+
+      <form id="form1" runat="server" style="height:100%;">
+
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border:0;">
+              <a href="default.aspx" class="site_title">
+                <asp:Image ID="Image1" runat="server" Height="48px" style="z-index:999999;margin-top:-10px" ImageUrl="~/production/images/izagar-150.png" Width="48px" />
+                <span>Grupo Izagar</span></a>&nbsp;</div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic" style="display:inline-block ;margin-top:10px;margin-left:3%;width:40%">
+                  <asp:Image ID="Image2" runat="server" Height="60px" ImageUrl="/Data/hombre-usuario-icono-de-clip-art_419253.jpg" alt="..." class="img-rounded profile_img"  />
+               
+              </div>
+              <div class="profile_info" style="display:inline-block;margin-top:-15px;width:40%">
+                  Bienvenido:
+                <h2><asp:Label ID="Label1" runat="server" Text="Usuario"></asp:Label></h2>
+              </div>
+                
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section" id="administracion_menu">
+              <ul class="nav side-menu">
+                    <li>
+                        <a><i class="fa fa-sliders"></i>
+                                Administracion
+                                <span class="fa fa-chevron-down"></span>
+                        </a>
+                        <ul  class="nav child_menu">
+                            <li><a><i class="fa fa-user"></i> Gestión Usuarios<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li id="nivel_acces_menu" runat="server"> <a href="acc.aspx">Nivel Acceso Usuarios</a></li>  
+                                     <li id="Li1" runat="server"> <a href="/descargas/SCOI.rar">Descargar Scoi.</a></li>  
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-dollar"></i>Autorizacion de gasto<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li id="orden_gasto_menu" runat="server"><a href="Autorizacion_de_ordenes_de_gasto.aspx">Ordenes de gasto</a></li>
+                                    <li id="orden_compra_menu" runat="server"><a href="orden_compra_interna.aspx">Ordenes de Compra Interna</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav side-menu">
+                    <li>
+                       <a><i  class="fa fa-group"></i>
+                          DH
+                          <span class="fa fa-chevron-down"></span>
+                       </a>
+                          <ul class="nav child_menu">
+                             <li><a><i class="fa fa-sliders"></i> Catalogos <span class="fa fa-chevron-down"></span></a>
+                               <ul class="nav child_menu">
+                                   <li id="Alta_Cursos_menu" runat="server"><a href="Alta_Cursos.aspx">Alta Cursos</a></li>
+                                   <li id="Alta_Temas_en_Cursos_menu" runat="server"><a href="Alta_Temas_en_Cursos.aspx">Alta Temas en Cursos</a></li>
+                                   <li id="alta_cursos_cuestionarios_dh_menu" runat="server"> <a href="alta_cursos_cuestionarios_dh.aspx">Alta Cuestionarios</a></li>
+                               </ul>
+                             </li>
+                             <li><a><i class="fa fa-edit"></i> Alimentacion <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                  <li id="tablero_cursos_menu" runat="server"> <a href="tablero_cursos.aspx">Aplicacion Cursos</a></li>                    
+                                  <li id="incidencias_menu" runat="server"> <a href="Incidencias_personal.aspx">Incidencias</a></li>                    
+                                </ul>
+                             </li>
+                             <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                                 <ul class="nav child_menu">
+                                    <li id="control_cursos_menu" runat="server"><a href="Manejador_cursos_usuarios.aspx">Cursos Por Emplado </a></li>
+                                 </ul>   
+                             </li>
+                          </ul>
+                      </li>
+                 </ul>
+                <ul class="nav side-menu">
+                    <li>
+                       <a><i  class="fa fa-map"></i>
+                          Comercializacion 
+                          <span class="fa fa-chevron-down"></span>
+                       </a>
+                          <ul class="nav child_menu">
+                              <li><a> <i class="fa fa-object-group"> </i> Compras <span class="fa fa-chevron-down"></span></a>
+                             <ul class="nav child_menu">
+                                <li id="Pre_Orden_Compra_Verdura_menu"  runat="server" ><a href="Pre_Orden_Compra_Verdura.aspx">Pre-Orden De Compra de Verdura</a></li>
+                            </ul>
+                          </li>
+                          </ul>
+                  </ul>
+                  <ul class="nav side-menu">
+                    <li>
+                       <a><i  class="fa fa-cubes"></i>
+                          Mercancia 
+                          <span class="fa fa-chevron-down"></span>
+                       </a>
+                          <ul class="nav child_menu">
+                              <li><a> <i class="fa fa-truck"> </i> Moviminetos <span class="fa fa-chevron-down"></span></a>
+                             <ul class="nav child_menu">
+                                <li id="Li7"  runat="server" ><a href="Surtir_Pedido_embarque.aspx">Surtido Embarque</a></li>
+                                <li id="Li8"  runat="server" ><a href="Resepcion_Pedido_embarque.aspx">Recepcion Embarque</a></li>
+                                <li id="Li9"  runat="server" ><a href="crear_codigo_de_barras.html">Etiqueta</a></li>
+                            </ul>
+                          </li>
+                          </ul>
+                  </ul>
+                   <ul class="nav side-menu">
+                    <li>
+                       <a><i  class="fa fa-dashboard"></i>
+                          Refrigeradores
+                          <span class="fa fa-chevron-down"></span>
+                       </a>
+                          <ul class="nav child_menu">
+                            <li>
+                                <a> 
+                                    <i class="fa fa-sliders"> </i> Catalogos <span class="fa fa-chevron-down"></span>
+                                </a>
+                                <ul class="nav child_menu">
+                                    <li id="Li4"  runat="server" ><a href="alta_catalogo.aspx">Alta Catalogo.</a></li>
+                                    <li id="Li5"  runat="server" ><a href="alta_area.aspx">Alta Area.</a></li>
+                                    <li id="Li6"  runat="server" ><a href="Alta_unidad.aspx">Alta Unidad.</a></li>
+                                </ul>
+                          </li>
+                           <li>
+                               <a> <i class="fa fa-bar-chart-o"> </i>Monitoreo. <span class="fa fa-chevron-down"></span></a>
+                               <ul class="nav child_menu">
+                                <li id="Li10"  runat="server" ><a href="temperaturas.aspx">Temperatura.</a></li>
+                               </ul>
+                          </li>
+                       </ul>
+                     </li>
+                  </ul>
+              <ul class="nav side-menu">
+                    <li>
+                       <a><i  class="fa fa-line-chart"></i>
+                          Monitoreo de Indicadores 
+                          <span class="fa fa-chevron-down"></span>
+                       </a>
+                          <ul class="nav child_menu">
+                              <li > <a href="indicadores.aspx">Indicadores</a></li>
+                              <li > <a href="Estado_de_resultados.aspx">Estado de Resultados</a></li>
+                              <li > <a href="Auditoria_venta.aspx">Auditoria Venta.</a></li>
+                              <li> <a href="tablaMonitora/monitor_matrices.html"> Monitor Matrices</a></li>
+                              <li id="monitor_tiendas_menu" runat="server"><a href="monitor_aspectos_tiendas.html">Monitor cuestionario Apertura.</a></li>
+                              <li><a href="tablaMonitora/monitor_servicios_resultados_cuestionarios.html">Monitor cuestionario Servicios</a></li>
+                              <li id="monitor_Analisis_Precios_Competencia_menu"  runat="server"><a  href="monitor_Analisis_Precios_Competencia.aspx"> Monitor Precios Competencia</a></li>
+                              <li id="cuadrantes_manu" runat="server"><a href="tablaMonitora/cumplimiento_cuadrantes.html">Monitor Cuadrantes</a></li>
+                              <li id="cuadrantes_estab_menu" runat="server"><a href="cumplimiento_cuadrantes_por_establecimiento.aspx">Monitor Cuadrantes Por Establecimiento</a></li>
+                              <li id="tablas_monitoras_menu" runat="server"><a href="tablaMonitora/selector_monitor.html">Monitor Cuadrantes y Apertura Establecimientos</a></li>
+                         </ul>
+                        </li>
+                    </ul>
+               <ul class="nav side-menu">
+                   <li>
+                        <a><i  class="glyphicon glyphicon-wrench"></i>
+                          Cuestionarios Servicios
+                          <span class="fa fa-chevron-down"></span>
+                        </a>
+                         <ul class="nav child_menu">
+                             <li><a><i class="fa fa-sliders"></i>Catalogos<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li id="zonas_servicios_menu" runat="server"> <a href="servicios_generales_zonas.aspx">Alta Zonas</a></li>
+                                    <li id="criterios_activos_menu"  runat="server"> <a href="servicios_generales_criterios.aspx">Alta Criterios</a></li>
+                                    <li id="alta_cuestionarios_menu" runat="server"><a href="servicios_generales_cuestionarios.aspx">Alta Cuestionarios</a></li>
+                                    <li id="asignaciones_cuestionarios_menu" runat="server"><a href="servicios_generales_asignaciones.aspx">Asignaciones Cuestionarios</a></li>
+                                </ul>
+                            </li>
+                             <li><a><i class="fa fa-edit"></i>Alimentacion<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li id="revicion_cuestionarios_menu" runat="server"> <a href="servicios_generales_ckl.aspx"> Revicion Cuestionarios</a></li>
+                                </ul>
+                            </li>
+                             <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    
+                                </ul>
+                            </li>
+                        </ul>
+                   </li>
+               </ul>
+                <ul class="nav side-menu">
+                    <li>
+                       <a><i  class="fa fa-tasks"></i>
+                         Matrices
+                          <span class="fa fa-chevron-down"></span>
+                       </a>
+                          <ul class="nav child_menu">
+                              <li><a><i class="fa fa-sliders"></i>Catalogos<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu" id="a123">
+                                    <li id="preguntas_menu" runat="server"><a href="preguntas_ckl.aspx">Preguntas Apertura</a></li>
+                                    <li id="cuestionarios_menu" runat="server"><a href="cuestionarios.aspx">Cuestionarios Apertura</a></li>
+                                    <li id="asignacion_cuestionarios_menu"  runat="server"> <a href="asignar_cuestionarios.aspx">Asignar Cuestionarios Apertura</a></li>
+                                    <li id="construir_matriz_menu" runat="server"><a href="construir_matriz.aspx">Construir matriz</a></li>  
+                                    <li id="editar_concepto_menu" runat="server"><a href="Editar_conceptos.aspx">Editar Conceptos</a></li>  
+                                      <li id="asignar_matriz" runat="server"><a href="matrices_asignadas.aspx">Asignar matriz</a></li>            
+                                </ul>
+                              </li>
+                              <li><a><i class="fa fa-edit"></i>Alimentacion<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li id="matrices_ckl_2" runat="server"><a href="matrices_ckl_2.aspx">cuestionario Apertura.</a></li>
+                                    <li id="matrices_ckl" style="display:none" runat="server"><a href="matrices_ckl.aspx">Revicion Establecimientos</a></li>
+                                    <li id="checkList_menu" runat="server"><a href="Revision_matriz.aspx">Alimentacion Matriz</a> </li> 
+                                    <li id="insidencias_ckl_menu" runat="server"><a href="insidencias_ckl.aspx">Incidencias Apertura.</a></li> 
+                                    <li id="insidencias_ckl_v2_menu" runat="server"><a href="Incidencias_apertura_tienda.aspx">Incidencias Apertura v2.</a></li> 
+                                 </ul>
+                              </li>
+                            <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                   
+                                    <li id="resultados_checkList" runat="server"><a href="res_ckl.aspx">Reportes Cuestionarios Apertura</a></li>
+                                     <li id="Li2" runat="server"><a href="reporte_apertura_tienda.aspx">Reportes Apertura Establecimientos</a></li>
+                                </ul>
+                            </li>
+                         </ul>
+                        </li>
+                    </ul>
+                  <ul class="nav side-menu">
+                    <li>
+                       <a><i  class="fa fa-object-group"></i>
+                         Inventario
+                          <span class="fa fa-chevron-down"></span>
+                       </a>
+                        <ul class="nav child_menu">
+                             <li><a><i class="fa fa-sliders"></i>Catalogos<span class="fa fa-chevron-down"></span></a>
+                              </li>
+                              <li><a><i class="fa fa-edit"></i>Alimentacion<span class="fa fa-chevron-down"></span></a>
+                                   <ul class="nav child_menu">
+                                        <li id="inventarios_parciales_menu" runat="server"><a href="inventarios_parciales.aspx">Inventarios Parciales.</a></li>
+                                    </ul>
+                                </li>
+                         <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu"></ul>
+                           
+                        </li>
+                       </ul>
+                    </ul>
+                   <ul class="nav side-menu">
+                    <li>
+                       <a><i  class="fa fa-calendar"></i>
+                         Programacion Pagos
+                          <span class="fa fa-chevron-down"></span>
+                       </a>
+                          <ul class="nav child_menu">
+                              <li><a><i class="fa fa-sliders"></i>Catalogos<span class="fa fa-chevron-down"></span></a>
+                                   <ul class="nav child_menu">
+                                        <li id="Li3" runat="server"><a href="pagos_categorias.aspx">Categorias.</a></li>
+                                    </ul>
+                              </li>
+                               <li><a><i class="fa fa-edit"></i>Alimentacion<span class="fa fa-chevron-down"></span></a>
+                              </li>
+                               <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                              </li>
+                          </ul>
+                        </li>
+                    </ul>
+                  <ul class="nav side-menu">
+                    <li>
+                       <a><i  class="fa fa-money"></i>
+                         Ventas
+                          <span class="fa fa-chevron-down"></span>
+                       </a>
+                          <ul class="nav child_menu">
+                              <li><a><i class="fa fa-cart-arrow-down"></i>Ventas Express<span class="fa fa-chevron-down"></span></a>
+                                   <ul class="nav child_menu">
+                                        <li id="semaforo_vta_express_menu" runat="server"><a href="semaforo_venta_express.aspx">Semaforos venta express</a></li>
+                                    </ul>
+                                </li>
+                          </ul>
+                        </li>
+                    </ul>
+              </div>
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="Salir" href="login.aspx">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+             <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a  id="mi_perfil_mmenu">Perfil</a></li>
+                    <li>
+                      <a >
+                        <span>Configuracion</span>
+                      </a>
+                    </li>
+                    <li><a href="javascript:;">Ayuda</a></li>
+                    <li><a href="login.aspx"><i class="fa fa-sign-out pull-right"></i>Salir</a></li>
+                  </ul>
+                </li>
+
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope-o"></i>
+                    <span class="badge bg-green">0</span>
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <li>
+                      <a>
+                        <span class="image"><img id="img_usuario" src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>Sin tarea asignadas</span>
+                          <span class="time">hace 0 minutos</span>
+                        </span>
+                        <span class="message">
+                         ...
+                        </span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+          <!--Modal mi Perfil-->
+        <div class="modal" id="Modal_Mi_Perfil" >
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Mi Perfil.</h4>
+              </div>
+              <!-- Modal body -->
+              <div class="modal-body">
+                   <div class="input-group">
+                      <span class="input-group-addon">
+                           <i class="glyphicon glyphicon-user">  </i> 
+                      </span>
+                        <input class="form-control" style="height:39px;width:15%" id="id_usuario_perfil" disabled value="<%=Session("id_scoi") %>" />
+                        <input class="form-control" style="height:39px ;width:65%;border-bottom-right-radius:5px;border-top-right-radius:5px;" disabled value="<%=Session("nomcompleto") %>" / >
+                   </div>
+                  <div class="input-group">
+                      <span class="input-group-addon">
+                           <i class="glyphicon glyphicon-lock" style="font-size:15px"> Contraseña </i> 
+                      </span>
+                      <input id="perfil_password" class="form-control" type="password" style="height:32px;width:70%;border-bottom-right-radius:5px;border-top-right-radius:5px;"  placeholder="Actual..." />
+                 </div>
+                  <div class="input-group">
+                      <span class="input-group-addon">
+                           <i class="glyphicon glyphicon-pencil" style="font-size:15px"> Contraseña </i> 
+                      </span>
+                      <input id="perfil_password_new" class="form-control" type="password" style="height:32px;width:80%;border-bottom-right-radius:5px;border-top-right-radius:5px;" " placeholder="Nueva..." />
+                 </div>
+                  <div class="input-group">
+                      <span class="input-group-addon">
+                           <i class="glyphicon glyphicon-asterisk" style="font-size:15px"> Contraseña </i> 
+                      </span>
+                      <input id="perfil_password_new_conf" class="form-control" type="password" style="height:32px;width:80%;border-bottom-right-radius:5px;border-top-right-radius:5px;" " placeholder="Confirmar..." />
+                 </div>
+
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button id="btn_perfil_gdr" type="button" class="btn btn-success" style="margin-left:5px" >Guardar</button>
+                <button type="button" class="btn btn-danger" onclick="$('#Modal_Mi_Perfil').hide()">Cerrar</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <script>
+
+            var FOTO_USUARIO = "<%=Session("foto")%>";
+            $(".profile_img").attr("src", FOTO_USUARIO);
+            if ("<%=Session("pasword")%>" === "1234567890") {
+                alert("Cambie la Contraseña P");
+            }
+            var cont_default = setInterval(function () {
+                if ("<%=Session("pasword")%>" === "1234567890") {
+                    $('#Modal_Mi_Perfil').show();
+                }
+                else {
+                    clearInterval(cont_default);
+                }
+            },500);
+
+            var ID_SCOI= "<%=Session("id_scoi")%> ";
+
+
+            $("#mi_perfil_mmenu").on("click", function () {
+                $('#Modal_Mi_Perfil').show();
+                $("#perfil_password").val("");
+                $("#perfil_password_new").val("");
+                $("#perfil_password_new_conf").val("");
+            });
+            $("#perfil_password").on("click", function () {
+                $(".mal_").remove();
+                $("#perfil_password").css({ "background": "none" });
+            });
+            $("#perfil_password").keypress(function () {
+                $(".mal_").remove();
+                $("#perfil_password").css({ "background": "none" });
+            });
+            $("#perfil_password_new").focus( function () {
+                if (!cambio_pasword()) { 
+                $("#perfil_password").parent("div").append(
+                        $("<a>").append($("<span >").text("X").css({ "color": "red", "font-size":"18px", "background": "#ffffff" }).addClass("badge mal_"))
+                    );
+                $("#perfil_password").css({ "background": "#ec5347" });
+                $("#perfil_password").focus();
+                }
+            });
+
+            $("#perfil_password_new_conf").focus("click", function () {
+                if (!nuevo_pasword()) {
+                    $("#perfil_password_new").parent("div").append(
+                            $("<a>").append($("<span >").text("X").css({ "color": "red", "font-size": "18px", "background": "#ffffff" }).addClass("badge mal_"))
+                        );
+                    $("#perfil_password_new").css({ "background": "#ec5347" });
+                    $("#perfil_password_new").focus();
+                }
+            });
+            $("#perfil_password_new").keypress(function () {
+                $(".mal_").remove();
+                $("#perfil_password_new").css({ "background": "none" });
+            });
+            $("#perfil_password_new_conf").keypress(function () {
+                $(".mal_").remove();
+                $("#perfil_password_new_conf").css({ "background": "none" });
+            });
+            $("#btn_perfil_gdr").on("click", function () {
+                if (nuevo_pasword_conf()) {
+                    conexion_ajax("servicios/accesoServ.asmx/cambio_contrasenia", { id: ID_SCOI, pasword: stringToBase64($("#perfil_password_new_conf").val()) });
+                    alert("Contraseña Actualizada...")
+                    if (true) {
+                        window.location.href = "login.aspx"
+                    }
+                }
+                else {
+                    $("#perfil_password_new_conf").parent("div").append(
+                            $("<a>").append($("<span >").text("X").css({ "color": "red", "font-size": "18px", "background": "#ffffff" }).addClass("badge mal_"))
+                        );
+                    $("#perfil_password_new_conf").css({ "background": "#ec5347" });
+                    $("#perfil_password_new_conf").focus();
+                }
+            });
+
+            function cambio_pasword() {
+                return ("<%=Session("pasword") %>" == $("#perfil_password").val());
+            }
+            function nuevo_pasword() {
+                return ($("#perfil_password_new").val() != $("#perfil_password").val() && $("#perfil_password_new").length<4);
+            }
+            function nuevo_pasword_conf() {
+                return ($("#perfil_password_new_conf").val() === $("#perfil_password_new").val());
+            }
+             function cambio_pasword() {
+                return ("<%=Session("pasword") %>" == $("#perfil_password").val());
+            }
+            function nuevo_pasword() {
+                return ($("#perfil_password_new").val() != $("#perfil_password").val() && $("#perfil_password_new").length<4);
+            }
+            function nuevo_pasword_conf() {
+                return ($("#perfil_password_new_conf").val() === $("#perfil_password_new").val());
+            }
+
+            function stringToBase64(str) {
+                var aux = "";
+                for (var i = 0 ; i < str.length  ; i++) {   
+                    if (i == 0) { aux =  str.charCodeAt(i); }
+                    else { aux += "," + str.charCodeAt(i); }
+                 }
+                return "pasword:" + btoa(aux);
+            }
+            function Base64ToString(B64) {
+                var aux = "";
+                B64 = B64.split(":");
+                B64 = B64 = atob(B64[1]);
+                B64 = B64.split(",");
+                $.each(B64, function () {
+                    aux += String.fromCharCode(this);
+                });
+                return aux;
+            }
+            obtener_ip_cliente();
+        </script>
+        <!-- page content -->
+        <div class="right_col" role="main">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        <%-- AQUI IRA EL CONTENIDO QUE CAMBIARA DE LA PAGINA --%>
+        </asp:ContentPlaceHolder>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Sistema Grupo Izagar&nbsp;
+              <img alt="" height="33" src="production/images/izagar-150.png" width="33" /></div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+          <div id="dialog" title="Cargando Datos...">
+       <br />
+         <br />
+         <br />
+         <img id="cargando" src="Data/loadin_izagar.gif" />
+    </div>
+    <!-- jQuery -->
+    <script src="/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="/vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="/vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="/vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="/vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="/vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="/vendors/Flot/jquery.flot.js"></script>
+    <script src="/vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="/vendors/Flot/jquery.flot.time.js"></script>
+    <script src="/vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="/vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="/vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="../vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="/vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="/vendors/moment/min/moment.min.js"></script>
+    <script src="/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+    
+          <%-- CODIGO SCRIPT PARA LEVANTAR LA MODAL --%>
+    <script type="text/javascript">
+        function ShowPopup() {
+        $("#btnShowPopup").click();
+              }
+    </script>
+          <%-- TERMINA CODIGO SCRIPT PARA LEVANTAR MODALES --%>
+
+    <!-- Flot -->
+    <script>
+      $(document).ready(function() {
+        var data1 = [
+          [gd(2012, 1, 1), 17],
+          [gd(2012, 1, 2), 74],
+          [gd(2012, 1, 3), 6],
+          [gd(2012, 1, 4), 39],
+          [gd(2012, 1, 5), 20],
+          [gd(2012, 1, 6), 85],
+          [gd(2012, 1, 7), 7]
+        ];
+
+        var data2 = [
+          [gd(2012, 1, 1), 82],
+          [gd(2012, 1, 2), 23],
+          [gd(2012, 1, 3), 66],
+          [gd(2012, 1, 4), 9],
+          [gd(2012, 1, 5), 119],
+          [gd(2012, 1, 6), 6],
+          [gd(2012, 1, 7), 9]
+        ];
+        $("#canvas_dahs").length && $.plot($("#canvas_dahs"), [
+          data1, data2
+        ], {
+          series: {
+            lines: {
+              show: false,
+              fill: true
+            },
+            splines: {
+              show: true,
+              tension: 0.4,
+              lineWidth: 1,
+              fill: 0.4
+            },
+            points: {
+              radius: 0,
+              show: true
+            },
+            shadowSize: 2
+          },
+          grid: {
+            verticalLines: true,
+            hoverable: true,
+            clickable: true,
+            tickColor: "#d5d5d5",
+            borderWidth: 1,
+            color: '#fff'
+          },
+          colors: ["rgba(38, 185, 154, 0.38)", "rgba(3, 88, 106, 0.38)"],
+          xaxis: {
+            tickColor: "rgba(51, 51, 51, 0.06)",
+            mode: "time",
+            tickSize: [1, "day"],
+            //tickLength: 10,
+            axisLabel: "Date",
+            axisLabelUseCanvas: true,
+            axisLabelFontSizePixels: 12,
+            axisLabelFontFamily: 'Verdana, Arial',
+            axisLabelPadding: 10
+          },
+          yaxis: {
+            ticks: 8,
+            tickColor: "rgba(51, 51, 51, 0.06)",
+          },
+          tooltip: false
+        });
+
+        function gd(year, month, day) {
+          return new Date(year, month - 1, day).getTime();
+        }
+      });
+    </script>
+    <!-- /Flot -->
+
+    <!-- JQVMap -->
+    <script>
+      $(document).ready(function(){
+        $('#world-map-gdp').vectorMap({
+            map: 'world_en',
+            backgroundColor: null,
+            color: '#ffffff',
+            hoverOpacity: 0.7,
+            selectedColor: '#666666',
+            enableZoom: true,
+            showTooltip: true,
+            values: sample_data,
+            scaleColors: ['#E6F2F0', '#149B7E'],
+            normalizeFunction: 'polynomial'
+        });
+      });
+    </script>
+    <!-- /JQVMap -->
+
+    <!-- Skycons -->
+    <script>
+      $(document).ready(function() {
+        var icons = new Skycons({
+            "color": "#73879C"
+          }),
+          list = [
+            "clear-day", "clear-night", "partly-cloudy-day",
+            "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
+            "fog"
+          ],
+          i;
+
+        for (i = list.length; i--;)
+          icons.set(list[i], list[i]);
+
+        icons.play();
+      });
+    </script>
+    <!-- /Skycons -->
+
+    <!-- Doughnut Chart -->
+    <script>
+      $(document).ready(function(){
+        var options = {
+          legend: false,
+          responsive: false
+        };
+
+        new Chart(document.getElementById("canvas1"), {
+          type: 'doughnut',
+          tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+          data: {
+            labels: [
+              "Symbian",
+              "Blackberry",
+              "Other",
+              "Android",
+              "IOS"
+            ],
+            datasets: [{
+              data: [15, 20, 30, 10, 30],
+              backgroundColor: [
+                "#BDC3C7",
+                "#9B59B6",
+                "#E74C3C",
+                "#26B99A",
+                "#3498DB"
+              ],
+              hoverBackgroundColor: [
+                "#CFD4D8",
+                "#B370CF",
+                "#E95E4F",
+                "#36CAAB",
+                "#49A9EA"
+              ]
+            }]
+          },
+          options: options
+        });
+      });
+    </script>
+    <!-- /Doughnut Chart -->
+    
+    <!-- bootstrap-daterangepicker -->
+    <script>
+      $(document).ready(function() {
+
+        var cb = function(start, end, label) {
+          console.log(start.toISOString(), end.toISOString(), label);
+          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        };
+
+        var optionSet1 = {
+          startDate: moment().subtract(29, 'days'),
+          endDate: moment(),
+          minDate: '01/01/2012',
+          maxDate: '12/31/2015',
+          dateLimit: {
+            days: 60
+          },
+          showDropdowns: true,
+          showWeekNumbers: true,
+          timePicker: false,
+          timePickerIncrement: 1,
+          timePicker12Hour: true,
+          ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+          },
+          opens: 'left',
+          buttonClasses: ['btn btn-default'],
+          applyClass: 'btn-small btn-primary',
+          cancelClass: 'btn-small',
+          format: 'MM/DD/YYYY',
+          separator: ' to ',
+          locale: {
+            applyLabel: 'Submit',
+            cancelLabel: 'Clear',
+            fromLabel: 'From',
+            toLabel: 'To',
+            customRangeLabel: 'Custom',
+            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            firstDay: 1
+          }
+        };
+        $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+        $('#reportrange').daterangepicker(optionSet1, cb);
+        $('#reportrange').on('show.daterangepicker', function() {
+          console.log("show event fired");
+        });
+        $('#reportrange').on('hide.daterangepicker', function() {
+          console.log("hide event fired");
+        });
+        $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+          console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
+        });
+        $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
+          console.log("cancel event fired");
+        });
+        $('#options1').click(function() {
+          $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+        });
+        $('#options2').click(function() {
+          $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+        });
+        $('#destroy').click(function() {
+          $('#reportrange').data('daterangepicker').remove();
+        });
+      });
+    </script>
+    <!-- /bootstrap-daterangepicker -->
+
+    <!-- gauge.js -->
+    <script>
+      var opts = {
+          lines: 12,
+          angle: 0,
+          lineWidth: 0.4,
+          pointer: {
+              length: 0.75,
+              strokeWidth: 0.042,
+              color: '#1D212A'
+          },
+          limitMax: 'false',
+          colorStart: '#1ABC9C',
+          colorStop: '#1ABC9C',
+          strokeColor: '#F0F3F3',
+          generateGradient: true
+      };
+      var target = document.getElementById('foo'),
+          gauge = new Gauge(target).setOptions(opts);
+
+      gauge.maxValue = 6000;
+      gauge.animationSpeed = 32;
+      gauge.set(3200);
+      gauge.setTextField(document.getElementById("gauge-text"));
+    </script>
+    <!-- /gauge.js -->
+      </form>
+  </body>
+</html>

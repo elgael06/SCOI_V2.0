@@ -45,6 +45,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LegacyPublishPropertiesPageEnabled>true</LegacyPublishPropertiesPageEnabled>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AdvancedStringBuilder, Version=0.1.0.0, Culture=neutral, PublicKeyToken=e818a2fc08933ddb, processorArchitecture=MSIL">
@@ -196,6 +197,10 @@
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Webpack.NET, Version=0.0.2.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Webpack.NET.0.0.2.10\lib\net45\Webpack.NET.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -396,6 +401,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -409,105 +415,6 @@
     <Content Include="Content\css\Usuarios\Acccesos.css" />
     <Content Include="Content\css\Usuarios\Perfil.css" />
     <Content Include="DeploymentSettings.xml" />
-    <Content Include="Scripts\lib\Chart.js\.gitignore" />
-    <Content Include="Scripts\lib\Chart.js\dist\Chart.bundle.js" />
-    <Content Include="Scripts\lib\Chart.js\dist\Chart.bundle.min.js" />
-    <Content Include="Scripts\lib\Chart.js\dist\Chart.js" />
-    <Content Include="Scripts\lib\Chart.js\dist\Chart.min.js" />
-    <Content Include="Scripts\lib\Chart.js\gulpfile.js" />
-    <Content Include="Scripts\lib\Chart.js\karma.conf.ci.js" />
-    <Content Include="Scripts\lib\Chart.js\karma.conf.js" />
-    <Content Include="Scripts\lib\Chart.js\karma.coverage.conf.js" />
-    <Content Include="Scripts\lib\Chart.js\samples\AnimationCallbacks\progress-bar.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\bar-horizontal.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\bar-multi-axis.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\bar-stacked.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\bar.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\bubble.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\combo-bar-line.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\data_label_combo-bar-line.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\different-point-sizes.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\doughnut.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\line-customTooltips.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\line-legend.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\line-logarithmic.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\line-multi-axis.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\line-skip-points.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\line-stacked-area.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\line-x-axis-filter.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\line.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\pie-customTooltips.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\pie.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\polar-area.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\radar-skip-points.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\radar.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\scatter-logX.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\scatter-multi-axis.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\scatter.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\timeScale\combo-time-scale.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\timeScale\line-time-point-data.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\timeScale\line-time-scale.html" />
-    <Content Include="Scripts\lib\Chart.js\samples\tooltip-hooks.html" />
-    <Content Include="Scripts\lib\Chart.js\src\chart.js" />
-    <Content Include="Scripts\lib\Chart.js\src\charts\Chart.Bar.js" />
-    <Content Include="Scripts\lib\Chart.js\src\charts\Chart.Bubble.js" />
-    <Content Include="Scripts\lib\Chart.js\src\charts\Chart.Doughnut.js" />
-    <Content Include="Scripts\lib\Chart.js\src\charts\Chart.Line.js" />
-    <Content Include="Scripts\lib\Chart.js\src\charts\Chart.PolarArea.js" />
-    <Content Include="Scripts\lib\Chart.js\src\charts\Chart.Radar.js" />
-    <Content Include="Scripts\lib\Chart.js\src\charts\Chart.Scatter.js" />
-    <Content Include="Scripts\lib\Chart.js\src\controllers\controller.bar.js" />
-    <Content Include="Scripts\lib\Chart.js\src\controllers\controller.bubble.js" />
-    <Content Include="Scripts\lib\Chart.js\src\controllers\controller.doughnut.js" />
-    <Content Include="Scripts\lib\Chart.js\src\controllers\controller.line.js" />
-    <Content Include="Scripts\lib\Chart.js\src\controllers\controller.polarArea.js" />
-    <Content Include="Scripts\lib\Chart.js\src\controllers\controller.radar.js" />
-    <Content Include="Scripts\lib\Chart.js\src\core\core.animation.js" />
-    <Content Include="Scripts\lib\Chart.js\src\core\core.controller.js" />
-    <Content Include="Scripts\lib\Chart.js\src\core\core.datasetController.js" />
-    <Content Include="Scripts\lib\Chart.js\src\core\core.element.js" />
-    <Content Include="Scripts\lib\Chart.js\src\core\core.helpers.js" />
-    <Content Include="Scripts\lib\Chart.js\src\core\core.js" />
-    <Content Include="Scripts\lib\Chart.js\src\core\core.layoutService.js" />
-    <Content Include="Scripts\lib\Chart.js\src\core\core.legend.js" />
-    <Content Include="Scripts\lib\Chart.js\src\core\core.plugin.js" />
-    <Content Include="Scripts\lib\Chart.js\src\core\core.scale.js" />
-    <Content Include="Scripts\lib\Chart.js\src\core\core.scaleService.js" />
-    <Content Include="Scripts\lib\Chart.js\src\core\core.title.js" />
-    <Content Include="Scripts\lib\Chart.js\src\core\core.tooltip.js" />
-    <Content Include="Scripts\lib\Chart.js\src\elements\element.arc.js" />
-    <Content Include="Scripts\lib\Chart.js\src\elements\element.line.js" />
-    <Content Include="Scripts\lib\Chart.js\src\elements\element.point.js" />
-    <Content Include="Scripts\lib\Chart.js\src\elements\element.rectangle.js" />
-    <Content Include="Scripts\lib\Chart.js\src\scales\scale.category.js" />
-    <Content Include="Scripts\lib\Chart.js\src\scales\scale.linear.js" />
-    <Content Include="Scripts\lib\Chart.js\src\scales\scale.logarithmic.js" />
-    <Content Include="Scripts\lib\Chart.js\src\scales\scale.radialLinear.js" />
-    <Content Include="Scripts\lib\Chart.js\src\scales\scale.time.js" />
-    <Content Include="Scripts\lib\Chart.js\test\controller.bar.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\controller.bubble.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\controller.doughnut.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\controller.line.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\controller.polarArea.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\controller.radar.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\core.element.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\core.helpers.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\core.layoutService.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\core.legend.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\core.plugin.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\core.scaleService.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\core.title.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\defaultConfig.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\element.arc.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\element.line.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\element.point.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\element.rectangle.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\mockContext.js" />
-    <Content Include="Scripts\lib\Chart.js\test\scale.category.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\scale.linear.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\scale.logarithmic.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\scale.radialLinear.tests.js" />
-    <Content Include="Scripts\lib\Chart.js\test\scale.time.tests.js" />
     <Content Include="Content\css\custom.css" />
     <Content Include="Content\css\custom.min.css" />
     <Content Include="Content\font-awesome\.gitignore" />
@@ -515,6 +422,12 @@
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="dist\bundle.js" />
+    <Content Include="dist\index.html" />
+    <Content Include="dist\indicadores\surtido_embarque\bundle.js" />
+    <Content Include="dist\indicadores\surtido_embarque\index.html" />
+    <Content Include="dist\surtido.js" />
+    <Content Include="dist\surtido_embarque\surtido.js" />
     <Content Include="Scripts\Componentes\Estaticos\BotonToggle.js">
       <DependentUpon>BotonToggle.jsx</DependentUpon>
     </Content>
@@ -522,6 +435,7 @@
     <Content Include="Scripts\Componentes\Estaticos\BotonToggle.min.js">
       <DependentUpon>BotonToggle.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\Componentes\Estaticos\contraer_expandir.js" />
     <Content Include="Scripts\Componentes\Estaticos\efecto_carga.js">
       <DependentUpon>efecto_carga.jsx</DependentUpon>
     </Content>
@@ -530,6 +444,7 @@
       <DependentUpon>efecto_carga.js</DependentUpon>
     </Content>
     <Content Include="Scripts\generales\alertas.js" />
+    <Content Include="Scripts\generales\componente_moneda_vue.js" />
     <Content Include="Scripts\Indicadores\comparativo_resultados\tabla_main.js">
       <DependentUpon>tabla_main.jsx</DependentUpon>
     </Content>
@@ -577,6 +492,16 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="src\scripts\VueJS\surtido_embarque\app.js" />
+    <Content Include="src\scripts\VueJS\surtido_embarque\components\BuscarProducto.vue" />
+    <None Include="vue_src\components\BuscarProducto.vue" />
+    <None Include="src\scripts\VueJS\surtido_embarque\components\ModalFiltroEmbarque.vue" />
+    <Content Include="vue_src\style\main.css" />
+    <Content Include="vue_src\index.html" />
+    <Content Include="vue_src\index.js" />
+    <Content Include="webpack.config_.js" />
+    <Content Include="webpack.config.js" />
+    <Content Include=".babelrc" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -618,33 +543,10 @@
     <Content Include="Content\font-awesome\scss\_screen-reader.scss" />
     <Content Include="Content\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\font-awesome\scss\_variables.scss" />
-    <Content Include="Scripts\lib\Chart.js\.bower.json" />
-    <Content Include="Scripts\lib\Chart.js\.codeclimate.yml" />
-    <Content Include="Scripts\lib\Chart.js\.editorconfig" />
-    <Content Include="Scripts\lib\Chart.js\.eslintignore" />
-    <Content Include="Scripts\lib\Chart.js\.eslintrc" />
-    <Content Include="Scripts\lib\Chart.js\.github\ISSUE_TEMPLATE.md" />
-    <Content Include="Scripts\lib\Chart.js\.github\PULL_REQUEST_TEMPLATE.md" />
-    <Content Include="Scripts\lib\Chart.js\.travis.yml" />
-    <Content Include="Scripts\lib\Chart.js\bower.json" />
-    <Content Include="Scripts\lib\Chart.js\composer.json" />
-    <Content Include="Scripts\lib\Chart.js\config.jshintrc" />
-    <Content Include="Scripts\lib\Chart.js\CONTRIBUTING.md" />
-    <Content Include="Scripts\lib\Chart.js\docs\00-Getting-Started.md" />
-    <Content Include="Scripts\lib\Chart.js\docs\01-Chart-Configuration.md" />
-    <Content Include="Scripts\lib\Chart.js\docs\02-Scales.md" />
-    <Content Include="Scripts\lib\Chart.js\docs\03-Line-Chart.md" />
-    <Content Include="Scripts\lib\Chart.js\docs\04-Bar-Chart.md" />
-    <Content Include="Scripts\lib\Chart.js\docs\05-Radar-Chart.md" />
-    <Content Include="Scripts\lib\Chart.js\docs\06-Polar-Area-Chart.md" />
-    <Content Include="Scripts\lib\Chart.js\docs\07-Pie-Doughnut-Chart.md" />
-    <Content Include="Scripts\lib\Chart.js\docs\08-Bubble-Chart.md" />
-    <Content Include="Scripts\lib\Chart.js\docs\09-Advanced.md" />
-    <Content Include="Scripts\lib\Chart.js\docs\10-Notes.md" />
-    <Content Include="Scripts\lib\Chart.js\LICENSE.md" />
-    <Content Include="Scripts\lib\Chart.js\package.json" />
-    <Content Include="Scripts\lib\Chart.js\README.md" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
     <None Include="Properties\PublishProfiles\Produccion.pubxml" />
+    <Content Include="README.md" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Inicio\main.js">
       <DependentUpon>main.jsx</DependentUpon>
@@ -673,6 +575,9 @@
     </Content>
     <Content Include="Scripts\Sesion\login.js" />
     <Content Include="Scripts\Sesion\menu_accesos.js" />
+    <Content Include="Scripts\SurtidoEmbarque\Embarque_pedido.js" />
+    <Content Include="Scripts\SurtidoEmbarque\Seleccion_embarque.js" />
+    <Content Include="Scripts\SurtidoEmbarque\view_surtido.js" />
     <Content Include="Scripts\SurtidoEmbarque\vista_embarque.js">
       <DependentUpon>vista_embarque.jsx</DependentUpon>
     </Content>
@@ -693,6 +598,12 @@
     <Content Include="Scripts\Usuarios\main.min.js">
       <DependentUpon>main.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\vue.js" />
+    <Content Include="Scripts\vue.min.js" />
+    <Content Include="src\Globales\CodigosBarra\codigos_de_barras _g.es5.js" />
+    <Content Include="src\Globales\CodigosBarra\codigos_de_barras _g.es5.min.js" />
+    <Content Include="src\Globales\CodigosBarra\codigos_de_barras _g.js" />
+    <Content Include="src\Globales\CodigosBarra\codigos_de_barras.js" />
     <Content Include="src\scripts\Indicadores\Cuadrantes\monitor - Copia.js" />
     <Content Include="src\scripts\Indicadores\Cuadrantes\monitor.js" />
     <Content Include="src\scripts\Indicadores\MonitorOrdenCompraInterna\MonitorOrdenCompraInterna.js" />
@@ -707,6 +618,7 @@
     </Content>
     <Content Include="src\scripts\Indicadores\OrdenesDePagoEnEfectivo\Parametros_consulta.js" />
     <Content Include="src\scripts\Indicadores\OrdenesDePagoEnEfectivo\Realizar_consulta.js" />
+    <Content Include="src\scripts\Indicadores\PreciosCompetencia\monitor.js" />
     <Content Include="src\scripts\Indicadores\ReporteIncidenciasFecha\main.js" />
     <Content Include="src\styles\Indicadores\Cuadrantes\main.css" />
     <Content Include="src\styles\Indicadores\MonitorOrdenCompraInterna\main.css" />
@@ -745,11 +657,16 @@
     <Content Include="Views\Indicadores\OrdenesDePagoEnEfectivo.cshtml" />
     <Content Include="Views\Indicadores\ReporteIncidenciasFecha.cshtml" />
     <Content Include="Views\Indicadores\MonitorOrdenCompraInterna.cshtml" />
+    <Content Include="vue_src\components\App.vue" />
+    <Content Include="src\scripts\VueJS\surtido_embarque\components\App.vue" />
+    <Content Include="Views\SurtidoEmbarque\index_bk.cshtml" />
+    <Content Include="src\scripts\VueJS\surtido_embarque\components\SeleccionSurtido.vue" />
+    <Content Include="src\scripts\VueJS\surtido_embarque\components\SeleccionModal.vue" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\Productos\" />
-    <Folder Include="src\angular\" />
+    <Folder Include="src\scripts\VueJS\indicadores\" />
     <Folder Include="Views\Globales\" />
   </ItemGroup>
   <ItemGroup>
@@ -798,6 +715,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />

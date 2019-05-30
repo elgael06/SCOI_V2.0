@@ -1,0 +1,222 @@
+﻿Imports MySql.Data.MySqlClient
+Imports System.Data
+Imports System.IO 
+ 
+    Public conn As New MySqlConnection
+    Public estadodeconexionprevia As ConnectionState
+    Public comando As MySqlCommand
+    Public adaptador As New MySqlDataAdapter
+    Public consulta As String = ""
+    Public fecha As Date
+    Public comentario As String = ""
+    Public datareader As MySqlDataReader
+    Public data As New DataSet
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        UnobtrusiveValidationMode = System.Web.UI.UnobtrusiveValidationMode.None
+        ' Esto sirve para cargar los controles una sola vez y no cada vez que se haga postback
+        If Page.IsPostBack Then
+            ' aqui no haremos nada
+        Else
+            'aca pones todos lo eventos y funciones que deben cargarse una unica vez
+            limpiar_campos()
+            bloquear_campos()
+            'carga_ddls()
+        End If
+    End Sub
+
+    Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        limpiar_campos()
+        habilitar_campos()
+    End Sub
+    Sub limpiar_campos()
+        TextBox1.Text = "" : TextBox2.Text = "" : TextBox3.Text = ""
+        TextBox6.Text = "" : TextBox7.Text = ""
+    End Sub
+    Sub bloquear_campos()
+        TextBox3.Enabled = False
+        TextBox6.Enabled = False
+        TextBox7.Enabled = False
+        DropDownList3.Enabled = False
+    End Sub
+    Sub habilitar_campos()
+        TextBox3.Enabled = True
+        TextBox6.Enabled = True
+        TextBox7.Enabled = True
+        DropDownList3.Enabled = True
+    End Sub
+    'Sub carga_ddls()
+
+    'End Sub
+
+    Protected Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        If TextBox2.Text <> "" Then
+            ' PRIMERO INSERTAMOS EL REGISTRO EN LA TABLA USUARIOS
+            consulta = "insert into usuario(nombre_usuario, nombres_usuario, contrasena_usuario, nivel_usuario, email_usuario)values('" & TextBox2.Text & "','" & TextBox3.Text & "', '" & TextBox6.Text & "','" & DropDownList3.Text & "','" & TextBox7.Text & "')"
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            conn.Open()
+            comando = New MySqlCommand(consulta, conn)
+            comando.ExecuteNonQuery()
+            conn.Close()
+            Label12.Text = "El usuario se ha guardado correctamente"
+
+            'posterior a guardar la informacion del usuario mostramos el ID que se genero
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            conn.Open()
+            consulta = "SELECT id_usuario FROM usuario ORDER BY id_usuario DESC"
+            comando = New MySqlCommand(consulta, conn)
+            datareader = comando.ExecuteReader
+
+            If datareader.HasRows Then
+                While datareader.Read
+                    TextBox1.Text = datareader.GetValue(0)
+                End While
+            End If
+        Else
+            Label11.Text = "Por favor ingrese el nombre del usuario"
+        End If
+    End Sub
+
+    Protected Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        ''MODIFICAMOS LA INFORMACION DEL REGISTRO SOLICITADO
+        consulta = "update usuario set nombre_usuario='" & TextBox2.Text & "', nombres_usuario='" & TextBox3.Text & "', contrasena_usuario='" & TextBox6.Text & "', nivel_usuario= '" & DropDownList3.Text & "', email_usuario='" & TextBox7.Text & "' where id_usuario=" & TextBox1.Text
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        Try
+            comando = New MySqlCommand(consulta, conn)
+            comando.ExecuteNonQuery()
+            Label12.Text = "El usuario se ha modificado correctamente"
+        Catch ex As Exception
+            Label12.Text = "El usuario no se han modificado correctamente"
+        End Try
+        conn.Close()
+    End Sub
+
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        busca_usuario()
+    End Sub
+    Sub busca_usuario()
+        If Button1.Text = "Buscar" Then
+            If TextBox1.Text <> "" Then
+                ' REALIZAMOS LA CONSULTA DEL REGISTRO SOLICITADO EN TEXTBOX1.TEXT
+                conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+                conn.Open()
+                consulta = "select nombre_usuario, nombres_usuario, apaterno_usuario, amaterno_usuario, contrasena_usuario, empresa_usuario, puesto_usuario, nivel_usuario, email_usuario from usuario where id_usuario=" & TextBox1.Text
+                comando = New MySqlCommand(consulta, conn)
+                datareader = comando.ExecuteReader
+                ' si encontramos registros entonces colocamos la informacion en los textboxes correspondientes
+                If datareader.HasRows Then
+                    While datareader.Read
+                        TextBox2.Text = datareader.GetValue(0)
+                        TextBox3.Text = datareader.GetValue(1)
+                        TextBox6.Text = datareader.GetValue(4)
+                        '   DropDownList1.Text = datareader.GetValue(5)
+                        '   DropDownList2.Text = datareader.GetValue(6)
+                        DropDownList3.Text = datareader.GetValue(7)
+                        TextBox7.Text = datareader.GetValue(8)
+                        TextBox1.Enabled = False
+                    End While
+                    Button1.Text = "Limpiar"
+                    habilitar_campos()
+                    'cerramos la conexion
+                    conn.Close()
+                End If
+
+            Else
+                ' AQUI PODREMOS COLOCAR CUALQUIER MENSAJE QUE QUEREMOS QUE SEA MOSTRADO
+            End If
+
+        ElseIf Button1.Text = "Limpiar" Then
+            limpiar_campos()
+            bloquear_campos()
+            TextBox1.Enabled = True
+            Button1.Text = "Buscar"
+        End If
+    End Sub
+
+    Protected Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        If Button5.Text = "Buscar" Then
+            'BUSCAMOS A UN USUARIO POR EL NOMBRE
+            'se crea una conexion a la base de datos MySQL
+            Dim connection As MySqlConnection
+            connection = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection.State
+            Try
+                If connection.State = ConnectionState.Closed Then
+                    connection.Open()
+                End If
+                Dim textoconsulta As String
+                textoconsulta = "%" & TextBox2.Text & "%"
+                Dim ComandoSQL As New MySqlCommand("SELECT id_usuario, nombre_usuario, nivel_usuario, email_usuario FROM usuario WHERE nombre_usuario LIKE '" & textoconsulta & "'", connection)
+                Dim ds As New DataSet
+                Dim da As New MySqlDataAdapter(ComandoSQL)
+                da.Fill(ds)
+                GridView1.DataSource = ds.Tables(0)
+                GridView1.DataBind()
+                GridView1.Visible = True
+                Button7.Visible = True
+                Button5.Text = "Limpiar"
+            Catch ex As Exception
+                Throw ex
+            End Try
+        ElseIf Button5.Text = "Limpiar" Then
+            limpiar_campos()
+            bloquear_campos()
+            Button5.Text = "Buscar"
+        End If
+    End Sub
+
+    Protected Sub GridView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView1.SelectedIndexChanged
+        ' Obtiene la el valor de la linea seleccionada actualmente
+        Dim row As GridViewRow = GridView1.SelectedRow
+        'Call limpiar_campos()
+        TextBox1.Text = row.Cells(1).Text
+        GridView1.Visible = False
+        Button7.Visible = False
+        Button6.Text = "Mostrar Catalogo"
+        busca_usuario()
+
+    End Sub
+
+    Protected Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        'ocultamos el catalogo de usuarios
+        GridView1.Visible = False
+        Button7.Visible = False
+        Button6.Text = "Mostrar Catalogo"
+    End Sub
+
+    Protected Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        If Button6.Text = "Mostrar Catalogo" Then
+            ' mostramos el catalogo de usuarios completo
+            'se crea una conexion a la base de datos MySQL
+            Dim connection As MySqlConnection
+            connection = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection.State
+            Try
+                If connection.State = ConnectionState.Closed Then
+                    connection.Open()
+                End If
+                'se ejecuta una consulta SQL
+                Dim ComandoSQL As New MySqlCommand("SELECT id_usuario, nombre_usuario, nivel_usuario, email_usuario FROM usuario", connection)
+                Dim ds As New DataSet
+                Dim da As New MySqlDataAdapter(ComandoSQL)
+                da.Fill(ds)
+                GridView1.DataSource = ds.Tables(0)
+                GridView1.DataBind()
+                GridView1.Visible = True
+                Button7.Visible = True
+                Button6.Text = "Ocultar Catalogo"
+            Catch ex As Exception
+                Response.Write("<script language=javascript>alert('Error de conexion a la base de datos');</script>")
+            End Try
+        ElseIf Button6.Text = "Ocultar Catalogo" Then
+            GridView1.Visible = False
+            Button7.Visible = False
+            Button6.Text = "Mostrar Catalogo"
+        End If
+    End Sub

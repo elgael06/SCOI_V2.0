@@ -22,8 +22,9 @@ namespace api_seguimiento.Controllers
             Login usuario = new Login();
             byte[] array = Encoding.ASCII.GetBytes(convertir_asii(pasword));
             pasword = "pasword:" + Convert.ToBase64String(array);
-
-            SqlCommand comando = new SqlCommand("verificar_sesion_usuario '" + usr+"','"+pasword+"'", conexion_web);
+            string query = string.Format("verificar_sesion_usuario '{0}', '{1}';",
+              usr, pasword);
+            SqlCommand comando = new SqlCommand(query, conexion_web);
             try
             {
                 conexion_web.Open();
@@ -55,8 +56,9 @@ namespace api_seguimiento.Controllers
             Login usuario = new Login();
             byte[] array = Encoding.ASCII.GetBytes(convertir_asii(pasword));
             pasword = "pasword:" + Convert.ToBase64String(array);
-
-            SqlCommand comando = new SqlCommand("verificar_sesion_usuario '" + usr + "','" + pasword + "'", conexion_web);
+            string query = string.Format("verificar_sesion_usuario '{0}', '{1}';",
+                         usr, pasword);
+            SqlCommand comando = new SqlCommand(query, conexion_web);
             try
             {
                 conexion_web.Open();

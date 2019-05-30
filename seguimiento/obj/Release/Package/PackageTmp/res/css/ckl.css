@@ -1,0 +1,539 @@
+﻿
+
+
+@media only screen and (max-width: 768px) {
+    
+    /* For mobile phones: */
+    #btn_selec_ {
+    color: initial;
+    text-align:center;
+     border-radius:5px; 
+     margin-top:0px;
+     margin-left:10%;
+     width:70%;
+     font-size:18px;
+    }
+    #Marcoselector {
+    margin-top:40px;
+     border-bottom:none;
+     border-bottom-left-radius:0;
+     border-bottom-right-radius:0;
+     height:120px;
+     text-align:center;
+    
+    }
+    .Selector {
+        border-style: none;
+        border-radius: 20px;
+        width: 100%;
+
+    }
+    .btnf {
+    margin-top:10px;
+    display: inline-block;
+    margin-left:  5px;
+    margin-bottom: 10px;
+}
+  
+    .btncabeza {
+    width:73px;
+    height:60px;
+    border-radius:5px;
+    font-size:10px;
+    border:none;
+    border-color:gray;
+    }
+    tr {
+    height:25%;
+    
+    }
+    #selecZona {
+    margin-left:10px;
+    display:inline-block;
+    }
+    /*.datos {
+    position:absolute;
+    margin-right:10px;
+    margin-left:10px;
+    height:150px;
+    }*/
+    #mostrarCuest {
+        margin-top:50px;
+        height:500px;
+    }
+    #cuadroNumeros {
+     position:relative;
+     margin-top:-100px;
+     display:list-item;
+     margin-right:50px;
+     margin-left:180px;
+     border:dashed;
+    }
+    #mostrarResultados {
+    position:relative;
+    margin-top:0px;
+    margin-left:45%;
+    margin-right:0px;
+    width:50%;
+    }
+  
+    
+    #TOTALES {
+    margin-top:-10px;
+    margin-left:30px;
+    }
+    #manDat {
+    position:absolute;
+    margin-left:5px;
+    margin-top:10px;
+    margin-bottom:0px;
+}
+    section {
+    margin-right:0px;
+}
+     #selectorFoilo {
+    position:absolute;
+    margin-top:-10px;
+    display:inline-block;
+    text-align:center;
+    margin-top:0px;
+    width:230px;
+    margin-left:-20px;
+    
+    
+}
+ .TIEMPO {        
+        display: inline-block;
+        color: azure;
+        margin-top: 10PX;
+        margin-left:10px;
+        margin-bottom:10px;
+        width: 100px;
+        height: 50px;
+        text-align:center;
+        font-size:18px;
+    }
+    .cont_tiempo {
+        display:list-item;
+    }
+  
+
+ tr {
+       height:50px;
+    }
+    #btn_selec_cues {
+    height:50px;
+    border-radius:15px;
+    border-color:cornflowerblue;
+    }
+     #divDia {
+    margin-left:2%;
+    top:50px;
+    width:90%;
+    position:inherit;
+    }
+     #btn_selec_ {
+    border-style:none;
+    width:80%;
+    height:65px;
+    color:azure;
+    margin-top:5px;
+    margin-bottom:15px;
+    font-size:18px;
+     text-align:center;
+     border-radius:5px; 
+     background-color:seagreen;
+     color:azure;
+    }
+    
+}/*******************************************fin phone*/
+
+
+@media only screen and (min-width:768px) {
+    /* For desktop: */
+    #btn_selec_ {
+    position:sticky;
+    border-style:none;
+    width:100%;
+    height:70px;
+    color:azure;
+    margin-top:5px;
+    margin-bottom:15px;
+    margin-right:50%; 
+    font-size:18px;
+     text-align:center;
+     border-radius:5px; 
+     background-color:seagreen;
+     color:azure;
+    }
+    
+    #Marcoselector {
+        
+        border-radius: 20px;
+        border:groove;
+    margin-top:30px; border-bottom:none;border-bottom-left-radius:0;border-bottom-right-radius:0;height:170px;
+    
+    }
+    .Selector {
+        width: 100%;
+    }
+  
+    #selecZona {
+    margin-left:10px;
+    display:block;
+    }
+    
+    #mostrarCuest {
+        border-top:groove;
+        margin-top:0px;
+        height:550px;
+        text-align:center;
+    }
+    #cuadroNumeros {
+     position:relative;
+     margin-top:-100px;
+     display: inline-block;
+     margin-right:50px;
+     margin-left:180px;
+    }
+
+    #manDat {
+    position:absolute;
+    margin-left:5px;
+    margin-top:10px;
+    margin-bottom:0px;
+}
+    #selectorFoilo {
+    position:absolute;
+    text-align:center;
+    margin-top:-10px;
+    width:230px;
+    
+}
+
+    #cuadro_buscar_sucursal {
+    text-align:center;
+    }
+    #divDia {
+    margin-left:5%;
+    top:80px;
+    width:160px;
+    position:inherit;
+    }
+
+     .TIEMPO {     
+         border-radius:10px;
+        display: inline-block;
+        color: azure;
+        margin-top: 10PX;
+        margin-left:70px;
+        margin-bottom:10px;
+        width: 160px;
+        height: 50px;
+        text-align:center;
+        font-size:18px;
+    }
+     .cont_tiempo {
+        display:inline-block;
+    }
+     .btncabeza {
+    width:95px;
+    height:50px;
+    border-radius:10px;
+    border:none;
+    }
+}/********************************fin de desktop*/
+
+ .resultado {
+    width:50px;
+    }
+
+  #mostrarResultados {
+   
+    margin-top:-20px;
+    margin-left:25%;
+    margin-right:10px;
+    text-align:center;
+    width:60%;
+    display: list-item;
+    height:150px;
+
+    }
+    .datos {
+    position:absolute;
+    margin-right:10px;
+    margin-left:10px;
+    height:150px;
+    text-align:center;
+    }
+    .resultados {
+    width:50px;
+    margin-top:1px;
+    display: inline-block;
+    margin-left: 2px;
+    }
+
+#selectorFoilo input {
+     width:100px;
+}
+#encabezados {
+     display: inline;
+}
+.FIL{
+    font-style:normal;
+    border:dashed;
+    border-width:0PX;
+    display: inline-block;
+    background-color:#081E8B;
+    text-align: center;
+    line-height: 1.8;
+    color:azure;
+    margin-top:0PX;
+    margin-left:0;
+    margin-right:0;
+
+}
+
+#orden {
+    margin-left:2px;
+    width: 10%;
+}
+#pregunta {
+    width:55%;
+}
+#si {
+    width: 8%;
+}
+#no {
+    width: 8%;
+}
+#na {
+    width: 8%;
+}
+#obs {
+   width: 10%;
+}
+.orden {
+   width: 8%;
+    text-align:center;
+}
+.pregunta {
+   width:58%;
+   text-align:left; 
+}
+.si {
+   width: 10%;
+    text-align:center;
+}
+.no {
+   width: 10%;
+    text-align:center;
+}
+.na {
+   width: 10%;
+    text-align:center;
+}
+.obs {
+     width: 25%;
+    text-align:center;
+}
+
+
+tr {
+    text-align:center;
+}
+.tablaPreguntas:nth-child(even) {
+    background-color: #dddddd;
+}
+.sombras{
+    background-color:rgba(38, 80, 242, 0.69);
+      color:white;
+}
+th, td {
+    border-bottom: 1px solid #ddd;
+     color:black; 
+}
+#idFolio {
+    width:30px;
+    background-color:#F1F7E8;
+
+
+}
+.positivo {
+    background-color:green;
+    color:azure;
+}
+.negativo {
+    background-color:red;
+    color:azure;
+}
+.obsbt {
+    border-radius: 115px;
+    border:none;
+    border-color:deepskyblue;
+    color:#F1F7E8;
+    background-color:#0080FF;
+    cursor: pointer;
+    width:10px;
+}
+input[type="radio"] {
+    cursor: help;
+    width: 30px;
+    height: 30px;
+    -moz-animation:ease-in;
+}
+.btncabeza:disabled {
+    background-color:#dddddd;
+    color:azure;
+}
+
+.nocb {
+    width:20px;
+
+}
+* {
+   /* border:groove;*/
+}
+
+.btnAzul {
+    background-color: cornflowerblue;
+    margin-top: 10px;
+    display: inline-block;
+    margin-left: 2%;
+    margin-bottom: 10px;
+}
+
+#btNuevo{
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    -appearance: button;
+    text-decoration: none;
+    text-justify:auto;
+    text-align:center;
+}
+
+.btncabeza:hover:enabled {
+    position:static;
+    animation:normal;
+    background: rgba(38, 80, 242, 0.69);
+    border:solid;
+    border-color:white;
+
+}
+.btncabeza:enabled {
+    background-color:#0080FF;
+    color:azure;
+   
+}
+.scrolling-table-container2 {
+    height:75%;
+    width:100%;
+    overflow: auto;
+    border-bottom:groove;
+    border-top:groove;
+    margin-left:2px;
+    margin-top:10px;
+    background-color:azure;
+
+}
+.modalckl select {
+    color:blue;
+    height:50px;
+}
+.tablaRespuestas:nth-child(even) {
+    width:1080px;
+    background-color: #dddddd;
+}
+ 
+#btn_selec_:enabled {
+    background-color:#0080FF;
+    color:azure;
+    }
+#btn_selec_:disabled {
+    background-color:#dddddd;
+    color:azure;
+    }
+#moda_observaciones_cues {
+    text-align:center;
+}
+.observacioes_inputs {
+    width:80%;
+    font-size:18px;
+    margin: 10px;      
+}
+#padre {
+    height:100%;
+    min-height:500PX;
+}
+#cuerpo {
+            height:520px;
+            
+        }
+/***componentes react***/
+.tabla_lideres {
+    height:350px;
+    overflow-x:auto;
+    overflow-y:auto;
+}
+.tabla_observaciones_por_pregunta {
+    max-height:100px;
+    overflow-x:auto;
+    overflow-y:auto;
+}
+.cavecera_tabla_lideres {
+    position:sticky;
+    min-width:100%;
+    max-width:200px;
+    z-index:999999999;
+    top:0px;
+}
+.cavecera_tabla_lideres > th {
+    text-align:center;
+}
+ .contenedor_calendario {
+            position:absolute;
+            display:inline-block;
+            max-width:160px;
+            right:27px;
+            margin-bottom:-10px;
+        }
+        
+        #contenedor_botones_cuestionarios {
+            height:93%;
+            border:solid 5px #808080;
+            border-radius:5px;
+            overflow-x:auto;
+            overflow-y:auto;
+        }
+        .marcador_r {
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size:20px;
+            right:10px;
+        }
+            .marcador_r > span {
+                margin-left:10px;
+            }
+        .respuestas{
+                    font-size: 30px;
+                    margin-left:10px;
+                    margin-right:10px;
+                }
+        .si {
+            color:green;
+        }
+        .no {
+            color:red;
+        }
+        .na {
+            color:#0094ff;
+        }
+        .pendiente {
+            color:orange;
+        }
+        .lista_observaciones {
+            text-align:left;
+        }
+        .glyphicon-remove-circle {
+            position:static;
+            margin-right:3px;
+        }

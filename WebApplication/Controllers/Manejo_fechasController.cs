@@ -20,7 +20,8 @@ namespace api_seguimiento.Controllers
         public Diferencia_semana_anio_iso PostDiferencia_semana_anio_iso(string f1, string f2)
         {
             Diferencia_semana_anio_iso fecha = new Diferencia_semana_anio_iso();
-            SqlCommand comando = new SqlCommand("[retornar_diferencia_semana_anio_iso] '" + f1 + "','" + f2 + "'", conexion_web);
+            string query = string.Format("retornar_diferencia_semana_anio_iso '{0}','{1}';", f1, f2);
+            SqlCommand comando = new SqlCommand(query, conexion_web);
             try
             {
                 conexion_web.Open();
@@ -41,7 +42,8 @@ namespace api_seguimiento.Controllers
         public Diferencia_semana_anio_iso PostRetornar_fecha_por_semana_de_anio(int si,int st)
         {
             Diferencia_semana_anio_iso fecha = new Diferencia_semana_anio_iso();
-            SqlCommand comando = new SqlCommand("retornar_fecha_por_semana_de_anio " + si + "," + st , conexion_scoi);
+            string query = string.Format("retornar_fecha_por_semana_de_anio '{0}','{1}';", si, st);
+            SqlCommand comando = new SqlCommand(query, conexion_scoi);
             try
             {
                 conexion_scoi.Open();

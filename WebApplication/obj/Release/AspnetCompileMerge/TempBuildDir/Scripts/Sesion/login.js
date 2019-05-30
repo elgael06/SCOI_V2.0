@@ -10,7 +10,7 @@ const checar_usuario = (Nombre,password)=>{
 
             res == "OK" ? function(){
                 mostrar_mensaje("BIenvenido...", "alert-success");
-                setTimeout(() => window.location.href = "/Home", 300);
+                setTimeout(() => window.location.href = "/", 300);
             }()
                 : mostrar_mensaje("Usuario o Contraseña incorrectos...", "alert-danger");
         }))

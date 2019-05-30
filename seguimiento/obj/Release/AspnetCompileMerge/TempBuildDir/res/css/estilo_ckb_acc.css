@@ -1,0 +1,57 @@
+#encabezado{
+	text-align: left;
+}
+#panelCheck{
+background-color: inherit;
+	border-style: ridge;
+	position: relative;
+	width: 250px;
+	right: 0px;
+	margin-top: 10px;
+	height: 520px;
+}
+
+#personas{
+text-align: center;
+	border-style: ridge;
+	position: relative;
+	width: 240px;
+	right: -260px;
+	height: 520px;
+	margin-top: -525px;
+}
+#vinculos{
+	width: auto;
+	height: auto;
+	border-style: ridge;
+	position: relative;
+	margin-left:510px;
+	margin-top: -525px;
+	right: 10;
+	width: 150px;
+	height: 520px;
+}
+
+#enviar{
+
+	background: lightgrey;
+	color: blue;
+	border: 5px;
+	width: 75px;
+	height: 35px;
+	margin-top: -20px;
+	margin-left: 170px;
+}
+#mostrar{
+	border-style: ridge;
+	border-color: #6666;
+	max-width: 100%;
+	width: 95%;
+	height: 80%;
+	right: -340px;
+	background-color: #cccccc;
+}
+.input{
+background:lightgrey;
+
+}

@@ -1,0 +1,47 @@
+﻿
+
+
+/***/
+/*modal de checklist cuadro_buscar_sucursal*/
+.modalDialog1 {
+    position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(99, 101, 103, 0.60) ;
+	z-index: 99999;
+	opacity:1;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 800ms ease-in;
+	transition: opacity 800ms ease-in;
+
+}
+.modalDialog1 > div {
+	width:95%;    height:95%;	position: relative;	margin: 2% auto;	padding: 5px 20px 13px 20px;	border-radius: 5px;
+	background-color:rgb(9, 81, 254); color:azure;  -webkit-transition: opacity 400ms ease-in;-moz-transition: opacity 400ms ease-in;transition: opacity 400ms ease-in; border:none;  font-size:18px;
+  /**sombra*/ -webkit-box-shadow: 0px 0px 23px 6px rgba(0,0,0,0.75);-moz-box-shadow: 0px 0px 43px 6px rgba(0,0,0,0.75);box-shadow: 0px 0px 23px 6px rgba(0,0,0,0.75);
+/**tono*/
+
+}
+/*boton cerrar*/
+.cerrar {
+	background: #ff6a00;	color: #FFFFFF;
+	line-height: 25px;
+	position: absolute;
+	right:2px;
+	text-align: center;
+	top: 0px;
+	width: 43px;
+    height:43px;
+	text-decoration: none;
+	font-weight: bold;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 2px;
+	-moz-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 3px #000;
+	box-shadow: 1px 1px 3px #000;
+    border:none;
+}

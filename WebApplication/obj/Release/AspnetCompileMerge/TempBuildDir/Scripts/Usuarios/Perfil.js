@@ -49,12 +49,10 @@ cerrar_modal_perfil_usuario.addEventListener("click", function () {
 });
 password_actual.addEventListener("change", function () {
     var pass = password_actual.value;
-    console.log("pass=>", pass);
     cambiar_estado_nuevo_password(!(pass.length > 0));
 });
 password_nuevo.addEventListener("change", function () {
     var pass = password_nuevo.value;
-    console.log("pass Nuevo=>", pass);
     cambiar_password_nuevo_confirmar(!(pass.length > 0));
 });
 //# sourceMappingURL=Perfil.js.map

@@ -1,0 +1,454 @@
+﻿Imports MySql.Data.MySqlClient
+Imports System.Data
+Imports System.IO
+
+Public Class Organigrama
+    Inherits System.Web.UI.Page
+    Public conn As New MySqlConnection
+    Public conn1 As New MySqlConnection
+    Public conn2 As New MySqlConnection
+
+    Public estadodeconexionprevia As ConnectionState
+
+    Public comando As MySqlCommand
+    Public comando1 As MySqlCommand
+    Public comando2 As MySqlCommand
+
+    Public adaptador As New MySqlDataAdapter
+
+    Public consulta As String = ""
+    Public consulta1 As String = ""
+    Public consulta2 As String = ""
+
+    Public sentencia As String = ""
+    Public fecha As Date
+    Public comentario As String = ""
+    Public datareader As MySqlDataReader
+    Public data As New DataSet
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        ' Esto sirve para cargar los controles una sola vez y no cada vez que se haga postback
+        If Page.IsPostBack Then
+            ' aqui no haremos nada
+        Else
+            'aca pones todos lo eventos y funciones que deben cargarse una unica vez
+            limpiar_campos()
+
+            llenar_departamento() ' llenamos los departamentos
+            llenar_unidades() ' llenamos las unidades de negocio
+            llenarpuestos() ' llenamos puestos tipo
+
+            llenar_puestos_organigrama()
+        End If
+    End Sub
+
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If ComboBox1.Text <> "" Then
+            'se crea una conexion a la base de datos MySQL
+            Dim connection As MySqlConnection
+            Dim cuentalineas As Integer
+            connection = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection.State
+            Try
+                If connection.State = ConnectionState.Closed Then
+                    connection.Open()
+                End If
+                'se ejecuta una consulta SQL
+                Dim ComandoSQL As New MySqlCommand("INSERT INTO puestotipo (nombre_puestotipo) VALUES ('" & ComboBox1.Text & "')", connection)
+                cuentalineas = ComandoSQL.ExecuteNonQuery
+                If cuentalineas > 0 Then ' si se encontraron registros entonces hacemos esto
+                    Label12.Text = "El puesto se guardo correctamente"
+                    Call llenarpuestos()
+                Else
+                    Label12.Text = "El puesto NO ha guardado"
+                End If
+            Catch ex As Exception ' si hay algun error se hace esto
+                Label12.Text = "Problema al guardar"
+            End Try
+        Else
+            Label12.Text = "Escriba un nombre de puesto"
+        End If
+    End Sub
+    Sub llenarpuestos()
+        ComboBox1.Items.Clear()
+        ComboBox4.Items.Clear()
+
+        '----------------------------cargar DDL1---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select * from puestotipo;"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox1.Items.Add(datareader.GetValue(1))
+                ComboBox4.Items.Add(datareader.GetValue(1))
+
+            End While
+        End If
+        conn.Close()
+    End Sub
+    Sub llenar_unidades()
+        ComboBox2.Items.Clear()
+        ComboBox5.Items.Clear()
+        '----------------------------cargar combos---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select * from unidadnegocio;"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox2.Items.Add(datareader.GetValue(1))
+                ComboBox5.Items.Add(datareader.GetValue(1))
+            End While
+        End If
+        conn.Close()
+
+    End Sub
+    Sub llenar_departamento()
+        ComboBox3.Items.Clear()
+        ComboBox6.Items.Clear()
+
+        '----------------------------cargar combos---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select * from departamento;"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox3.Items.Add(datareader.GetValue(1))
+                ComboBox6.Items.Add(datareader.GetValue(1))
+            End While
+        End If
+        conn.Close()
+
+    End Sub
+    Sub llenar_puestos_organigrama()
+        ComboBox7.Items.Clear()
+        ComboBox8.Items.Clear()
+        ComboBox7.Items.Add("NO APLICA")
+        ComboBox8.Items.Add("NO APLICA")
+        '----------------------------cargar DDL9---------------------------
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        consulta = "select nombre_puesto from organigrama;"
+        comando = New MySqlCommand(consulta, conn)
+        datareader = comando.ExecuteReader
+        If datareader.HasRows Then
+            While datareader.Read
+                ComboBox7.Items.Add(datareader.GetValue(0))
+                ComboBox8.Items.Add(datareader.GetValue(0))
+
+            End While
+        End If
+        conn.Close()
+    End Sub
+
+    Protected Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
+        If ComboBox2.Text <> "" Then
+            'se crea una conexion a la base de datos MySQL
+            Dim connection As MySqlConnection
+            Dim cuentalineas As Integer
+            connection = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection.State
+            Try
+                If connection.State = ConnectionState.Closed Then
+                    connection.Open()
+                End If
+                'se ejecuta una consulta SQL
+                Dim ComandoSQL As New MySqlCommand("INSERT INTO unidadnegocio (nombre_unidad) VALUES ('" & ComboBox2.Text & "')", connection)
+                cuentalineas = ComandoSQL.ExecuteNonQuery
+                If cuentalineas > 0 Then ' si se encontraron registros entonces hacemos esto
+                    Label13.Text = "La unidad de negocio se guardo correctamente"
+                    Call llenar_unidades()
+                Else
+                    Label13.Text = "La unidad de negocio no se ha guardado"
+                End If
+            Catch ex As Exception ' si hay algun error se hace esto
+                Label13.Text = "Hay un problema al guardar"
+            End Try
+        Else
+            Label13.Text = "Escriba la unidad de negocio por favor"
+        End If
+    End Sub
+
+    Protected Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        If ComboBox3.Text <> "" Then
+            'se crea una conexion a la base de datos MySQL
+            Dim connection As MySqlConnection
+            Dim cuentalineas As Integer
+            connection = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection.State
+            Try
+                If connection.State = ConnectionState.Closed Then
+                    connection.Open()
+                End If
+                'se ejecuta una consulta SQL
+                Dim ComandoSQL As New MySqlCommand("INSERT INTO departamento (nombre_departamento) VALUES ('" & ComboBox3.Text & "')", connection)
+                cuentalineas = ComandoSQL.ExecuteNonQuery
+                If cuentalineas > 0 Then ' si se encontraron registros entonces hacemos esto
+                    Label14.Text = "El departamento se ha guardado correctamente"
+                    Call llenar_departamento()
+                Else
+                    Label14.Text = "El departamento se no ha guardado"
+                End If
+            Catch ex As Exception ' si hay algun error se hace esto
+                Label14.Text = "Problemas al guardar, verifique"
+            End Try
+        Else
+            Label14.Text = "Escriba el departamento a guardar"
+        End If
+    End Sub
+
+    Protected Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
+        'buscamos por codigo de puesto
+        busca_puesto()
+    End Sub
+    Sub busca_puesto()
+        If Button12.Text = "Buscar" Then
+            If TextBox6.Text <> "" Then
+                ' REALIZAMOS LA CONSULTA DEL REGISTRO SOLICITADO EN TEXTBOX1.TEXT
+                conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+                conn.Open()
+                consulta = "select id_puesto, nombre_puesto, puesto_tipo, unidad_negocio, departamento, reportaa, jefede from organigrama where id_puesto= '" & TextBox6.Text & "'"
+                comando = New MySqlCommand(consulta, conn)
+                datareader = comando.ExecuteReader
+                ' si encontramos registros entonces colocamos la informacion en los textboxes correspondientes
+                If datareader.HasRows Then
+                    While datareader.Read
+                        TextBox4.Text = datareader.GetValue(1)
+                        ComboBox4.Text = datareader.GetValue(2)
+                        ComboBox5.Text = datareader.GetValue(3)
+                        ComboBox6.Text = datareader.GetValue(4)
+                        TextBox7.Text = datareader.GetValue(5)
+                        TextBox8.Text = datareader.GetValue(6)
+                    End While
+                    Button12.Text = "Limpiar"
+                    'cerramos la conexion
+                    conn.Close()
+                End If
+            Else
+                ' AQUI PODREMOS COLOCAR CUALQUIER MENSAJE QUE QUEREMOS QUE SEA MOSTRADO
+            End If
+        ElseIf Button12.Text = "Limpiar" Then
+            limpiar_campos()
+            Button12.Text = "Buscar"
+        End If
+    End Sub
+
+    Protected Sub Button13_Click(sender As Object, e As EventArgs) Handles Button13.Click
+        If Button13.Text = "Buscar" Then
+            'buscar por nombre de puesto
+            'se crea una conexion a la base de datos MySQL
+            Dim connection As MySqlConnection
+            connection = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection.State
+            Try
+                If connection.State = ConnectionState.Closed Then
+                    connection.Open()
+                End If
+                Dim textoconsulta As String
+                textoconsulta = "%" & TextBox4.Text & "%"
+                Dim ComandoSQL As New MySqlCommand("SELECT * FROM organigrama WHERE nombre_puesto LIKE '" & textoconsulta & "'", connection)
+                Dim ds As New DataSet
+                Dim da As New MySqlDataAdapter(ComandoSQL)
+                da.Fill(ds)
+                GridView1.DataSource = ds.Tables(0)
+                GridView1.DataBind()
+                GridView1.Visible = True
+                Button14.Visible = True
+                Button13.Text = "Limpiar"
+            Catch ex As Exception
+                Throw ex
+            End Try
+
+        ElseIf Button13.Text = "Limpiar" Then
+            limpiar_campos()
+            Button13.Text = "Buscar"
+        End If
+
+    End Sub
+
+    Protected Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        'agregamos a listbox1 a quien reportara
+        If TextBox7.Text = "" Then
+            'TextBox7.Text = DropDownList5.SelectedValue
+            TextBox7.Text = ComboBox7.SelectedValue
+        Else
+            'TextBox7.Text = TextBox7.Text & ", " & DropDownList5.SelectedValue
+            TextBox7.Text = TextBox7.Text & ", " & ComboBox7.SelectedValue
+        End If
+    End Sub
+
+    Protected Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        'agregaramos a listbox2 de quien es jefe
+        If TextBox8.Text = "" Then
+            TextBox8.Text = ComboBox8.SelectedValue
+        Else
+            TextBox8.Text = TextBox8.Text & ", " & ComboBox8.SelectedValue
+        End If
+    End Sub
+
+    Protected Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        limpiar_campos()
+    End Sub
+
+    Sub limpiar_campos()
+        TextBox4.Text = "" : TextBox6.Text = "" : TextBox7.Text = ""
+        TextBox8.Text = ""
+
+    End Sub
+
+    Protected Sub Button15_Click(sender As Object, e As EventArgs) Handles Button15.Click
+        'limpiamos el textbox7
+        TextBox7.Text = ""
+    End Sub
+
+    Protected Sub Button16_Click(sender As Object, e As EventArgs) Handles Button16.Click
+        ' limpiamos el textbox8
+        TextBox8.Text = ""
+    End Sub
+
+    Protected Sub GridView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView1.SelectedIndexChanged
+        ' al hacer clic en el select del gridview deberemos de consulta el codigo de puesto seleccionado
+        ' Obtiene la el valor de la linea seleccionada actualmente
+        Dim row As GridViewRow = GridView1.SelectedRow
+        'Call limpiar_campos()
+        TextBox6.Text = row.Cells(1).Text
+        GridView1.Visible = False
+        Button14.Visible = False
+        Button13.Text = "Buscar"
+        Button17.Text = "Mostrar Catalogo"
+        busca_puesto()
+    End Sub
+
+    Protected Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        ' guardamos los datos del registro ingresado
+        ' PRIMERO INSERTAMOS EL REGISTRO EN LA TABLA ORGANIGRAMA
+        consulta = "insert into organigrama(id_puesto, nombre_puesto, puesto_tipo, unidad_negocio, departamento, reportaa, jefede)values('" & TextBox6.Text & "', '" & TextBox4.Text & "', '" & ComboBox4.Text & "','" & ComboBox5.Text & "','" & ComboBox6.Text & "', '" & TextBox7.Text & "', '" & TextBox8.Text & "' )"
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        comando = New MySqlCommand(consulta, conn)
+        comando.ExecuteNonQuery()
+
+        'cerramos la conexion
+        conn.Close()
+        llenar_puestos_organigrama()
+    End Sub
+
+    Protected Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        ' Modificamos la informacion del puesto
+        consulta = "update organigrama set nombre_puesto='" & TextBox4.Text & "', puesto_tipo='" & ComboBox4.Text & "', unidad_negocio='" & ComboBox5.Text & "', departamento='" & ComboBox6.Text & "', reportaa='" & TextBox7.Text & "', jefede= '" & TextBox8.Text & "' where id_puesto= '" & TextBox6.Text & "'"
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        Try
+            comando = New MySqlCommand(consulta, conn)
+            comando.ExecuteNonQuery()
+            'Response.Write("<script language=javascript>alert('REGISTRO ACTUALIZADO');</script>")
+        Catch ex As Exception
+            ' Response.Write("<script language=javascript>alert('ERROR AL ACTUALIZAR');</script>")
+        End Try
+        conn.Close()
+    End Sub
+
+    Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        'eliminamos el dato seleccionado del ddl1
+        Dim puesto As String
+        puesto = ComboBox1.Text
+        'hacemos la sentencia para borrar el dato que necesitamos borrar
+        sentencia = "DELETE FROM puestotipo WHERE nombre_puestotipo = '" & puesto & "'"
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        comando = New MySqlCommand(sentencia, conn)
+        comando.ExecuteNonQuery()
+        'llenamos el combobox1
+        llenarpuestos()
+    End Sub
+
+    Protected Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
+        ' eliminamos el item seleccionado del ddl7
+        Dim unidad As String
+        unidad = ComboBox2.Text
+        'hacemos la sentencia para borrar el dato que necesitamos borrar
+        sentencia = "DELETE FROM unidadnegocio WHERE nombre_unidad = '" & unidad & "'"
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        comando = New MySqlCommand(sentencia, conn)
+        comando.ExecuteNonQuery()
+        'llenamos el combobox2
+        llenar_unidades()
+
+    End Sub
+
+    Protected Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        'eliminamos el item seleccionado del ddl2
+        Dim depto As String
+        depto = ComboBox3.Text
+        'hacemos la sentencia para borrar el dato que necesitamos borrar
+        sentencia = "DELETE FROM departamento WHERE nombre_departamento = '" & depto & "'"
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+        conn.Open()
+        comando = New MySqlCommand(sentencia, conn)
+        comando.ExecuteNonQuery()
+        'llenamos el combobox3
+        llenar_departamento()
+
+    End Sub
+
+    Protected Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
+        GridView1.Visible = False
+        Button14.Visible = False
+        Button17.Text = "Mostrar Catalogo"
+    End Sub
+
+    Protected Sub Button17_Click(sender As Object, e As EventArgs) Handles Button17.Click
+        If Button17.Text = "Mostrar Catalogo" Then
+            ' mostramos el catalogo de usuarios completo
+            'se crea una conexion a la base de datos MySQL
+            Dim connection As MySqlConnection
+            connection = New MySqlConnection
+            'se apunta a la cadena de conexion guardada en el archivo Web.config
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("miconexion").ConnectionString
+            Dim estadodeconexionprevia As ConnectionState
+            estadodeconexionprevia = connection.State
+            Try
+                If connection.State = ConnectionState.Closed Then
+                    connection.Open()
+                End If
+                'se ejecuta una consulta SQL
+                Dim ComandoSQL As New MySqlCommand("SELECT * FROM organigrama", connection)
+                Dim ds As New DataSet
+                Dim da As New MySqlDataAdapter(ComandoSQL)
+                da.Fill(ds)
+                GridView1.DataSource = ds.Tables(0)
+                GridView1.DataBind()
+                GridView1.Visible = True
+                Button14.Visible = True
+                Button17.Text = "Ocultar Catalogo"
+            Catch ex As Exception
+                'Response.Write("<script language=javascript>alert('Error de conexion a la base de datos');</script>")
+            End Try
+        ElseIf Button17.Text = "Ocultar Catalogo" Then
+            GridView1.Visible = False
+            Button14.Visible = False
+            Button17.Text = "Mostrar Catalogo"
+        End If
+    End Sub
+
+End Class

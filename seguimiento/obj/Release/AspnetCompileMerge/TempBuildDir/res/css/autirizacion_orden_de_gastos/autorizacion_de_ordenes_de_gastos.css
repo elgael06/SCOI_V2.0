@@ -1,0 +1,56 @@
+﻿.contenedores_cavecera {
+    width:170px;
+    display:inline-block;
+}
+    .contenedores_cavecera > label {
+        width:110px;
+        text-align:right;
+    }
+#contedor_tabla_datos {
+    height: 580px;
+    overflow: auto;
+}
+#tabla_gastos > thead > tr > th {
+     position: sticky;
+    width: 100%;
+    top: 0;
+    z-index: 990;
+    background: #1072c6;
+    color: aliceblue;
+}
+.modal_ {
+    display: none;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(206, 210, 216, 0.71);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index:9999;
+}
+#carga {
+    font-size: 40px;
+}
+#modal_detalle_gasto > div {
+    border:solid 1px rgba(16, 114, 198, 0.57);
+    height:90%;
+    max-height:1150px;
+    width:100%;
+    max-width:950px;
+    font-size:14px;
+}
+#modal_detalle_gasto_heading {
+    background-color: #1072c6;
+    color: aliceblue;
+    font-size: 20px;
+    top:1px;
+}
+#modal_detalle_gasto_body {
+    height: 90%;
+}
+    #modal_detalle_gasto_body.panel.form-group {
+        width:100%;
+    
+    }

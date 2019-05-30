@@ -57,11 +57,9 @@ cerrar_modal_perfil_usuario.addEventListener("click", () => {
 
 password_actual.addEventListener("change", () => {
     let pass:string = password_actual.value;
-    console.log("pass=>", pass);
     cambiar_estado_nuevo_password(!(pass.length >0));
 });
 password_nuevo.addEventListener("change", () => {
     let pass: string = password_nuevo.value;
-    console.log("pass Nuevo=>", pass);
     cambiar_password_nuevo_confirmar(!(pass.length > 0));
 });
