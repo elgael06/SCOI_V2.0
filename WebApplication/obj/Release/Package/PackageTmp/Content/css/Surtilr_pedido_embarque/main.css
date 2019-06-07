@@ -230,10 +230,9 @@
     align-items: center;
     padding: 1px;
 }
-
-.form_vista_texto > label {
-    font-size: 14px;
-}
+    .form_vista_texto > label {
+        font-size: 14px;
+    }
 
 #main {
     margin-top: 50px;
