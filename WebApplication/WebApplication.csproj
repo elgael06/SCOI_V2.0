@@ -326,6 +326,7 @@
     <Compile Include="Manager\Pedido_establecimiento\pedido_envarques_por_establecimiento.cs" />
     <Compile Include="Manager\pedido_frutas_y_verduras\Obtener_pedido_f_y_v.cs" />
     <Compile Include="Manager\Productos_clasificador\Clasificador_obtener_productos.cs" />
+    <Compile Include="Manager\PropuestaCombioPrecios\ObtenerAnalisis.cs" />
     <Compile Include="Manager\Sesion\usuarios_acceso.cs" />
     <Compile Include="Models\Accesos\Accesos_url_usuario.cs" />
     <Compile Include="Models\Accesos\Accesos_menus_usuario.cs" />
@@ -405,6 +406,8 @@
     <Compile Include="Models\Pedido_establecimiento\Usuario_autiriza_embarque.cs" />
     <Compile Include="Models\pedido_frutas_y_verduras\categoria_frutas_y_verduras.cs" />
     <Compile Include="Models\Productos_clasificador\Clasificador_producto.cs" />
+    <Compile Include="Models\PropuestaCombioPrecios\ModeloCompetenciaCambioPrecios.cs" />
+    <Compile Include="Models\PropuestaCombioPrecios\ModeloProductoCambioPrecios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -431,6 +434,7 @@
     <Content Include="Content\font-awesome\HELP-US-OUT.txt" />
     <Content Include="dist\bundle.js" />
     <Content Include="dist\index.html" />
+    <Content Include="dist\indicadores\AnanlisisCambioPrecios\app.js" />
     <Content Include="dist\indicadores\MonitorEmbarques\Monitor.js" />
     <Content Include="dist\indicadores\PreciosCompetencia\Monitor.js" />
     <Content Include="dist\indicadores\surtido_embarque\bundle.js" />
@@ -606,9 +610,13 @@
     <Content Include="src\scripts\Globales\CodigosBarra\codigos_de_barras _g.es5.min.js" />
     <Content Include="src\scripts\Globales\CodigosBarra\codigos_de_barras _g.js" />
     <Content Include="src\scripts\Globales\CodigosBarra\codigos_de_barras.js" />
+    <Content Include="src\scripts\VueJS\indicadores\AnalisisCambioPrecios\app.js" />
     <Content Include="src\scripts\VueJS\indicadores\MonitorEmbarques\app.js" />
     <Content Include="src\scripts\VueJS\indicadores\PreciosCompetencia\App.js" />
     <Content Include="src\scripts\VueJS\ComponentesGlobales\Moneda.vue" />
+    <Content Include="src\scripts\VueJS\indicadores\AnalisisCambioPrecios\Components\App.vue" />
+    <Content Include="src\scripts\VueJS\indicadores\AnalisisCambioPrecios\Components\FiltrosAnalisis.vue" />
+    <Content Include="src\scripts\VueJS\indicadores\AnalisisCambioPrecios\Components\Producto.vue" />
     <None Include="src\scripts\VueJS\indicadores\PreciosCompetencia\Components\DetallesProducto.vue" />
     <Content Include="src\scripts\VueJS\indicadores\PreciosCompetencia\Components\PasillosTabla.vue" />
     <Content Include="src\scripts\VueJS\indicadores\PreciosCompetencia\Components\MuebleTabla.vue" />
@@ -664,6 +672,7 @@
     <Content Include="src\scripts\VueJS\indicadores\PreciosCompetencia\Components\App.vue" />
     <Content Include="src\scripts\VueJS\indicadores\PreciosCompetencia\Components\Controles.vue" />
     <Content Include="src\scripts\VueJS\indicadores\PreciosCompetencia\Components\TablaMonitor.vue" />
+    <Content Include="Views\Indicadores\AnalisisCamiboPrecios.cshtml" />
     <None Include="vue_src\components\BuscarProducto.vue" />
     <Content Include="src\styles\CodigosBarra\main.css" />
     <Content Include="src\styles\CodigosBarra\main_g.css" />

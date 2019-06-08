@@ -26,6 +26,7 @@ namespace WebApplication.Manager.web
         public ActionResult ReporteIncidenciasFecha() => Accesos(48);
         public ActionResult MonitorOrdenCompraInterna() => Accesos(54);
         public ActionResult MonitorEmbarques() => Accesos(56);
+        public ActionResult AnalisisCamiboPrecios() => Accesos(57);
 
 
         //httpRequest

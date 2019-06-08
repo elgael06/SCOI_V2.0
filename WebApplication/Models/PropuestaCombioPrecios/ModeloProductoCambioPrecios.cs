@@ -6,11 +6,21 @@ namespace WebApplication.Models.PropuestaCombioPrecios
 {
     public class ModeloProductoCambioPrecios
     {
-        public string Codigo        { get; set; }
-        public string Descripcion   { get; set; }
-        public string Tipo          { get; set; }
-        public bool   Estado        { get; set; }
-        public string Fecha         { get; set; }
+        public string Codigo         { get; set; }
+        public string Descripcion    { get; set; }
+
+        public double Costo_promedio { get; set; }
+        public double Ultimo_costo   { get; set; }
+
+        public double Precio_venta           { get; set; }
+        public double Precio_venta_nvo       { get; set; }
+        public double Precio_venta_captura   { get; set; }
+        public double Precio_oferta_actual   { get; set; }
+
+        public double Margen         { get; set; }
+        public double Margen_nvo     { get; set; }
+        public double Margen_familia { get; set; }
+        public double Venta_90_dias { get; set; }
 
         public ModeloCompetenciaCambioPrecios Competencias = new ModeloCompetenciaCambioPrecios();
 
@@ -26,6 +36,18 @@ namespace WebApplication.Models.PropuestaCombioPrecios
     }
 }
 
+/*
+ cod_prod
+descripcion
+costo_promedio
+ultimo_costo
+precio_de_venta
+margen
+margen_meta_familia
+precio_venta_nuevo
+margen_nuevo
+
+     */
 
 /*
  localizacion

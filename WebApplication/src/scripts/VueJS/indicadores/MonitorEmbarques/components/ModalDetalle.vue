@@ -43,17 +43,17 @@
                                     <th>PEDIDO</th>
                                     <th>PENDIENTE</th>
                                     <th>EXISTENCIA</th>
-                                    <th>SURTIDO</th>
+                                    <th>EMBARQUE</th>
                                 </tr>
                             </thead>
                             <tbody v-for="item in Seleccion.Embarque">
-                                <tr :class="cantidad(item.surtido)">
+                                <tr :class="cantidad(item.embarque)">
                                     <th>{{item.cod_prod}}</th>
                                     <th>{{item.descripcion}}</th>
                                     <th>{{item.pedido}}</th>
                                     <th>{{item.pendiente}}</th>
                                     <th>{{item.disponible}}</th>
-                                    <th>{{item.surtido}}</th>
+                                    <th>{{item.embarque}}</th>
                                 </tr>
                             </tbody>
                         </table>

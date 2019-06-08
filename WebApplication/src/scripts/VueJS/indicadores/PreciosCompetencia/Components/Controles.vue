@@ -1,7 +1,8 @@
 ﻿
 <template>
     <div class="panel-heading">
-        <h3>Monitor Precio Competencia</h3>
+        <h3 v-if="titulo">{{titulo}}</h3>
+        <h3 v-else>Monitor Precio Competencia</h3>
         <div class="form-group">
             <div class="form-group" style="display:inline-block">
                 <h4>Critero Productos:</h4>
@@ -32,7 +33,7 @@
 <script>
     export default {
         name:'Controles',
-        props: ['estatus', 'parametros', 'cambio_vigencia', 'consultar_pasillos'],
+        props: ['estatus', 'parametros', 'cambio_vigencia', 'consultar_pasillos','titulo'],
         data() {
             return {
                 meses: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
